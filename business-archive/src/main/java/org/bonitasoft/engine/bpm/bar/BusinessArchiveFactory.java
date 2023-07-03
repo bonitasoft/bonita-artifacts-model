@@ -116,7 +116,13 @@ public class BusinessArchiveFactory {
      */
     public static void writeBusinessArchiveToFile(final BusinessArchive businessArchive, final File businessArchiveFile)
             throws IOException {
-        INSTANCE.writeBusinessArchiveToFile(businessArchive, businessArchiveFile, contributions);
+        final File tempFile = Files.createTempDirectory("tempBarFolder").toFile();
+        try {
+            writeBusinessArchiveToFolder(businessArchive, tempFile);
+            zipBarFolder(businessArchiveFile, tempFile);
+        } finally {
+            deleteDir(tempFile.toPath());
+        }
     }
 
     /**
@@ -125,7 +131,8 @@ public class BusinessArchiveFactory {
      * this file can then be read using {@link #readBusinessArchive(File)}
      */
     public static String businessArchiveFolderToFile(final File destFile, final String folderPath) throws IOException {
-        return INSTANCE.businessArchiveFolderToFile(destFile, folderPath, contributions);
+        zipBarFolder(destFile, new File(folderPath));
+        return destFile.getAbsolutePath();
     }
 
     //--------------- instance methods
@@ -188,17 +195,6 @@ public class BusinessArchiveFactory {
         }
     }
 
-    protected void writeBusinessArchiveToFile(final BusinessArchive businessArchive, final File businessArchiveFile,
-            List<BusinessArchiveContribution> contributions) throws IOException {
-        final File tempFile = Files.createTempDirectory("tempBarFolder").toFile();
-        try {
-            writeBusinessArchiveToFolder(businessArchive, tempFile);
-            zipBarFolder(businessArchiveFile, tempFile);
-        } finally {
-            deleteDir(tempFile.toPath());
-        }
-    }
-
     private static void deleteDir(Path directory) throws IOException {
         try (Stream<Path> pathStream = Files.walk(directory)) {
             pathStream.sorted(Comparator.reverseOrder())
@@ -207,14 +203,7 @@ public class BusinessArchiveFactory {
         }
     }
 
-    protected String businessArchiveFolderToFile(final File destFile, final String folderPath,
-            List<BusinessArchiveContribution> contributions)
-            throws IOException {
-        zipBarFolder(destFile, new File(folderPath));
-        return destFile.getAbsolutePath();
-    }
-
-    private void zipBarFolder(final File businessArchiveFile, final File folder) throws IOException {
+    private static void zipBarFolder(final File businessArchiveFile, final File folder) throws IOException {
         // create a ZipOutputStream to zip the data to
         if (businessArchiveFile.exists()) {
             throw new IOException("The destination file already exists " + businessArchiveFile.getAbsolutePath());
@@ -271,7 +260,7 @@ public class BusinessArchiveFactory {
             fileOutputStream.flush();
         } catch (final IOException ioe) {
             // In case of error, the file is deleted
-            outputFile.delete();
+            Files.delete(outputFile.toPath());
             throw ioe;
         }
     }

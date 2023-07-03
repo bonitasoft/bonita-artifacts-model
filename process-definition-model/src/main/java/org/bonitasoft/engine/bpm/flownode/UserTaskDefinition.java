@@ -17,7 +17,6 @@ import java.util.List;
 
 import org.bonitasoft.engine.bpm.context.ContextEntry;
 import org.bonitasoft.engine.bpm.contract.ContractDefinition;
-import org.bonitasoft.engine.bpm.flownode.impl.HumanTaskDefinition;
 import org.bonitasoft.engine.bpm.process.Visitable;
 
 /**

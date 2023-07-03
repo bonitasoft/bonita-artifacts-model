@@ -47,12 +47,6 @@ public class BusinessArchive implements Serializable {
 
     private ActorMapping actorMapping = null;
 
-    /**
-     * Default constructor. Creates an instance of {@code BusinessArchive}
-     */
-    public BusinessArchive() {
-    }
-
     /*
      * Retrieves the actorMapping from the bar
      */

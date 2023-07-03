@@ -15,11 +15,8 @@ package org.bonitasoft.engine.bpm.userfilter.impl;
 
 import static org.bonitasoft.engine.expression.ExpressionBuilder.getNonNullCopy;
 
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
-import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -33,9 +30,11 @@ import org.bonitasoft.engine.bpm.process.ModelFinderVisitor;
 import org.bonitasoft.engine.bpm.userfilter.UserFilterDefinition;
 import org.bonitasoft.engine.expression.Expression;
 
-/**
- * @author Baptiste Mesta
- */
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 @XmlAccessorType(XmlAccessType.FIELD)
 public class UserFilterDefinitionImpl extends NamedDefinitionElementImpl implements UserFilterDefinition {
 
@@ -77,53 +76,6 @@ public class UserFilterDefinitionImpl extends NamedDefinitionElementImpl impleme
     @Override
     public String getVersion() {
         return version;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        if (!super.equals(o))
-            return false;
-        UserFilterDefinitionImpl that = (UserFilterDefinitionImpl) o;
-        return Objects.equals(filterId, that.filterId) &&
-                Objects.equals(version, that.version) &&
-                Objects.equals(inputs, that.inputs);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), filterId, version, inputs);
-    }
-
-    @Override
-    public String toString() {
-        final int maxLen = 5;
-        final StringBuilder builder = new StringBuilder();
-        builder.append("UserFilterDefinitionImpl [filterId=");
-        builder.append(filterId);
-        builder.append(", version=");
-        builder.append(version);
-        builder.append(", inputs=");
-        builder.append(inputs != null ? toString(inputs.entrySet(), maxLen) : null);
-        builder.append("]");
-        return builder.toString();
-    }
-
-    private String toString(final Collection<?> collection, final int maxLen) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("[");
-        int i = 0;
-        for (final Iterator<?> iterator = collection.iterator(); iterator.hasNext() && i < maxLen; i++) {
-            if (i > 0) {
-                builder.append(", ");
-            }
-            builder.append(iterator.next());
-        }
-        builder.append("]");
-        return builder.toString();
     }
 
     @Override

@@ -17,13 +17,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-/**
- * @author Emmanuel Duchastenier
- */
-public class LongToStringAdapterTest {
+class LongToStringAdapterTest {
 
     @Test
-    public void marshall_should_add_underscore_when_converting_to_string() throws Exception {
+    void marshall_should_add_underscore_when_converting_to_string() throws Exception {
         // given:
         final LongToStringAdapter longToStringAdapter = new LongToStringAdapter();
 
@@ -35,7 +32,7 @@ public class LongToStringAdapterTest {
     }
 
     @Test
-    public void unmarshall_should_remove_underscore_when_converting_to_long() throws Exception {
+    void unmarshall_should_remove_underscore_when_converting_to_long() throws Exception {
         // given:
         final LongToStringAdapter longToStringAdapter = new LongToStringAdapter();
 
@@ -47,7 +44,7 @@ public class LongToStringAdapterTest {
     }
 
     @Test
-    public void unmarshall_should_not_remove_first_char_if_not_underscore() throws Exception {
+    void unmarshall_should_not_remove_first_char_if_not_underscore() throws Exception {
         // given:
         final LongToStringAdapter longToStringAdapter = new LongToStringAdapter();
 
