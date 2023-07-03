@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<form:formMappingModel xmlns:form="http://www.bonitasoft.org/ns/form/6.0">
+    <form-mappings>
+        <form-mapping form="http://toto.com" type="TASK" target="URL" taskname="Étape1"/>
+        <form-mapping form="custompage_newForm1" type="PROCESS_START" target="INTERNAL"/>
+        <form-mapping form="custompage_caseoverview" type="PROCESS_OVERVIEW" target="INTERNAL"/>
+    </form-mappings>
+</form:formMappingModel>

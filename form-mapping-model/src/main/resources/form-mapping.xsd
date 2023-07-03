@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<xs:schema version="1.0" targetNamespace="http://www.bonitasoft.org/ns/form/6.0" xmlns:form="http://www.bonitasoft.org/ns/form/6.0" xmlns:tns="http://www.bonitasoft.org/ns/form/6.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <xs:element name="formMappingModel" type="tns:formMappingModel"/>
+
+  <xs:complexType name="formMappingDefinition">
+    <xs:sequence/>
+    <xs:attribute name="form" type="xs:string"/>
+    <xs:attribute name="type" type="tns:formMappingType"/>
+    <xs:attribute name="target" type="tns:formMappingTarget" use="required"/>
+    <xs:attribute name="taskname" type="xs:string"/>
+  </xs:complexType>
+
+  <xs:complexType name="formMappingModel">
+    <xs:sequence>
+      <xs:element name="form-mappings">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="form-mapping" type="tns:formMappingDefinition" minOccurs="0" maxOccurs="unbounded"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="formMappingType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="PROCESS_START"/>
+      <xs:enumeration value="PROCESS_OVERVIEW"/>
+      <xs:enumeration value="TASK"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="formMappingTarget">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="INTERNAL"/>
+      <xs:enumeration value="URL"/>
+      <xs:enumeration value="LEGACY"/>
+      <xs:enumeration value="UNDEFINED"/>
+      <xs:enumeration value="NONE"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>
+
