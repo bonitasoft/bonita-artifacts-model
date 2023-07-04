@@ -14,7 +14,7 @@
 package org.bonitasoft.engine.bpm.process;
 
 import org.bonitasoft.engine.bpm.flownode.ActivityDefinition;
-import org.bonitasoft.engine.bpm.flownode.impl.FlowElementContainerDefinition;
+import org.bonitasoft.engine.bpm.flownode.FlowElementContainerDefinition;
 
 /**
  * Definition of a sub-process, which is a type of Activity.

@@ -15,10 +15,12 @@ package org.bonitasoft.engine.bpm.bar;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 
+import org.bonitasoft.engine.bpm.process.DesignProcessDefinition;
 import org.bonitasoft.engine.bpm.process.InvalidProcessDefinitionException;
 import org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder;
 import org.junit.jupiter.api.AfterEach;
@@ -67,12 +69,50 @@ class BusinessArchiveFactoryTest {
         assertThat(deserializeBAR.getProcessDefinition().getName()).isEqualTo("说话_éé");
     }
 
+    @Test
+    void writeBusinessArchiveToFolder(@TempDir Path tmpDir) throws Exception {
+        BusinessArchive businessArchive = createBusinessArchive();
+
+        BusinessArchiveFactory.writeBusinessArchiveToFolder(businessArchive, tmpDir.toFile());
+
+        assertThat(tmpDir.resolve("process-design.xml")).exists().isNotEmptyFile();
+        assertThat(tmpDir.resolve("form-mapping.xml")).exists();
+        assertThat(tmpDir.resolve("parameters.properties")).exists();
+        assertThat(tmpDir.resolve("classpath")).exists().isDirectory();
+    }
+
+    @Test
+    void saveBusinessArchiveFromFolderToFile(@TempDir Path tmpDir) throws Exception {
+        BusinessArchive businessArchive = createBusinessArchive();
+
+        BusinessArchiveFactory.writeBusinessArchiveToFolder(businessArchive, tmpDir.toFile());
+        var path = BusinessArchiveFactory.businessArchiveFolderToFile(tmpDir.resolve("toto.bar").toFile(),
+                tmpDir.toFile().getAbsolutePath());
+
+        assertThat(new File(path)).exists();
+    }
+
+    @Test
+    void readBusinessArchiveFromFolder(@TempDir Path tmpDir) throws Exception {
+        BusinessArchive businessArchive = createBusinessArchive();
+        BusinessArchiveFactory.writeBusinessArchiveToFolder(businessArchive, tmpDir.toFile());
+
+        var archive = BusinessArchiveFactory.readBusinessArchive(tmpDir.toFile());
+
+        assertThat(archive).isNotNull();
+        assertThat(archive.getProcessDefinition().getName()).isEqualTo("说话_éé");
+    }
+
     private BusinessArchive createBusinessArchive()
             throws InvalidBusinessArchiveFormatException, InvalidProcessDefinitionException {
         return new BusinessArchiveBuilder().createNewBusinessArchive()
-                .setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("说话_éé", "1.0")
-                        .addAutomaticTask("说话_éé_task").getProcess())
+                .setProcessDefinition(dummyProcessDefintion())
                 .done();
+    }
+
+    private DesignProcessDefinition dummyProcessDefintion() throws InvalidProcessDefinitionException {
+        return new ProcessDefinitionBuilder().createNewInstance("说话_éé", "1.0")
+                .addAutomaticTask("说话_éé_task").getProcess();
     }
 
 }

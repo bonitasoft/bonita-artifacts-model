@@ -28,18 +28,16 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-/**
- * @author Baptiste Mesta
- */
 @NoArgsConstructor
 @Getter
 @EqualsAndHashCode
 @XmlAccessorType(XmlAccessType.FIELD)
 public class InputContainerDefinitionImpl implements InputContainerDefinition {
 
+    private static final long serialVersionUID = 1L;
     @XmlElementWrapper(name = "inputDefinitions")
     @XmlElement(type = InputDefinitionImpl.class, name = "inputDefinition")
-    protected List<InputDefinition> inputs = new ArrayList<>();
+    private List<InputDefinition> inputs = new ArrayList<>();
 
     public InputContainerDefinitionImpl(List<InputDefinition> inputs) {
         this.inputs = inputs;

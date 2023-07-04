@@ -59,16 +59,16 @@ public class InputDefinitionImpl extends InputContainerDefinitionImpl implements
     }
 
     public InputDefinitionImpl(final String name, final String description, final boolean multiple) {
-        this(name, description, multiple, null, new ArrayList<InputDefinition>());
+        this(name, description, multiple, null, new ArrayList<>());
     }
 
     public InputDefinitionImpl(final String name, final Type type, final String description, final boolean multiple) {
-        this(name, description, multiple, type, new ArrayList<InputDefinition>());
+        this(name, description, multiple, type, new ArrayList<>());
 
     }
 
     public InputDefinitionImpl(final String name, final Type type, final String description) {
-        this(name, description, false, type, new ArrayList<InputDefinition>());
+        this(name, description, false, type, new ArrayList<>());
 
     }
 

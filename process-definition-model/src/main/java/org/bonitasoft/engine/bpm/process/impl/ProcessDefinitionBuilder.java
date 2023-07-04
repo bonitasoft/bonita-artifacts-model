@@ -414,7 +414,7 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
             }
             if (flowNode instanceof SubProcessDefinition) {
                 final SubProcessDefinition subProcess = (SubProcessDefinition) flowNode;
-                org.bonitasoft.engine.bpm.flownode.impl.FlowElementContainerDefinition subProcessContainer = subProcess
+                FlowElementContainerDefinition subProcessContainer = subProcess
                         .getSubProcessContainer();
                 if (subProcessContainer != null) {
                     validateFlowNodeUnique(subProcessContainer, names);

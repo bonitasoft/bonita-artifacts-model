@@ -19,19 +19,12 @@ import java.util.Iterator;
 
 import org.bonitasoft.engine.bpm.BaseElement;
 
+import lombok.EqualsAndHashCode;
+
+@EqualsAndHashCode
 public class ElementFinder implements Serializable {
 
-    public ElementFinder() {
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        return true;
-    }
+    private static final long serialVersionUID = 1L;
 
     public <T extends BaseElement> T getElementById(final Collection<T> elements, final long id) {
         T element = null;

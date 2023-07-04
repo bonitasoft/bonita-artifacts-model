@@ -39,7 +39,7 @@ import org.bonitasoft.engine.bpm.context.ContextEntry;
 import org.bonitasoft.engine.bpm.context.ContextEntryImpl;
 import org.bonitasoft.engine.bpm.contract.ContractDefinition;
 import org.bonitasoft.engine.bpm.contract.impl.ContractDefinitionImpl;
-import org.bonitasoft.engine.bpm.flownode.impl.FlowElementContainerDefinition;
+import org.bonitasoft.engine.bpm.flownode.FlowElementContainerDefinition;
 import org.bonitasoft.engine.bpm.flownode.impl.internal.FlowElementContainerDefinitionImpl;
 import org.bonitasoft.engine.bpm.parameter.ParameterDefinition;
 import org.bonitasoft.engine.bpm.parameter.impl.ParameterDefinitionImpl;
@@ -125,12 +125,6 @@ public class DesignProcessDefinitionImpl extends ProcessDefinitionImpl implement
         return actors;
     }
 
-    @Deprecated
-    @Override
-    public Set<ActorDefinition> getActors() {
-        return new HashSet<>(actors);
-    }
-
     public void addParameter(final ParameterDefinition parameter) {
         parameters.add(parameter);
     }
@@ -141,7 +135,7 @@ public class DesignProcessDefinitionImpl extends ProcessDefinitionImpl implement
 
     @Override
     public FlowElementContainerDefinition getProcessContainer() {
-        return flowElementContainer;
+        return getFlowElementContainer();
     }
 
     public void setProcessContainer(final FlowElementContainerDefinition processContainer) {
@@ -149,7 +143,7 @@ public class DesignProcessDefinitionImpl extends ProcessDefinitionImpl implement
     }
 
     @Override
-    public org.bonitasoft.engine.bpm.flownode.FlowElementContainerDefinition getFlowElementContainer() {
+    public FlowElementContainerDefinition getFlowElementContainer() {
         return flowElementContainer;
     }
 

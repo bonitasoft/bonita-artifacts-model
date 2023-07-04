@@ -13,11 +13,12 @@
  **/
 package org.bonitasoft.engine.bpm;
 
-/**
- * @author Emmanuel Duchastenier
- */
-public interface ProcessDefinitionNamespace {
+public final class ProcessDefinitionNamespace {
 
-    String NAMESPACE = "http://www.bonitasoft.org/ns/process/client/7.4";
+    public static final String NAMESPACE = "http://www.bonitasoft.org/ns/process/client/7.4";
+
+    private ProcessDefinitionNamespace() {
+        // Utility class
+    }
 
 }

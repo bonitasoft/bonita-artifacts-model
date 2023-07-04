@@ -36,7 +36,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @EqualsAndHashCode(callSuper = true)
-@ToString
+@ToString(callSuper = true)
 @XmlTransient
 @XmlAccessorType(XmlAccessType.FIELD)
 public abstract class NamedDefinitionElementImpl extends BaseDefinitionElementImpl implements NamedElement {

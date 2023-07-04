@@ -196,21 +196,11 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
     private void addEventTriggerOnBoundaryEvent(FlowElementContainerDefinition flowElementContainer) {
         for (ActivityDefinition activity : flowElementContainer.getActivities()) {
             for (BoundaryEventDefinition boundaryEvent : activity.getBoundaryEventDefinitions()) {
-                BoundaryEventDefinitionImpl boundaryEventImpl = (BoundaryEventDefinitionImpl) boundaryEvent;
-                for (MessageEventTriggerDefinition messageEventTrigger : boundaryEvent
-                        .getMessageEventTriggerDefinitions()) {
-                    boundaryEventImpl.addEventTrigger(messageEventTrigger);
-                }
-                for (ErrorEventTriggerDefinition errorEventTrigger : boundaryEvent.getErrorEventTriggerDefinitions()) {
-                    boundaryEventImpl.addEventTrigger(errorEventTrigger);
-                }
-                for (SignalEventTriggerDefinition signalEventTrigger : boundaryEventImpl
-                        .getSignalEventTriggerDefinitions()) {
-                    boundaryEventImpl.addEventTrigger(signalEventTrigger);
-                }
-                for (TimerEventTriggerDefinition timerEventTrigger : boundaryEvent.getTimerEventTriggerDefinitions()) {
-                    boundaryEventImpl.addEventTrigger(timerEventTrigger);
-                }
+                var boundaryEventImpl = (BoundaryEventDefinitionImpl) boundaryEvent;
+                boundaryEvent.getMessageEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
+                boundaryEvent.getErrorEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
+                boundaryEvent.getSignalEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
+                boundaryEvent.getTimerEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
             }
             if (activity.getClass() == SubProcessDefinitionImpl.class) {
                 addEventTriggerOnEvents(((SubProcessDefinitionImpl) activity).getSubProcessContainer());

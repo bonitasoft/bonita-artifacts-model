@@ -22,10 +22,10 @@ import org.bonitasoft.engine.bpm.data.DataDefinition;
 import org.bonitasoft.engine.bpm.data.impl.DataDefinitionImpl;
 import org.junit.jupiter.api.Test;
 
-public class ObjectSeekerTest {
+class ObjectSeekerTest {
 
     @Test
-    public void seekANamedElementObject() {
+    void seekANamedElementObject() {
         final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
         final DataDefinitionImpl dataDefinitionImpl = new DataDefinitionImpl("var1", null);
         dataDefinitions.add(dataDefinitionImpl);
@@ -37,7 +37,7 @@ public class ObjectSeekerTest {
     }
 
     @Test
-    public void seekANullObjectReturnsNull() {
+    void seekANullObjectReturnsNull() {
         final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
         dataDefinitions.add(new DataDefinitionImpl("var1", null));
         dataDefinitions.add(new DataDefinitionImpl("var2", null));
@@ -48,7 +48,7 @@ public class ObjectSeekerTest {
     }
 
     @Test
-    public void seekAnUnknownObjectReturnsNull() {
+    void seekAnUnknownObjectReturnsNull() {
         final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
         dataDefinitions.add(new DataDefinitionImpl("var1", null));
         dataDefinitions.add(new DataDefinitionImpl("var2", null));
@@ -59,14 +59,14 @@ public class ObjectSeekerTest {
     }
 
     @Test
-    public void seekAObjectInANullListReturnsNull() {
+    void seekAObjectInANullListReturnsNull() {
         final DataDefinition dataDefinition = ObjectSeeker.getNamedElement(null, "var1");
 
         assertThat(dataDefinition).isNull();
     }
 
     @Test
-    public void seekAnObjectInAnEmptyListReturnNull() {
+    void seekAnObjectInAnEmptyListReturnNull() {
         final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
 
         final DataDefinition dataDefinition = ObjectSeeker.getNamedElement(dataDefinitions, "var3");

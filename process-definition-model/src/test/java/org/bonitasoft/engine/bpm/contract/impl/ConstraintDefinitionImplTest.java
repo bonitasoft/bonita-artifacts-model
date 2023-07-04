@@ -32,4 +32,60 @@ class ConstraintDefinitionImplTest {
         assertThat(constraintDefinition.getInputNames()).isNotNull().hasSize(1).containsExactly("inputName");
 
     }
+
+    @Test
+    void should_be_equals() throws Exception {
+        //given
+        var constraintDefinition1 = new ConstraintDefinitionImpl("name", "expression",
+                "explanation");
+        var constraintDefinition2 = new ConstraintDefinitionImpl("name", "expression",
+                "explanation");
+
+        //when
+        constraintDefinition1.addInputName("inputName");
+        constraintDefinition2.addInputName("inputName");
+
+        //then
+        assertThat(constraintDefinition1).isEqualTo(constraintDefinition2);
+    }
+
+    @Test
+    void should_not_be_equals() throws Exception {
+        //given
+        var constraintDefinition1 = new ConstraintDefinitionImpl("name", "expression",
+                "explanation");
+        var constraintDefinition2 = new ConstraintDefinitionImpl("name2", "expression",
+                "explanation");
+
+        //then
+        assertThat(constraintDefinition1).isNotEqualTo(constraintDefinition2)
+                .isNotEqualTo(null);
+    }
+
+    @Test
+    void shouldHaveSameHashCode() throws Exception {
+        //given
+        var constraintDefinition1 = new ConstraintDefinitionImpl("name", "expression",
+                "explanation");
+        var constraintDefinition2 = new ConstraintDefinitionImpl("name", "expression",
+                "explanation");
+
+        //then
+        assertThat(constraintDefinition1).hasSameHashCodeAs(constraintDefinition2);
+    }
+
+    @Test
+    void shouldNotHaveSameHashCode() throws Exception {
+        //given
+        var constraintDefinition1 = new ConstraintDefinitionImpl("name", "expression",
+                "explanation");
+        constraintDefinition1.addInputName("inputName");
+        var constraintDefinition2 = new ConstraintDefinitionImpl();
+
+        //then
+        assertThat(constraintDefinition1).doesNotHaveSameHashCodeAs(constraintDefinition2)
+                .doesNotHaveSameHashCodeAs(new ConstraintDefinitionImpl());
+
+    }
+
 }

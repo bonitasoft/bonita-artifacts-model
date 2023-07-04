@@ -63,7 +63,7 @@ public class ExternalResourceContribution implements BusinessArchiveContribution
 
     @Override
     public String getName() {
-        return "resources";
+        return EXTERNAL_RESOURCE_FOLDER;
     }
 
 }

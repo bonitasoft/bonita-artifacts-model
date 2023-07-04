@@ -33,7 +33,7 @@ class ContractDefinitionImplTest {
 
     @SuppressWarnings("deprecation")
     @BeforeEach
-    public void Before() {
+    void before() {
         contractDefinitionImpl = new ContractDefinitionImpl();
         expenseType = new InputDefinitionImpl("expenseType", Type.TEXT, "describe expense type");
         expenseAmount = new InputDefinitionImpl("amount", Type.DECIMAL, "expense amount");

@@ -186,8 +186,8 @@ public class ExpressionFinder implements ModelFinderVisitor {
     public void find(HumanTaskDefinition humanTaskDefinition, long expressionDefinitionId) {
         if (humanTaskDefinition != null) {
             findExpressionFromNotNullContainer(humanTaskDefinition.getUserFilter(), expressionDefinitionId);
+            findExpressionFromNotNullContainer(humanTaskDefinition.getExpectedDuration(), expressionDefinitionId);
         }
-        findExpressionFromNotNullContainer(humanTaskDefinition.getExpectedDuration(), expressionDefinitionId);
 
     }
 

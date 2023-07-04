@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.bonitasoft.engine.bpm.flownode.impl.HumanTaskDefinition;
+import org.bonitasoft.engine.bpm.flownode.HumanTaskDefinition;
 import org.bonitasoft.engine.bpm.process.ModelFinderVisitor;
 import org.bonitasoft.engine.bpm.userfilter.UserFilterDefinition;
 import org.bonitasoft.engine.bpm.userfilter.impl.UserFilterDefinitionImpl;

@@ -19,7 +19,7 @@ import org.bonitasoft.engine.bpm.contract.InputDefinition;
 import org.bonitasoft.engine.bpm.contract.Type;
 import org.junit.jupiter.api.Test;
 
-public class InputDefinitionImplTest {
+class InputDefinitionImplTest {
 
     private static final String DESCRIPTION = "description";
     private static final String NAME = "name";
@@ -27,7 +27,7 @@ public class InputDefinitionImplTest {
     private InputDefinition inputDefinition2;
 
     @Test
-    public void constructor_multiple_simple() throws Exception {
+    void constructor_multiple_simple() throws Exception {
         inputDefinition = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION, true);
 
         //then
@@ -38,7 +38,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void constructor_not_multiple_simple() throws Exception {
+    void constructor_not_multiple_simple() throws Exception {
         //given
         inputDefinition = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION, false);
 
@@ -47,7 +47,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void constructor_without_multiple() throws Exception {
+    void constructor_without_multiple() throws Exception {
         //given
         inputDefinition = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION);
 
@@ -57,7 +57,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void toString_should_mention_multiple_simple() throws Exception {
+    void toString_should_mention_multiple_simple() throws Exception {
         //given
         inputDefinition = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION);
 
@@ -66,7 +66,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void equal_test() throws Exception {
+    void equal_test() throws Exception {
         //given
         inputDefinition = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION);
         inputDefinition2 = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION);
@@ -76,7 +76,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void not_equal_test() throws Exception {
+    void not_equal_test() throws Exception {
         //given
         inputDefinition = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION);
         inputDefinition2 = new InputDefinitionImpl(NAME, Type.TEXT, DESCRIPTION, true);
@@ -86,7 +86,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void constructor_multiple() throws Exception {
+    void constructor_multiple() throws Exception {
         inputDefinition = new InputDefinitionImpl(NAME, DESCRIPTION, true);
 
         //then
@@ -97,7 +97,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void constructor_not_multiple() throws Exception {
+    void constructor_not_multiple() throws Exception {
         //given
         inputDefinition = new InputDefinitionImpl(NAME, DESCRIPTION, false);
 
@@ -106,7 +106,7 @@ public class InputDefinitionImplTest {
     }
 
     @Test
-    public void toString_should_mention_multiple() throws Exception {
+    void toString_should_mention_multiple() throws Exception {
         //given
         inputDefinition = new InputDefinitionImpl(NAME, DESCRIPTION);
 

@@ -19,7 +19,7 @@ import java.util.Set;
 import org.bonitasoft.engine.bpm.actor.ActorDefinition;
 import org.bonitasoft.engine.bpm.context.ContextEntry;
 import org.bonitasoft.engine.bpm.contract.ContractDefinition;
-import org.bonitasoft.engine.bpm.flownode.impl.FlowElementContainerDefinition;
+import org.bonitasoft.engine.bpm.flownode.FlowElementContainerDefinition;
 import org.bonitasoft.engine.bpm.parameter.ParameterDefinition;
 import org.bonitasoft.engine.expression.Expression;
 
@@ -57,14 +57,11 @@ public interface DesignProcessDefinition extends ProcessDefinition {
 
     /**
      * Retrieves the definition of the FlowElementContainerDefinition of the process container.
-     * <p>
-     * This method is deprecated. Please, use {@link #getFlowElementContainer()} instead.
-     * </p>
-     * Th
-     *
+     * 
+     * @deprecated Use {@link DesignProcessDefinition#getFlowElementContainer()} instead.
      * @return The {@link FlowElementContainerDefinition} of the process container.<br>
      *         return type FlowElementContainerDefinition in this package is deprecated. Instead use
-     *         {@link org.bonitasoft.engine.bpm.flownode.FlowElementContainerDefinition}
+     *         {@link DesignProcessDefinition#getFlowElementContainer()}
      */
     @Deprecated
     FlowElementContainerDefinition getProcessContainer();
@@ -85,18 +82,6 @@ public interface DesignProcessDefinition extends ProcessDefinition {
      * @return A set of {@link ParameterDefinition} objects
      */
     Set<ParameterDefinition> getParameters();
-
-    /**
-     * Retrieves a Set of ActorDefinition objects from a ProcessDefinition
-     *
-     * @return A set of {@link ActorDefinition} objects.
-     *         <br>If no actors have been defined, return an empty Set.
-     * @see #getActorsList()
-     * @since 6.0
-     * @deprecated As of release 6.1, replaced by {@link #getActorsList()} which return the same information as a list
-     */
-    @Deprecated
-    Set<ActorDefinition> getActors();
 
     /**
      * Gets the list of all actors defined on this process.
