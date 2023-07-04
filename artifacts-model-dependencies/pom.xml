@@ -24,6 +24,21 @@
   <dependencyManagement>
     <dependencies>
       <dependency>
+        <groupId>${project.parent.groupId}</groupId>
+        <artifactId>bonita-business-archive</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.parent.groupId}</groupId>
+        <artifactId>bonita-form-mapping-model</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>${project.parent.groupId}</groupId>
+        <artifactId>bonita-process-definition-model</artifactId>
+        <version>${project.parent.version}</version>
+      </dependency>
+      <dependency>
         <groupId>com.sun.activation</groupId>
         <artifactId>jakarta.activation</artifactId>
         <version>1.2.2</version>
@@ -50,13 +65,6 @@
           </exclusion>
         </exclusions>
       </dependency>
-      <dependency>
-        <groupId>com.fasterxml.jackson</groupId>
-        <artifactId>jackson-bom</artifactId>
-        <version>2.13.4.20221013</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
   <build>
@@ -67,7 +75,7 @@
         <configuration>
           <updatePomFile>true</updatePomFile>
           <pomElements>
-            <dependencyManagement>expand</dependencyManagement>
+            <dependencyManagement>interpolate</dependencyManagement>
           </pomElements>
         </configuration>
       </plugin>
