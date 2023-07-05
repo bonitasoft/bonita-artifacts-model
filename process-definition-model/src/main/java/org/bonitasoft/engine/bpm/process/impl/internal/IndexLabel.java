@@ -40,6 +40,7 @@ import lombok.ToString;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class IndexLabel implements Serializable {
 
+    private static final long serialVersionUID = 1L;
     @XmlAttribute
     private String index;
     @XmlAttribute

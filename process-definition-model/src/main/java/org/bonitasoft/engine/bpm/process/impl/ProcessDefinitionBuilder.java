@@ -123,7 +123,7 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
     private void validateProcess() {
         final FlowElementContainerDefinition flowElementContainer = process.getProcessContainer();
         final List<String> names = new ArrayList<>();
-        validateFlowNodeUnique(flowElementContainer, names); // FIXME: can be removed after ids are added in flow nodes
+        validateFlowNodeUnique(flowElementContainer, names);
         validateProcessAttributes();
         validateProcess(flowElementContainer, true);
         validateEventsSubProcess();
@@ -268,11 +268,11 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
                 (FlowElementContainerDefinitionImpl) process.getProcessContainer(), name, className, defaultValue);
     }
 
-    protected void validateBusinessData() {
-        final FlowElementContainerDefinition processContainer = process.getProcessContainer();
-        final List<BusinessDataDefinition> businessDataDefinitions = processContainer.getBusinessDataDefinitions();
-        HashSet<String> names = new HashSet<>();
-        for (final BusinessDataDefinition businessDataDefinition : businessDataDefinitions) {
+    void validateBusinessData() {
+        var processContainer = process.getProcessContainer();
+        var names = new HashSet<String>();
+        for (final BusinessDataDefinition businessDataDefinition : process.getProcessContainer()
+                .getBusinessDataDefinitions()) {
             final Expression defaultValueExpression = businessDataDefinition.getDefaultValueExpression();
             if (businessDataDefinition.isMultiple() && defaultValueExpression != null
                     && !defaultValueExpression.getReturnType().equals(List.class.getName())) {
@@ -283,61 +283,81 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
 
             final List<ActivityDefinition> activities = processContainer.getActivities();
             for (final ActivityDefinition activity : activities) {
-                final LoopCharacteristics loopCharacteristics = activity.getLoopCharacteristics();
-                if (loopCharacteristics instanceof MultiInstanceLoopCharacteristics) {
-                    if (businessDataDefinition.getName()
-                            .equals(((MultiInstanceLoopCharacteristics) loopCharacteristics).getLoopDataInputRef())
-                            && !businessDataDefinition.isMultiple()) {
-                        addError("The business data " + businessDataDefinition.getName()
-                                + " used in the multi instance " + activity.getName()
-                                + " must be multiple");
-                    }
-                }
+                validateBusinessDataOnActivityDefinition(businessDataDefinition, activity);
             }
             if (!names.add(businessDataDefinition.getName())) {
                 addError("The process contains more than one business data with the name "
                         + businessDataDefinition.getName());
             }
-
         }
 
         for (final ActivityDefinition activity : processContainer.getActivities()) {
-            final List<BusinessDataDefinition> dataDefinitions = activity.getBusinessDataDefinitions();
-            if (activity.getLoopCharacteristics() instanceof MultiInstanceLoopCharacteristics) {
-                final MultiInstanceLoopCharacteristics multiInstanceCharacteristics = (MultiInstanceLoopCharacteristics) activity
-                        .getLoopCharacteristics();
-                final String loopDataInputRef = multiInstanceCharacteristics.getLoopDataInputRef();
-                if (!isReferenceValid(loopDataInputRef)) {
-                    addError("The activity " + activity.getName() + " contains a reference " + loopDataInputRef
-                            + " for the loop data input to an unknown data");
-                }
-                final String dataInputItemRef = multiInstanceCharacteristics.getDataInputItemRef();
-                if (!isReferenceValid(dataInputItemRef, activity)) {
-                    addError("The activity " + activity.getName() + " contains a reference " + dataInputItemRef
-                            + " for the data input item to an unknown data");
-                }
-                final String dataOutputItemRef = multiInstanceCharacteristics.getDataOutputItemRef();
-                if (!isReferenceValid(dataOutputItemRef, activity)) {
-                    addError("The activity " + activity.getName() + " contains a reference " + dataOutputItemRef
-                            + " for the data output item to an unknown data");
-                }
-                final String loopDataOutputRef = multiInstanceCharacteristics.getLoopDataOutputRef();
-                if (!isReferenceValid(loopDataOutputRef)) {
-                    addError("The activity " + activity.getName() + " contains a reference " + loopDataOutputRef
-                            + " for the loop data output to an unknown data");
-                }
-            } else if (!dataDefinitions.isEmpty()) {
-                addError("The activity " + activity.getName()
-                        + " contains business data but this activity does not have the multiple instance behaviour");
+            validateActivitiesBusinessDataDefinition(activity);
+        }
+    }
+
+    private void validateActivitiesBusinessDataDefinition(final ActivityDefinition activity) {
+        final List<BusinessDataDefinition> dataDefinitions = activity.getBusinessDataDefinitions();
+        if (activity.getLoopCharacteristics() instanceof MultiInstanceLoopCharacteristics) {
+            validateBusinessDataForMultiInstance(activity);
+        } else if (!dataDefinitions.isEmpty()) {
+            addError(String.format(
+                    "The activity %s contains business data but this activity does not have the multiple instance behaviour",
+                    activity.getName()));
+        }
+        var names = new HashSet<>();
+        for (BusinessDataDefinition businessDataDefinition : activity.getBusinessDataDefinitions()) {
+            if (!names.add(businessDataDefinition.getName())) {
+                addError(String.format("The activity %s contains more than one business data with the name %s",
+                        activity.getName(),
+                        businessDataDefinition.getName()));
             }
-            names = new HashSet<>();
-            for (BusinessDataDefinition businessDataDefinition : activity.getBusinessDataDefinitions()) {
-                if (!names.add(businessDataDefinition.getName())) {
-                    addError("The activity " + activity.getName()
-                            + " contains more than one business data with the name "
-                            + businessDataDefinition.getName());
-                }
-            }
+        }
+    }
+
+    private void validateBusinessDataForMultiInstance(final ActivityDefinition activity) {
+        final MultiInstanceLoopCharacteristics multiInstanceCharacteristics = (MultiInstanceLoopCharacteristics) activity
+                .getLoopCharacteristics();
+        final String loopDataInputRef = multiInstanceCharacteristics.getLoopDataInputRef();
+        if (!isReferenceValid(loopDataInputRef)) {
+            addError(String.format(
+                    "The activity %s contains a reference %s for the loop data input to an unknown data",
+                    activity.getName(),
+                    loopDataInputRef));
+        }
+        final String dataInputItemRef = multiInstanceCharacteristics.getDataInputItemRef();
+        if (!isReferenceValid(dataInputItemRef, activity)) {
+            addError(String.format(
+                    "The activity %s contains a reference %s for the data input item to an unknown data",
+                    activity.getName(),
+                    dataInputItemRef));
+        }
+        final String dataOutputItemRef = multiInstanceCharacteristics.getDataOutputItemRef();
+        if (!isReferenceValid(dataOutputItemRef, activity)) {
+            addError(String.format(
+                    "The activity %s contains a reference %s for the data output item to an unknown data",
+                    activity.getName(),
+                    dataOutputItemRef));
+        }
+        final String loopDataOutputRef = multiInstanceCharacteristics.getLoopDataOutputRef();
+        if (!isReferenceValid(loopDataOutputRef)) {
+            addError(String.format(
+                    "The activity %s contains a reference %s for the loop data output to an unknown data",
+                    activity.getName(),
+                    loopDataOutputRef));
+        }
+    }
+
+    private void validateBusinessDataOnActivityDefinition(final BusinessDataDefinition businessDataDefinition,
+            final ActivityDefinition activity) {
+        final LoopCharacteristics loopCharacteristics = activity.getLoopCharacteristics();
+        if (loopCharacteristics instanceof MultiInstanceLoopCharacteristics
+                && businessDataDefinition.getName()
+                        .equals(((MultiInstanceLoopCharacteristics) loopCharacteristics).getLoopDataInputRef())
+                && !businessDataDefinition.isMultiple()) {
+            addError("The business data " + businessDataDefinition.getName()
+                    + " used in the multi instance " + activity.getName()
+                    + " must be multiple");
         }
     }
 
@@ -363,18 +383,6 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
             if (actor == null) {
                 designErrors.add("No actor is found for initiator '" + actorInitiatorName + "'.");
             }
-
-            // FIXME : Don't remove. See JIRA ENGINE-1975
-            // int nbInitiator = 0;
-            // final List<ActorDefinition> actors = process.getActorsList();
-            // for (final ActorDefinition actorDefinition : actors) {
-            // if (actorDefinition.getName().equals(actorInitiatorName)) {
-            // nbInitiator++;
-            // }
-            // if (nbInitiator > 1) {
-            // designErrors.add("More than one actor are named '" + actorInitiatorName + "'. All names must be unique.");
-            // }
-            // }
         }
     }
 
@@ -399,7 +407,6 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
         validateFlowNodeName(names, flowElementContainer.getIntermediateCatchEvents());
         validateFlowNodeName(names, flowElementContainer.getIntermediateThrowEvents());
         validateFlowNodeName(names, flowElementContainer.getStartEvents());
-        // validateFlowNodeName(names, flowElementContainer.getBusinessDataDefinitions());
     }
 
     private void validateFlowNodeName(final List<String> names,
@@ -448,11 +455,9 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
     private void validateGateways(final FlowElementContainerDefinition processContainer) {
         for (final GatewayDefinition gateway : processContainer.getGatewaysList()) {
             for (final TransitionDefinition transition : gateway.getOutgoingTransitions()) {
-                if (GatewayType.PARALLEL.equals(gateway.getGatewayType())) {
-                    if (transition.getCondition() != null) {
-                        designErrors.add(
-                                "The parallel gateway can't have conditional outgoing transitions : " + gateway);
-                    }
+                if (GatewayType.PARALLEL.equals(gateway.getGatewayType()) && transition.getCondition() != null) {
+                    designErrors.add(
+                            "The parallel gateway can't have conditional outgoing transitions : " + gateway);
                 }
             }
         }
@@ -460,38 +465,40 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
 
     private void validateEventsSubProcess() {
         final FlowElementContainerDefinition processContainer = process.getProcessContainer();
-        for (final ActivityDefinition activity : processContainer.getActivities()) {
-            if (activity instanceof SubProcessDefinition) {
-                final FlowElementContainerDefinition subProcessContainer = ((SubProcessDefinition) activity)
-                        .getSubProcessContainer();
-                if (subProcessContainer == null) {
-                    designErrors.add("The subprocess " + activity.getName() + " does not have any element," +
-                            " add at least one element using the builder that can be retrieved on the subprocess activity:"
-                            +
-                            " org.bonitasoft.engine.bpm.process.impl.SubProcessActivityDefinitionBuilder.getSubProcessBuilder()");
-                    return;
-                }
-                if (((SubProcessDefinition) activity).isTriggeredByEvent()) {
-                    if (subProcessContainer.getStartEvents().size() != 1) {
-                        designErrors.add("An event sub process must have one and only one start events, but "
-                                + subProcessContainer.getStartEvents().size()
-                                + " were found : " + activity);
-                    }
-                    if (!subProcessContainer.getStartEvents().isEmpty()
-                            && subProcessContainer.getStartEvents().get(0).getEventTriggers().isEmpty()) {
-                        designErrors
-                                .add("The event sub process have no start event with a not NONE trigger : " + activity);
-                    }
-                    if (activity.getIncomingTransitions().size() > 0) {
-                        designErrors.add("An event sub process cannot have incoming transitions : " + activity);
-                    }
-                    if (activity.getOutgoingTransitions().size() > 0) {
-                        designErrors.add("An event sub process cannot have outgoing transitions : " + activity);
-                    }
-                }
-                validateProcess(subProcessContainer, false);
+        processContainer.getActivities().stream()
+                .filter(SubProcessDefinition.class::isInstance)
+                .forEach(this::validateSubProcessDefinition);
+    }
+
+    private void validateSubProcessDefinition(ActivityDefinition activity) {
+        final FlowElementContainerDefinition subProcessContainer = ((SubProcessDefinition) activity)
+                .getSubProcessContainer();
+        if (subProcessContainer == null) {
+            designErrors.add("The subprocess " + activity.getName() + " does not have any element," +
+                    " add at least one element using the builder that can be retrieved on the subprocess activity:"
+                    +
+                    " org.bonitasoft.engine.bpm.process.impl.SubProcessActivityDefinitionBuilder.getSubProcessBuilder()");
+            return;
+        }
+        if (((SubProcessDefinition) activity).isTriggeredByEvent()) {
+            if (subProcessContainer.getStartEvents().size() != 1) {
+                designErrors.add("An event sub process must have one and only one start events, but "
+                        + subProcessContainer.getStartEvents().size()
+                        + " were found : " + activity);
+            }
+            if (!subProcessContainer.getStartEvents().isEmpty()
+                    && subProcessContainer.getStartEvents().get(0).getEventTriggers().isEmpty()) {
+                designErrors
+                        .add("The event sub process have no start event with a not NONE trigger : " + activity);
+            }
+            if (!activity.getIncomingTransitions().isEmpty()) {
+                designErrors.add("An event sub process cannot have incoming transitions : " + activity);
+            }
+            if (!activity.getOutgoingTransitions().isEmpty()) {
+                designErrors.add("An event sub process cannot have outgoing transitions : " + activity);
             }
         }
+        validateProcess(subProcessContainer, false);
     }
 
     private void validateEvents(final FlowElementContainerDefinition flowElementContainer,
@@ -533,8 +540,7 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
 
     private void validateMultiInstances(final FlowElementContainerDefinition processContainer) {
         for (final ActivityDefinition activity : processContainer.getActivities()) {
-            if (activity.getLoopCharacteristics() != null
-                    && activity.getLoopCharacteristics() instanceof MultiInstanceLoopCharacteristics) {
+            if (activity.getLoopCharacteristics() instanceof MultiInstanceLoopCharacteristics) {
                 final MultiInstanceLoopCharacteristics loopCharacteristics = (MultiInstanceLoopCharacteristics) activity
                         .getLoopCharacteristics();
                 if (loopCharacteristics.getLoopDataInputRef() != null
@@ -553,7 +559,6 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
                             .add("The multi instance has got a data output reference but does not have a loop data output on activity"
                                     + activity.getName());
                 }
-                // TODO add validation on data existence
             }
         }
     }
@@ -570,47 +575,63 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
     }
 
     private void validateBoundaryEvents(final FlowElementContainerDefinition processContainer) {
-        for (final ActivityDefinition activity : processContainer.getActivities()) {
-            if (!activity.getBoundaryEventDefinitions().isEmpty() && !supportAllBoundaryEvents(activity)) {
-                for (final BoundaryEventDefinition boundary : activity.getBoundaryEventDefinitions()) {
-                    if (!boundary.getTimerEventTriggerDefinitions().isEmpty()) {
-                        designErrors
-                                .add("Timer boundary events are not supported in automatic, receive and send tasks: "
-                                        + activity.getName());
-                    }
-                    if (!boundary.getSignalEventTriggerDefinitions().isEmpty()) {
-                        designErrors
-                                .add("Signal boundary events are not supported in automatic, receive and send tasks: "
-                                        + activity.getName());
-                    }
-                    if (!boundary.getMessageEventTriggerDefinitions().isEmpty()) {
-                        designErrors
-                                .add("Message boundary events are not supported in automatic, receive and send tasks: "
-                                        + activity.getName());
-                    }
+        processContainer.getActivities().stream()
+                .map(activity -> validateBoundaryEventDefinition(activity, supportAllBoundaryEvents(activity)))
+                .forEach(designErrors::addAll);
+    }
+
+    /**
+     * Validate the boundary event definition of a given activity definition
+     * 
+     * @param activity the ActivityDefinition to validate
+     * @return an list of error message if the boundary event definition is invalid
+     */
+    private List<String> validateBoundaryEventDefinition(ActivityDefinition activity,
+            boolean supportAllBoundaryEvents) {
+        var errors = new ArrayList<String>();
+        for (var boundary : activity.getBoundaryEventDefinitions()) {
+            if (!supportAllBoundaryEvents) {
+                validateNotSupportedBoundaryEvents(activity, errors, boundary);
+            }
+            if (boundary.getOutgoingTransitions().isEmpty()) {
+                designErrors.add("A boundary event must have outgoing transitions: " + boundary.getName());
+            } else {
+                validateBoundaryOutgoingTransitions(boundary);
+            }
+            if (!boundary.getIncomingTransitions().isEmpty()) {
+                designErrors.add("A boundary event must not have incoming transitions: " + boundary.getName());
+            }
+            if (boundary.getEventTriggers().isEmpty()) {
+                designErrors.add("A boundary event must have a trigger (it cannot be a NONE event): "
+                        + boundary.getName());
+            }
+            for (final TimerEventTriggerDefinition timerTigger : boundary.getTimerEventTriggerDefinitions()) {
+                if (TimerType.CYCLE.equals(timerTigger.getTimerType())) {
+                    designErrors.add("Invalid timer type in boundary event " + boundary.getName()
+                            + ": CYCLE is not supported for boundary events.");
                 }
             }
-            for (final BoundaryEventDefinition boundaryEvent : activity.getBoundaryEventDefinitions()) {
-                if (boundaryEvent.getOutgoingTransitions().isEmpty()) {
-                    designErrors.add("A boundary event must have outgoing transitions: " + boundaryEvent.getName());
-                } else {
-                    validateBoundaryOutgoingTransitions(boundaryEvent);
-                }
-                if (!boundaryEvent.getIncomingTransitions().isEmpty()) {
-                    designErrors.add("A boundary event must not have incoming transitions: " + boundaryEvent.getName());
-                }
-                if (boundaryEvent.getEventTriggers().isEmpty()) {
-                    designErrors.add("A boundary event must have a trigger (it cannot be a NONE event): "
-                            + boundaryEvent.getName());
-                }
-                for (final TimerEventTriggerDefinition timerTigger : boundaryEvent.getTimerEventTriggerDefinitions()) {
-                    if (TimerType.CYCLE.equals(timerTigger.getTimerType())) {
-                        designErrors.add("Invalid timer type in boundary event " + boundaryEvent.getName()
-                                + ": CYCLE is not supported for boundary events.");
-                    }
-                }
-                validateNonInterruptingBoundaryEvent(boundaryEvent);
-            }
+            validateNonInterruptingBoundaryEvent(boundary);
+        }
+        return errors;
+    }
+
+    private void validateNotSupportedBoundaryEvents(ActivityDefinition activity, ArrayList<String> errors,
+            final BoundaryEventDefinition boundary) {
+        if (!boundary.getTimerEventTriggerDefinitions().isEmpty()) {
+            errors
+                    .add("Timer boundary events are not supported in automatic, receive and send tasks: "
+                            + activity.getName());
+        }
+        if (!boundary.getSignalEventTriggerDefinitions().isEmpty()) {
+            errors
+                    .add("Signal boundary events are not supported in automatic, receive and send tasks: "
+                            + activity.getName());
+        }
+        if (!boundary.getMessageEventTriggerDefinitions().isEmpty()) {
+            errors
+                    .add("Message boundary events are not supported in automatic, receive and send tasks: "
+                            + activity.getName());
         }
     }
 

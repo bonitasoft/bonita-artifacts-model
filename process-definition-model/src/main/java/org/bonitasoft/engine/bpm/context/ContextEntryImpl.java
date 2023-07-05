@@ -41,6 +41,7 @@ import lombok.ToString;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ContextEntryImpl implements ContextEntry {
 
+    private static final long serialVersionUID = 1L;
     @XmlAttribute
     private String key;
     @XmlElement(type = ExpressionImpl.class)

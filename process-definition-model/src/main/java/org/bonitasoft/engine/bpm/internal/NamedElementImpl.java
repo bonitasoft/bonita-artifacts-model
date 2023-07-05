@@ -26,6 +26,7 @@ import lombok.ToString;
 @ToString(callSuper = true)
 public class NamedElementImpl extends BaseElementImpl implements NamedElement {
 
+    private static final long serialVersionUID = 1L;
     private String name;
 
     public NamedElementImpl(final String name) {

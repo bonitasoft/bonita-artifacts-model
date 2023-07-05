@@ -21,7 +21,6 @@ import org.bonitasoft.engine.bpm.flownode.FlowElementContainerDefinition;
  *
  * @author Matthieu Chaffotte
  */
-@SuppressWarnings("deprecation")
 public interface SubProcessDefinition extends ActivityDefinition {
 
     /**

@@ -40,8 +40,12 @@ import lombok.ToString;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Actor implements Serializable {
 
+    private static final long serialVersionUID = 1L;
+
     @XmlAccessorType(XmlAccessType.FIELD)
     public static class Membership implements Serializable {
+
+        private static final long serialVersionUID = 1L;
 
         private String role;
 

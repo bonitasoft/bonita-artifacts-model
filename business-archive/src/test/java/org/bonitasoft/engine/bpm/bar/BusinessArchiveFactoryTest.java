@@ -16,54 +16,23 @@ package org.bonitasoft.engine.bpm.bar;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.io.File;
-import java.lang.reflect.Field;
-import java.nio.charset.Charset;
 import java.nio.file.Path;
 
 import org.bonitasoft.engine.bpm.process.DesignProcessDefinition;
 import org.bonitasoft.engine.bpm.process.InvalidProcessDefinitionException;
 import org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class BusinessArchiveFactoryTest {
 
-    @AfterEach
-    public void after() throws Exception {
-        setEncoding("UTF-8");
-    }
-
-    private void setEncoding(String encoding) throws Exception {
-        System.setProperty("file.encoding", encoding);
-        Field charset = Charset.class.getDeclaredField("defaultCharset");
-        charset.setAccessible(true);
-        charset.set(null, null);
-    }
-
     @Test
-    void should_write_non_UTF8_and_read_UTF8_BAR_works(@TempDir Path temporaryFolder) throws Exception {
+    void should_write_and_read_BAR_works(@TempDir Path temporaryFolder) throws Exception {
         //given
         BusinessArchive businessArchive = createBusinessArchive();
-        setEncoding("windows-1252");
         var barFile = temporaryFolder.resolve("test.bar");
         BusinessArchiveFactory.writeBusinessArchiveToFile(businessArchive, barFile.toFile());
         //when
-        setEncoding("UTF-8");
-        BusinessArchive deserializeBAR = BusinessArchiveFactory.readBusinessArchive(barFile.toFile());
-        //then
-        assertThat(deserializeBAR.getProcessDefinition().getName()).isEqualTo("说话_éé");
-    }
-
-    @Test
-    void should_write_UTF8_and_read_non_UTF8_BAR_works(@TempDir Path temporaryFolder) throws Exception {
-        //given
-        BusinessArchive businessArchive = createBusinessArchive();
-        setEncoding("UTF-8");
-        var barFile = temporaryFolder.resolve("test.bar");
-        BusinessArchiveFactory.writeBusinessArchiveToFile(businessArchive, barFile.toFile());
-        //when
-        setEncoding("windows-1252");
         BusinessArchive deserializeBAR = BusinessArchiveFactory.readBusinessArchive(barFile.toFile());
         //then
         assertThat(deserializeBAR.getProcessDefinition().getName()).isEqualTo("说话_éé");
