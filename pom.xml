@@ -66,7 +66,6 @@
     <maven-javadoc-plugin.version>3.5.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.3.0</maven-source-plugin.version>
     <maven-resources-plugin.version>3.3.1</maven-resources-plugin.version>
-    <maven-source-plugin.version>3.2.1</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.1.2</maven-surefire-plugin.version>
     <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
     <maven-gpg-plugin.version>3.1.0</maven-gpg-plugin.version>
@@ -80,6 +79,8 @@
     <build-helper-maven-plugin.version>3.4.0</build-helper-maven-plugin.version>
     <spotless-maven-plugin.version>2.37.0</spotless-maven-plugin.version>
     <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
+    <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
+    <groovy.version>3.0.18</groovy.version>
     <!-- Spotless resources location -->
     <eclipse.formatter.file>${project.basedir}/formatter.xml</eclipse.formatter.file>
     <eclipse.importorder.file>${project.basedir}/eclipse.importorder</eclipse.importorder.file>
@@ -142,6 +143,18 @@
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>jaxb2-maven-plugin</artifactId>
           <version>${jaxb2-maven-plugin.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>org.codehaus.gmaven</groupId>
+          <artifactId>groovy-maven-plugin</artifactId>
+          <version>${groovy-maven-plugin.version}</version>
+          <dependencies>
+            <dependency>
+              <groupId>org.codehaus.groovy</groupId>
+              <artifactId>groovy</artifactId>
+              <version>${groovy.version}</version>
+            </dependency>
+          </dependencies>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>

@@ -32,27 +32,15 @@
     <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.activation</groupId>
-          <artifactId>javax.activation-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.glassfish.jaxb</groupId>
       <artifactId>jaxb-runtime</artifactId>
-      <exclusions>
-        <exclusion>
-          <groupId>javax.activation</groupId>
-          <artifactId>javax.activation-api</artifactId>
-        </exclusion>
-      </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.sun.activation</groupId>
-      <artifactId>jakarta.activation</artifactId>
-      <scope>runtime</scope>
+      <groupId>javax.activation</groupId>
+      <artifactId>javax.activation-api</artifactId>
+      <version>1.2.0</version>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -82,16 +70,27 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
+              <createJavaDocAnnotations>false</createJavaDocAnnotations>
               <sources>
                 <source>src/main/java/org/bonitasoft/engine/bpm/bar/form/model/</source>
-                <source>src/main/java/org/bonitasoft/engine/form/</source>
               </sources>
-              <transformSchemas>
-                <transformSchema>
-                  <toFile>form-mapping.xsd</toFile>
-                </transformSchema>
-              </transformSchemas>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.gmaven</groupId>
+        <artifactId>groovy-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>post-xsd-generation</id>
+            <goals>
+              <goal>execute</goal>
+            </goals>
+            <phase>generate-resources</phase>
+            <configuration>
+              <source>new File("${project.build.outputDirectory}/schema1.xsd").renameTo(new File("${project.build.outputDirectory}/form-mapping.xsd"))</source>
             </configuration>
           </execution>
         </executions>
