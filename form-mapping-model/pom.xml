@@ -90,7 +90,7 @@
             </goals>
             <phase>generate-resources</phase>
             <configuration>
-              <source>new File("${project.build.outputDirectory}/schema1.xsd").renameTo(new File("${project.build.outputDirectory}/form-mapping.xsd"))</source>
+              <source>new File("$project.build.outputDirectory", 'schema1.xsd').renameTo(new File("$project.build.outputDirectory", 'form-mapping.xsd'))</source>
             </configuration>
           </execution>
         </executions>
