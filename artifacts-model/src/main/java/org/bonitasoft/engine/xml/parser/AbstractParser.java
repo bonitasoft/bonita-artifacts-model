@@ -37,7 +37,7 @@ public abstract class AbstractParser<T> {
         try {
             jaxbContext = initJAXBContext();
         } catch (final Exception e) {
-            throw new RuntimeException("Unable to create an instance of class " + getClass().getName(), e);
+            throw new IllegalStateException("Unable to create an instance of class " + getClass().getName(), e);
         }
     }
 

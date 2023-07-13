@@ -13,57 +13,23 @@
  **/
 package org.bonitasoft.engine.bpm.internal;
 
-import java.util.Objects;
-
 import org.bonitasoft.engine.bpm.NamedElement;
 
-import lombok.ToString;
+import lombok.*;
 
 /**
  * author Emmanuel Duchastenier
  * author Baptiste Mesta
  */
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
 @ToString(callSuper = true)
 public class NamedElementImpl extends BaseElementImpl implements NamedElement {
 
     private static final long serialVersionUID = 1L;
-    private String name;
 
-    public NamedElementImpl(final String name) {
-        this.name = name;
-    }
-
-    public NamedElementImpl() {
-        this.name = null;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(final String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof NamedElementImpl)) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-        NamedElementImpl that = (NamedElementImpl) o;
-        return Objects.equals(name, that.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), name);
-    }
-
+    private String name = null;
 }
