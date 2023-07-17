@@ -10,16 +10,8 @@
   <packaging>pom</packaging>
   <name>Bonita Artifacts Model Dependencies</name>
   <description>This module is the Bill of Material of the Artifacts Model modules</description>
-  <scm>
-    <connection>scm:git:git@github.com:bonitasoft/bonita-artifacts-model.git</connection>
-    <developerConnection>scm:git:git@github.com:bonitasoft/bonita-artifacts-model.git</developerConnection>
-    <tag>HEAD</tag>
-    <url>https://github.com/bonitasoft/bonita-artifacts-model</url>
-  </scm>
   <properties>
-    <eclipse.formatter.file>${project.parent.basedir}/formatter.xml</eclipse.formatter.file>
-    <eclipse.importorder.file>${project.parent.basedir}/eclipse.importorder</eclipse.importorder.file>
-    <header.file>${project.parent.basedir}/header.txt</header.file>
+    <maven.deploy.skip>false</maven.deploy.skip>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -66,17 +58,6 @@
             <dependencyManagement>interpolate</dependencyManagement>
           </pomElements>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-deploy-plugin</artifactId>
-        <configuration>
-          <skip>false</skip>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
