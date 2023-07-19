@@ -11,7 +11,7 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
-package org.bonitasoft.engine.bpm.bar;
+package org.bonitasoft.engine.bpm.form;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.bonitasoft.engine.bpm.form.FormMappingModelBuilder.buildFormMappingModel;
@@ -23,7 +23,6 @@ import javax.xml.bind.JAXBException;
 
 import org.bonitasoft.engine.bpm.bar.form.model.FormMappingDefinition;
 import org.bonitasoft.engine.bpm.bar.form.model.FormMappingModel;
-import org.bonitasoft.engine.bpm.form.FormMappingDefinitionBuilder;
 import org.bonitasoft.engine.form.FormMappingTarget;
 import org.bonitasoft.engine.form.FormMappingType;
 import org.junit.jupiter.api.Test;

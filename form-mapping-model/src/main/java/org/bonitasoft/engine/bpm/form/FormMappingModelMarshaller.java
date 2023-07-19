@@ -11,7 +11,7 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
-package org.bonitasoft.engine.bpm.bar;
+package org.bonitasoft.engine.bpm.form;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
