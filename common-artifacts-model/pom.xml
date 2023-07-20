@@ -6,7 +6,7 @@
     <artifactId>bonita-artifacts-model-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
   </parent>
-  <artifactId>bonita-artifacts-model</artifactId>
+  <artifactId>bonita-common-artifacts-model</artifactId>
   <name>Bonita Artifacts Model</name>
   <description>This module contains classes shared with others modules.</description>
   <scm>
