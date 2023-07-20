@@ -13,47 +13,21 @@
  **/
 package org.bonitasoft.engine.bpm.internal;
 
-import java.util.Objects;
-
 import org.bonitasoft.engine.bpm.BaseElement;
 
-import lombok.ToString;
+import lombok.*;
 
 /**
  * @author Baptiste Mesta
  */
-
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Setter
+@EqualsAndHashCode
 @ToString
 public abstract class BaseElementImpl implements BaseElement {
 
     private static final long serialVersionUID = -5094021692278906536L;
+
     private long id;
-
-    public BaseElementImpl() {
-    }
-
-    @Override
-    public long getId() {
-        return id;
-    }
-
-    public void setId(final long id) {
-        this.id = id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        BaseElementImpl that = (BaseElementImpl) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
-
 }

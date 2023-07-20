@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2015 BonitaSoft S.A.
- * BonitaSoft, 32 rue Gustave Eiffel - 38000 Grenoble
+ * Copyright (C) 2019 Bonitasoft S.A.
+ * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This library is free software; you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation
  * version 2.1 of the License.
@@ -11,9 +11,25 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
+package org.bonitasoft.engine.bpm.internal;
+
+import org.bonitasoft.engine.bpm.NamedElement;
+
+import lombok.*;
+
 /**
- * <p>
- * Provides classes and interfaces for BPM basic concepts
- * </p>
+ * author Emmanuel Duchastenier
+ * author Baptiste Mesta
  */
-package org.bonitasoft.engine.bpm;
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true)
+public class NamedElementImpl extends BaseElementImpl implements NamedElement {
+
+    private static final long serialVersionUID = 1L;
+
+    private String name = null;
+}

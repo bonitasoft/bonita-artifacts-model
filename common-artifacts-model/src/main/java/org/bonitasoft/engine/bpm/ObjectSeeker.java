@@ -19,7 +19,11 @@ import java.util.List;
 /**
  * @author Matthieu Chaffotte
  */
-public class ObjectSeeker {
+public final class ObjectSeeker {
+
+    private ObjectSeeker() {
+        // Utility class
+    }
 
     public static <T extends NamedElement> T getNamedElement(final List<T> namedElements, final String name) {
         if (name == null || namedElements == null) {
