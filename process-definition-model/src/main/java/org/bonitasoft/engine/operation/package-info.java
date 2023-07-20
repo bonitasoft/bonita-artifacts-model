@@ -15,7 +15,7 @@
         @javax.xml.bind.annotation.XmlNs(namespaceURI = NAMESPACE, prefix = "tns") })
 package org.bonitasoft.engine.operation;
 
-import static org.bonitasoft.engine.bpm.ProcessDefinitionNamespace.NAMESPACE;
+import static org.bonitasoft.engine.ProcessDefinitionNamespace.NAMESPACE;
 
 import javax.xml.bind.annotation.XmlNsForm;
 import javax.xml.bind.annotation.XmlSchema;
