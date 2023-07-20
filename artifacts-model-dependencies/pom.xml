@@ -18,22 +18,22 @@
       <dependency>
         <groupId>${project.parent.groupId}</groupId>
         <artifactId>bonita-common-artifacts-model</artifactId>
-        <version>${project.parent.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>${project.parent.groupId}</groupId>
         <artifactId>bonita-business-archive</artifactId>
-        <version>${project.parent.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>${project.parent.groupId}</groupId>
         <artifactId>bonita-form-mapping-model</artifactId>
-        <version>${project.parent.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>${project.parent.groupId}</groupId>
         <artifactId>bonita-process-definition-model</artifactId>
-        <version>${project.parent.version}</version>
+        <version>${project.version}</version>
       </dependency>
       <dependency>
         <groupId>com.sun.activation</groupId>
