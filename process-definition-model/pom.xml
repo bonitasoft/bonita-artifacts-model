@@ -26,7 +26,7 @@
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>bonita-artifacts-model</artifactId>
+      <artifactId>bonita-common-artifacts-model</artifactId>
     </dependency>
     <dependency>
       <groupId>javax.xml.bind</groupId>

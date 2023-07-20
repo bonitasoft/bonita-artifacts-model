@@ -17,7 +17,7 @@
     <dependencies>
       <dependency>
         <groupId>${project.parent.groupId}</groupId>
-        <artifactId>bonita-artifacts-model</artifactId>
+        <artifactId>bonita-common-artifacts-model</artifactId>
         <version>${project.parent.version}</version>
       </dependency>
       <dependency>
