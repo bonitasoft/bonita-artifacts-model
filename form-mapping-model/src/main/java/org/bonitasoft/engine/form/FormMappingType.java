@@ -30,7 +30,7 @@ public enum FormMappingType {
      */
     TASK(3);
 
-    private Integer id;
+    private final Integer id;
 
     public Integer getId() {
         return id;

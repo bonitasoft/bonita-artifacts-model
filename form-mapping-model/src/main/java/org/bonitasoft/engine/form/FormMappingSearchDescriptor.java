@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 Bonitasoft S.A.
+ * Copyright (C) 2019 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This library is free software; you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation
@@ -11,10 +11,28 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
-@XmlSchema(namespace = "http://www.bonitasoft.org/ns/form/6.0", xmlns = {
-        @XmlNs(prefix = "form", namespaceURI = "http://www.bonitasoft.org/ns/form/6.0")
-})
 package org.bonitasoft.engine.form;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlSchema;
+/**
+ * @author Baptiste Mesta
+ */
+public final class FormMappingSearchDescriptor {
+
+    private FormMappingSearchDescriptor() {
+        // Utility class
+    }
+
+    public static final String ID = "id";
+
+    public static final String PROCESS_DEFINITION_ID = "processDefinitionId";
+
+    /**
+     * @see FormMappingType
+     */
+    public static final String TYPE = "type";
+
+    public static final String TASK = "task";
+
+    public static final String PAGE_ID = "pageId";
+
+}

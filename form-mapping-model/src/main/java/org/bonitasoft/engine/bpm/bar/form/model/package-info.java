@@ -11,9 +11,10 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
-@XmlSchema(namespace = "http://www.bonitasoft.org/ns/form/6.0", elementFormDefault = XmlNsForm.UNSET, xmlns = {
-        @javax.xml.bind.annotation.XmlNs(namespaceURI = "http://www.bonitasoft.org/ns/form/6.0", prefix = "form") })
+@XmlSchema(namespace = "http://www.bonitasoft.org/ns/form/6.0", xmlns = {
+        @XmlNs(prefix = "form", namespaceURI = "http://www.bonitasoft.org/ns/form/6.0")
+})
 package org.bonitasoft.engine.bpm.bar.form.model;
 
-import javax.xml.bind.annotation.XmlNsForm;
+import javax.xml.bind.annotation.XmlNs;
 import javax.xml.bind.annotation.XmlSchema;
