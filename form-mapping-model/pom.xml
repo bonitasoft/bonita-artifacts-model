@@ -25,10 +25,6 @@
   </dependencyManagement>
   <dependencies>
     <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>bonita-common-artifacts-model</artifactId>
-    </dependency>
-    <dependency>
       <groupId>javax.xml.bind</groupId>
       <artifactId>jaxb-api</artifactId>
       <exclusions>
@@ -79,7 +75,6 @@
               <createJavaDocAnnotations>false</createJavaDocAnnotations>
               <sources>
                 <source>src/main/java/org/bonitasoft/engine/bpm/bar/form/model/</source>
-                <source>src/main/java/org/bonitasoft/engine/form/</source>
               </sources>
               <outputDirectory>${project.build.outputDirectory}</outputDirectory>
             </configuration>
