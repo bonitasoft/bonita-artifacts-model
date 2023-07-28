@@ -48,6 +48,7 @@ import org.bonitasoft.engine.bpm.flownode.impl.internal.IntermediateCatchEventDe
 import org.bonitasoft.engine.bpm.flownode.impl.internal.IntermediateThrowEventDefinitionImpl;
 import org.bonitasoft.engine.bpm.flownode.impl.internal.StartEventDefinitionImpl;
 import org.bonitasoft.engine.bpm.process.DesignProcessDefinition;
+import org.bonitasoft.engine.bpm.process.ProcessDefinition;
 import org.bonitasoft.engine.bpm.process.impl.internal.DesignProcessDefinitionImpl;
 import org.bonitasoft.engine.bpm.process.impl.internal.SubProcessDefinitionImpl;
 import org.xml.sax.SAXException;
@@ -152,7 +153,7 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
             Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
             unmarshaller
                     .setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-                            .newSchema(this.getClass().getResource("/ProcessDefinition.xsd")));
+                            .newSchema(ProcessDefinition.class.getResource("/ProcessDefinition.xsd")));
             DesignProcessDefinition process = (DesignProcessDefinition) unmarshaller.unmarshal(stream);
             if (process.getActorInitiator() != null) {
                 process.getActorInitiator().setInitiator(true);
