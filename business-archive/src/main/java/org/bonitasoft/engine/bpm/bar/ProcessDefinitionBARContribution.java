@@ -21,6 +21,7 @@ import java.io.InputStream;
 import java.io.StringWriter;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -51,6 +52,7 @@ import org.bonitasoft.engine.bpm.process.DesignProcessDefinition;
 import org.bonitasoft.engine.bpm.process.ProcessDefinition;
 import org.bonitasoft.engine.bpm.process.impl.internal.DesignProcessDefinitionImpl;
 import org.bonitasoft.engine.bpm.process.impl.internal.SubProcessDefinitionImpl;
+import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 import org.xml.sax.SAXException;
 
 /**
@@ -59,16 +61,37 @@ import org.xml.sax.SAXException;
  */
 public class ProcessDefinitionBARContribution implements BusinessArchiveContribution {
 
+    private static final String PROCESS_DEFINITION_XSD = "/ProcessDefinition.xsd";
     public static final String PROCESS_DEFINITION_XML = "process-design.xml";
-
-    private final JAXBContext jaxbContext;
+    private Marshaller marshaller;
+    private Unmarshaller unmarshaller;
 
     public ProcessDefinitionBARContribution() {
         try {
-            jaxbContext = JAXBContext.newInstance(DesignProcessDefinitionImpl.class);
+            var jaxbContext = JAXBContext.newInstance(DesignProcessDefinitionImpl.class);
+            unmarshaller = createUnmarshaller(jaxbContext);
+            marshaller = createMarshaller(jaxbContext);
         } catch (final Exception e) {
             throw new RuntimeException(e);
         }
+
+    }
+
+    private Marshaller createMarshaller(JAXBContext context) throws JAXBException {
+        var jaxbMarshaller = context.createMarshaller();
+        jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name()); // this is the default value, but it is more explicit like this.
+        return jaxbMarshaller;
+    }
+
+    private Unmarshaller createUnmarshaller(JAXBContext context) throws JAXBException, SAXException {
+        var processDefinitionXsd = Optional.ofNullable(ResourceFinder.findEntry(PROCESS_DEFINITION_XSD))
+                .orElseGet(() -> ProcessDefinition.class.getResource(PROCESS_DEFINITION_XSD));
+        var jaxbUnmarshaller = context.createUnmarshaller();
+        jaxbUnmarshaller
+                .setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
+                        .newSchema(processDefinitionXsd));
+        return jaxbUnmarshaller;
     }
 
     @Override
@@ -132,35 +155,22 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
     public String convertProcessToXml(DesignProcessDefinition processDefinition) throws IOException {
         final StringWriter writer = new StringWriter();
         try {
-            Marshaller marshaller = getMarshaller();
             marshaller.marshal(processDefinition, writer);
+            return writer.toString();
         } catch (JAXBException e) {
             throw new IOException(e);
         }
-        return writer.toString();
-    }
-
-    protected Marshaller getMarshaller() throws JAXBException {
-        Marshaller marshaller = jaxbContext.createMarshaller();
-        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name()); // this is the default value, but it is more explicit like this.
-        return marshaller;
     }
 
     public DesignProcessDefinition convertXmlToProcess(String content) throws IOException {
         try (InputStream stream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8))) {
-
-            Unmarshaller unmarshaller = jaxbContext.createUnmarshaller();
-            unmarshaller
-                    .setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-                            .newSchema(ProcessDefinition.class.getResource("/ProcessDefinition.xsd")));
             DesignProcessDefinition process = (DesignProcessDefinition) unmarshaller.unmarshal(stream);
             if (process.getActorInitiator() != null) {
                 process.getActorInitiator().setInitiator(true);
             }
             addEventTriggerOnEvents(process.getFlowElementContainer());
             return process;
-        } catch (java.lang.UnsupportedOperationException | JAXBException | SAXException e) {
+        } catch (UnsupportedOperationException | JAXBException e) {
             throw new IOException("Failed to deserialize the XML string provided", e);
         }
     }
