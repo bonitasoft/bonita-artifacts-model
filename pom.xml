@@ -30,6 +30,7 @@
     <module>artifacts-model-dependencies</module>
     <module>coverage-report</module>
     <module>common-artifacts-model</module>
+    <module>business-object-model</module>
   </modules>
   <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
     <connection>scm:git:git@github.com:bonitasoft/bonita-artifacts-model.git</connection>
@@ -103,6 +104,11 @@
         <version>2.15.2</version>
         <type>pom</type>
         <scope>import</scope>
+      </dependency>
+      <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>1.7.36</version>
       </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>

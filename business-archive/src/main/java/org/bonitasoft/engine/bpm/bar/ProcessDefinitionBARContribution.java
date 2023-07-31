@@ -26,6 +26,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.XMLConstants;
+import javax.xml.bind.DataBindingException;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
@@ -63,8 +64,8 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
 
     private static final String PROCESS_DEFINITION_XSD = "/ProcessDefinition.xsd";
     public static final String PROCESS_DEFINITION_XML = "process-design.xml";
-    private Marshaller marshaller;
-    private Unmarshaller unmarshaller;
+    private final Marshaller marshaller;
+    private final Unmarshaller unmarshaller;
 
     public ProcessDefinitionBARContribution() {
         try {
@@ -72,7 +73,7 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
             unmarshaller = createUnmarshaller(jaxbContext);
             marshaller = createMarshaller(jaxbContext);
         } catch (final Exception e) {
-            throw new RuntimeException(e);
+            throw new DataBindingException(e);
         }
 
     }
@@ -208,10 +209,10 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
         for (ActivityDefinition activity : flowElementContainer.getActivities()) {
             for (BoundaryEventDefinition boundaryEvent : activity.getBoundaryEventDefinitions()) {
                 var boundaryEventImpl = (BoundaryEventDefinitionImpl) boundaryEvent;
-                boundaryEvent.getMessageEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
-                boundaryEvent.getErrorEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
-                boundaryEvent.getSignalEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
-                boundaryEvent.getTimerEventTriggerDefinitions().stream().forEach(boundaryEventImpl::addEventTrigger);
+                boundaryEvent.getMessageEventTriggerDefinitions().forEach(boundaryEventImpl::addEventTrigger);
+                boundaryEvent.getErrorEventTriggerDefinitions().forEach(boundaryEventImpl::addEventTrigger);
+                boundaryEvent.getSignalEventTriggerDefinitions().forEach(boundaryEventImpl::addEventTrigger);
+                boundaryEvent.getTimerEventTriggerDefinitions().forEach(boundaryEventImpl::addEventTrigger);
             }
             if (activity.getClass() == SubProcessDefinitionImpl.class) {
                 addEventTriggerOnEvents(((SubProcessDefinitionImpl) activity).getSubProcessContainer());
