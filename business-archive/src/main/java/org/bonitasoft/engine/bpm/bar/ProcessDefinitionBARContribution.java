@@ -64,31 +64,28 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
 
     private static final String PROCESS_DEFINITION_XSD = "/ProcessDefinition.xsd";
     public static final String PROCESS_DEFINITION_XML = "process-design.xml";
-    private final Marshaller marshaller;
-    private final Unmarshaller unmarshaller;
+
+    private final JAXBContext jaxbContext;
 
     public ProcessDefinitionBARContribution() {
         try {
-            var jaxbContext = JAXBContext.newInstance(DesignProcessDefinitionImpl.class);
-            unmarshaller = createUnmarshaller(jaxbContext);
-            marshaller = createMarshaller(jaxbContext);
+            jaxbContext = JAXBContext.newInstance(DesignProcessDefinitionImpl.class);
         } catch (final Exception e) {
             throw new DataBindingException(e);
         }
-
     }
 
-    private Marshaller createMarshaller(JAXBContext context) throws JAXBException {
-        var jaxbMarshaller = context.createMarshaller();
+    private Marshaller createMarshaller() throws JAXBException {
+        var jaxbMarshaller = jaxbContext.createMarshaller();
         jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         jaxbMarshaller.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name()); // this is the default value, but it is more explicit like this.
         return jaxbMarshaller;
     }
 
-    private Unmarshaller createUnmarshaller(JAXBContext context) throws JAXBException, SAXException {
+    private Unmarshaller createUnmarshaller() throws JAXBException, SAXException {
         var processDefinitionXsd = Optional.ofNullable(ResourceFinder.findEntry(PROCESS_DEFINITION_XSD))
                 .orElseGet(() -> ProcessDefinition.class.getResource(PROCESS_DEFINITION_XSD));
-        var jaxbUnmarshaller = context.createUnmarshaller();
+        var jaxbUnmarshaller = jaxbContext.createUnmarshaller();
         jaxbUnmarshaller
                 .setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
                         .newSchema(processDefinitionXsd));
@@ -156,7 +153,7 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
     public String convertProcessToXml(DesignProcessDefinition processDefinition) throws IOException {
         final StringWriter writer = new StringWriter();
         try {
-            marshaller.marshal(processDefinition, writer);
+            createMarshaller().marshal(processDefinition, writer);
             return writer.toString();
         } catch (JAXBException e) {
             throw new IOException(e);
@@ -165,13 +162,13 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
 
     public DesignProcessDefinition convertXmlToProcess(String content) throws IOException {
         try (InputStream stream = new ByteArrayInputStream(content.getBytes(StandardCharsets.UTF_8))) {
-            DesignProcessDefinition process = (DesignProcessDefinition) unmarshaller.unmarshal(stream);
+            DesignProcessDefinition process = (DesignProcessDefinition) createUnmarshaller().unmarshal(stream);
             if (process.getActorInitiator() != null) {
                 process.getActorInitiator().setInitiator(true);
             }
             addEventTriggerOnEvents(process.getFlowElementContainer());
             return process;
-        } catch (UnsupportedOperationException | JAXBException e) {
+        } catch (UnsupportedOperationException | JAXBException | SAXException e) {
             throw new IOException("Failed to deserialize the XML string provided", e);
         }
     }
