@@ -19,6 +19,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -34,6 +35,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.bonitasoft.engine.bdm.model.BusinessObjectModel;
+import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 import org.xml.sax.SAXException;
 
 /**
@@ -50,7 +52,8 @@ public class BusinessObjectModelConverter {
     private final URL xsdUrl;
 
     public BusinessObjectModelConverter() {
-        xsdUrl = BusinessObjectModel.class.getResource(BOM_XSD);
+        xsdUrl = Optional.ofNullable(ResourceFinder.findEntry(BOM_XSD))
+                .orElseGet(() -> BusinessObjectModelConverter.class.getResource(BOM_XSD));
     }
 
     public byte[] zip(final BusinessObjectModel bom) throws IOException, JAXBException, SAXException {

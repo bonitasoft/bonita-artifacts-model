@@ -17,8 +17,11 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
+
+import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 
 /**
  * @author Romain Bioteau
@@ -26,6 +29,7 @@ import java.util.Set;
 public class SQLNameValidator {
 
     private static final int DEFAULT_MAX_LENGTH = 255;
+    private static final String SQL_KEYWORDS_RESOURCE = "/sql_keywords";
 
     private final int maxLength;
 
@@ -53,12 +57,13 @@ public class SQLNameValidator {
         }
     }
 
-    private InputStream getSQLKeywordsResource() throws FileNotFoundException {
-        InputStream resourceAsStream = SQLNameValidator.class.getResourceAsStream("/sql_keywords");
-        if (resourceAsStream == null) {
+    private InputStream getSQLKeywordsResource() throws IOException {
+        var sqlKeywordsResource = Optional.ofNullable(ResourceFinder.findEntry(SQL_KEYWORDS_RESOURCE))
+                .orElseGet(() -> SQLNameValidator.class.getResource(SQL_KEYWORDS_RESOURCE));
+        if (sqlKeywordsResource == null) {
             throw new FileNotFoundException("SQL Keywords resource not found");
         }
-        return resourceAsStream;
+        return sqlKeywordsResource.openStream();
     }
 
     public boolean isValid(final String name) {
