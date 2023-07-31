@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.JAXBContext;
@@ -29,6 +30,7 @@ import javax.xml.validation.Schema;
 import javax.xml.validation.SchemaFactory;
 
 import org.bonitasoft.engine.bpm.bar.form.model.FormMappingModel;
+import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 import org.xml.sax.SAXException;
 
 public class FormMappingModelMarshaller {
@@ -38,7 +40,8 @@ public class FormMappingModelMarshaller {
     private final URL xsdUrl;
 
     public FormMappingModelMarshaller() {
-        xsdUrl = FormMappingModel.class.getResource(XSD_MODEL);
+        xsdUrl = Optional.ofNullable(ResourceFinder.findEntry(XSD_MODEL))
+                .orElseGet(() -> FormMappingModel.class.getResource(XSD_MODEL));
     }
 
     public byte[] serializeToXML(final FormMappingModel model) throws IOException, JAXBException, SAXException {
