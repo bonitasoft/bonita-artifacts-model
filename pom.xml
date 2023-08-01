@@ -31,6 +31,7 @@
     <module>coverage-report</module>
     <module>common-artifacts-model</module>
     <module>business-object-model</module>
+    <module>profile-model</module>
   </modules>
   <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
     <connection>scm:git:git@github.com:bonitasoft/bonita-artifacts-model.git</connection>

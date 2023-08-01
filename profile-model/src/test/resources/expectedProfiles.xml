@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<profiles:profiles xmlns:profiles="http://documentation.bonitasoft.com/profile-xml-schema/1.0">
+    <profile name="myCustomProfile" isDefault="false">
+        <description>This is my custom profile</description>
+        <profileMapping>
+            <users>
+                <user>u1</user>
+                <user>u2</user>
+                <user>u3</user>
+            </users>
+            <groups>
+                <group>g1</group>
+                <group>g2</group>
+                <group>g3</group>
+            </groups>
+            <memberships>
+                <membership>
+                    <group>g4</group>
+                    <role>r4</role>
+                </membership>
+                <membership>
+                    <group>g5</group>
+                    <role>r5</role>
+                </membership>
+            </memberships>
+            <roles>
+                <role>r1</role>
+                <role>r2</role>
+                <role>r3</role>
+            </roles>
+        </profileMapping>
+    </profile>
+</profiles:profiles>
