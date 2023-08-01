@@ -14,17 +14,21 @@
 package org.bonitasoft.engine.profile;
 
 import java.net.URL;
+import java.util.Optional;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
 import org.bonitasoft.engine.profile.xml.ProfilesNode;
 import org.bonitasoft.engine.xml.parser.AbstractParser;
+import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 
 /**
  * @author Baptiste Mesta
  */
 public class ProfilesParser extends AbstractParser<ProfilesNode> {
+
+    private static final String PROFILES_XSD = "/profiles.xsd";
 
     @Override
     protected JAXBContext initJAXBContext() throws JAXBException {
@@ -33,7 +37,8 @@ public class ProfilesParser extends AbstractParser<ProfilesNode> {
 
     @Override
     protected URL initSchemaURL() {
-        return ProfilesParser.class.getResource("/profiles.xsd");
+        return Optional.ofNullable(ResourceFinder.findEntry(PROFILES_XSD))
+                .orElseGet(() -> ProfilesParser.class.getResource(PROFILES_XSD));
     }
 
 }
