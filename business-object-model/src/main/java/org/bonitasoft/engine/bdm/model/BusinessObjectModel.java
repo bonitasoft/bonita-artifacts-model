@@ -43,9 +43,9 @@ public class BusinessObjectModel {
 
     public static final String CURRENT_MODEL_VERSION = "1.0";
     public static final String CURRENT_PRODUCT_VERSION;
+    public static final String INFO_PROPERTIES_RESOURCE = "/info.properties";
+    public static final String VERSION_PROPERTY_KEY = "version";
 
-    private static final String INFO_PROPERTIES_RESOURCE = "/info.properties";
-    private static final String VERSION_PROPERTY_KEY = "version";
     private static final Logger LOGGER = LoggerFactory.getLogger(BusinessObjectModel.class);
 
     static {

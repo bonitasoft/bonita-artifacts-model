@@ -14,11 +14,13 @@
 package com.bonitasoft.engine.bdm.accesscontrol;
 
 import java.net.URL;
+import java.util.Optional;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
 import org.bonitasoft.engine.xml.parser.AbstractParser;
+import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 
 import com.bonitasoft.engine.bdm.accesscontrol.model.BusinessObjectAccessControlModel;
 
@@ -27,6 +29,8 @@ import com.bonitasoft.engine.bdm.accesscontrol.model.BusinessObjectAccessControl
  */
 public class BDMAccessControlParser extends AbstractParser<BusinessObjectAccessControlModel> {
 
+    private static final String BDM_ACCESS_CONTROL_XSD = "/bdm-access-control.xsd";
+
     @Override
     protected JAXBContext initJAXBContext() throws JAXBException {
         return JAXBContext.newInstance(BusinessObjectAccessControlModel.class);
@@ -34,7 +38,8 @@ public class BDMAccessControlParser extends AbstractParser<BusinessObjectAccessC
 
     @Override
     protected URL initSchemaURL() {
-        return BDMAccessControlParser.class.getResource("/bdm-access-control.xsd");
+        return Optional.ofNullable(ResourceFinder.findEntry(BDM_ACCESS_CONTROL_XSD))
+                .orElseGet(() -> BDMAccessControlParser.class.getResource(BDM_ACCESS_CONTROL_XSD));
     }
 
 }
