@@ -17,6 +17,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -106,7 +107,7 @@ public class BusinessObjectModelConverter {
             final Marshaller m = contextObj.createMarshaller();
             m.setSchema(schema);
             m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            m.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
+            m.setProperty(Marshaller.JAXB_ENCODING, StandardCharsets.UTF_8.name());
             m.marshal(jaxbModel, stream);
             return stream.toByteArray();
         }

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accessControlModel xmlns="http://documentation.bonitasoft.com/bdm-access-control-xml-schema/1.0">
+    <businessObjectRule businessObjectQualifiedName="MyBusinessObject1">
+        <rule name="myRule1" usingDynamicProfiles="false">
+            <condition>return true</condition>
+            <staticProfiles>
+                <profile>User</profile>
+                <profile>Admin</profile>
+            </staticProfiles>
+            <attributes businessObjectQualifiedName="MyBusinessObject1">
+                <attribute name="Attr11"/>
+                <attribute name="Attr12"/>
+            </attributes>
+        </rule>
+        <rule name="myRule2" usingDynamicProfiles="true">
+            <condition>return true</condition>
+            <staticProfiles/>
+            <dynamicProfiles>return "User"</dynamicProfiles>
+            <attributes businessObjectQualifiedName="MyBusinessObject1">
+                <attribute name="Attr21"/>
+                <attribute name="Attr22">
+                    <attributes businessObjectQualifiedName="ComposedBO">
+                        <attribute name="Attr3"/>
+                    </attributes>
+                </attribute>
+            </attributes>
+        </rule>
+    </businessObjectRule>
+    <businessObjectRule businessObjectQualifiedName="MyBusinessObject2">
+        <rule name="myRule1" usingDynamicProfiles="false">
+            <condition>return true</condition>
+            <staticProfiles>
+                <profile>User</profile>
+                <profile>Admin</profile>
+            </staticProfiles>
+            <attributes businessObjectQualifiedName="MyBusinessObject2">
+                <attribute name="Attr11"/>
+                <attribute name="Attr12"/>
+            </attributes>
+        </rule>
+        <rule name="myRule2" usingDynamicProfiles="true">
+            <condition>return true</condition>
+            <staticProfiles/>
+            <dynamicProfiles>return "User"</dynamicProfiles>
+            <attributes businessObjectQualifiedName="MyBusinessObject2">
+                <attribute name="Attr21"/>
+                <attribute name="Attr22">
+                    <attributes businessObjectQualifiedName="ComposedBO">
+                        <attribute name="Attr3"/>
+                    </attributes>
+                </attribute>
+            </attributes>
+        </rule>
+    </businessObjectRule>
+</accessControlModel>
