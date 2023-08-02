@@ -45,7 +45,7 @@
         <artifactId>bonita-profile-model</artifactId>
         <version>${project.version}</version>
       </dependency>
-        <dependency>
+      <dependency>
         <groupId>${project.parent.groupId}</groupId>
         <artifactId>bonita-bdm-access-control-model</artifactId>
         <version>${project.version}</version>
