@@ -95,7 +95,7 @@ public class BusinessObjectModelConverter {
         return contentStr.getBytes();
     }
 
-    private byte[] marshallObjectToXML(final BusinessObjectModel jaxbModel)
+    byte[] marshallObjectToXML(final BusinessObjectModel jaxbModel)
             throws JAXBException, IOException, SAXException {
         if (jaxbModel == null) {
             return new byte[0];
@@ -113,7 +113,7 @@ public class BusinessObjectModelConverter {
         }
     }
 
-    private BusinessObjectModel unmarshallXMLtoObject(final byte[] xmlObject)
+    BusinessObjectModel unmarshallXMLtoObject(final byte[] xmlObject)
             throws JAXBException, IOException,
             SAXException {
         if (xmlObject == null) {

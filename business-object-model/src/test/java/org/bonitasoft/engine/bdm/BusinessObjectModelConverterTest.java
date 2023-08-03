@@ -29,9 +29,10 @@ import org.junit.jupiter.api.Test;
 
 class BusinessObjectModelConverterTest {
 
+    private final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
+
     @Test
     void zipThenUnzipBOMShouldReturnTheOriginalBOM() throws Exception {
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         final BusinessObjectModel bom = new BusinessObjectModelBuilder().buildDefaultBOM();
         final byte[] zip = convertor.zip(bom);
         final BusinessObjectModel actual = convertor.unzip(zip);
@@ -41,7 +42,6 @@ class BusinessObjectModelConverterTest {
 
     @Test
     void zipThenUnzipBOMShouldReturnTheOriginalBOMWithUniqueConstraint() throws Exception {
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         final BusinessObjectModel bom = new BusinessObjectModelBuilder().buildBOMWithUniqueConstraint();
         final byte[] zip = convertor.zip(bom);
         final BusinessObjectModel actual = convertor.unzip(zip);
@@ -51,7 +51,6 @@ class BusinessObjectModelConverterTest {
 
     @Test
     void zipThenUnzipBOMShouldReturnTheOriginalBOMWithQuery() throws Exception {
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         final BusinessObjectModel bom = new BusinessObjectModelBuilder().buildBOMWithQuery();
         final byte[] zip = convertor.zip(bom);
         final BusinessObjectModel actual = convertor.unzip(zip);
@@ -61,14 +60,12 @@ class BusinessObjectModelConverterTest {
 
     @Test
     void zipAnBOMWithAnEmptyShouldThrowAnException() {
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         final BusinessObjectModel bom = new BusinessObjectModelBuilder().buildBOMWithAnEmptyEntity();
         assertThatExceptionOfType(JAXBException.class).isThrownBy(() -> convertor.zip(bom));
     }
 
     @Test
     void zipAnBOMWithAnEmptyFieldShouldThrowAnException() {
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         final BusinessObjectModel bom = new BusinessObjectModelBuilder().buildBOMWithAnEmptyField();
         assertThatExceptionOfType(JAXBException.class).isThrownBy(() -> convertor.zip(bom));
     }
@@ -81,7 +78,6 @@ class BusinessObjectModelConverterTest {
             zos.write("bpm".getBytes());
         }
         final byte[] zip = stream.toByteArray();
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         assertThatExceptionOfType(IOException.class).isThrownBy(() -> convertor.unzip(zip))
                 .withMessage("the file bom.xml is missing in the zip");
     }
@@ -91,7 +87,6 @@ class BusinessObjectModelConverterTest {
         try (var resource = BusinessObjectModelConverterTest.class.getResourceAsStream("/bom_6.3.0.xml")) {
             assertThat(resource).isNotNull();
             final byte[] xml = resource.readAllBytes();
-            final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
             final BusinessObjectModel bom = convertor.unmarshall(xml);
             // expect no unmarshalling exception
 
@@ -105,7 +100,6 @@ class BusinessObjectModelConverterTest {
         try (var resource = BusinessObjectModelConverterTest.class.getResourceAsStream("/bom_7.11.0.xml")) {
             assertThat(resource).isNotNull();
             final byte[] xml = resource.readAllBytes();
-            final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
             final BusinessObjectModel bom = convertor.unmarshall(xml);
             // expect no unmarshalling exception
 
@@ -122,7 +116,6 @@ class BusinessObjectModelConverterTest {
             String str = new String(xml);
             assertThat(str).doesNotContain("xmlns=\"http://documentation.bonitasoft.com/bdm-xml-schema/1.0\"");
 
-            BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
             BusinessObjectModel bom = convertor.unmarshall(xml);
 
             xml = convertor.marshall(bom);
@@ -136,7 +129,6 @@ class BusinessObjectModelConverterTest {
         try (var resource = BusinessObjectModelConverterTest.class.getResourceAsStream("/bom_7.2.0.xml")) {
             assertThat(resource).isNotNull();
             final byte[] xml = resource.readAllBytes();
-            final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
             final BusinessObjectModel bom = convertor.unmarshall(xml);
             // expect no unmarshalling exception
 
@@ -152,7 +144,6 @@ class BusinessObjectModelConverterTest {
 
     @Test
     void should_set_current_model_version_when_marshalling() throws Exception {
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         final BusinessObjectModel bom = new BusinessObjectModelBuilder().buildBOMWithQuery();
         assertThat(bom.getModelVersion()).isNullOrEmpty();
         assertThat(bom.getProductVersion()).isNullOrEmpty();
@@ -164,7 +155,6 @@ class BusinessObjectModelConverterTest {
 
     @Test
     void zipThenUnzipBOMShouldReturnTheOriginalBOMWithIndex() throws Exception {
-        final BusinessObjectModelConverter convertor = new BusinessObjectModelConverter();
         final BusinessObjectModel bom = new BusinessObjectModelBuilder().buildBOMWithIndex();
         final byte[] zip = convertor.zip(bom);
         final BusinessObjectModel actual = convertor.unzip(zip);
@@ -172,4 +162,38 @@ class BusinessObjectModelConverterTest {
         assertThat(actual).isEqualTo(bom);
     }
 
+    @Test
+    void marshall_and_unmarshall_should_return_the_same_object() throws Exception {
+        final BusinessObjectModel expected = new BusinessObjectModelBuilder().buildDefaultBOM();
+        final byte[] xml = convertor.marshallObjectToXML(expected);
+        final BusinessObjectModel actual = convertor.unmarshallXMLtoObject(xml);
+
+        assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    void marshall_a_null_object_returns_empty() throws Exception {
+        final byte[] xml = convertor.marshallObjectToXML(null);
+
+        assertThat(xml).isEmpty();
+    }
+
+    @Test
+    void marshall_an_empty_object_throws_a_JAXBException() {
+        assertThatExceptionOfType(JAXBException.class)
+                .isThrownBy(() -> convertor.marshallObjectToXML(new BusinessObjectModel()));
+    }
+
+    @Test
+    void unmarshall_a_null_object_returns_null() throws Exception {
+        final BusinessObjectModel object = convertor.unmarshallXMLtoObject(null);
+
+        assertThat(object).isNull();
+    }
+
+    @Test
+    void unmarshall_an_empty_object_throws_a_JAXBException() {
+        assertThatExceptionOfType(JAXBException.class)
+                .isThrownBy(() -> convertor.unmarshallXMLtoObject(new byte[0]));
+    }
 }
