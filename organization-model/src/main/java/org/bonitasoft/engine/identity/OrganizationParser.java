@@ -15,8 +15,8 @@ package org.bonitasoft.engine.identity;
 
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.Optional;
 
 import javax.xml.XMLConstants;
 import javax.xml.bind.DataBindingException;
@@ -27,6 +27,7 @@ import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.SchemaFactory;
 
 import org.bonitasoft.engine.identity.xml.Organization;
+import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 import org.xml.sax.SAXException;
 
 /**
@@ -65,11 +66,11 @@ public class OrganizationParser {
 
     private Unmarshaller createUnmarshaller() throws JAXBException {
         try {
-            // TODO use osgi ResourceFinder when moved to bonita-artifacts-model
-            URL schemaURL = Organization.class.getResource(ORGANIZATION_XSD);
+            var organizationXsd = Optional.ofNullable(ResourceFinder.findEntry(ORGANIZATION_XSD))
+                    .orElseGet(() -> OrganizationParser.class.getResource(ORGANIZATION_XSD));
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             jaxbUnmarshaller.setSchema(SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI)
-                    .newSchema(schemaURL));
+                    .newSchema(organizationXsd));
             return jaxbUnmarshaller;
         } catch (SAXException e) {
             throw new JAXBException(e);
