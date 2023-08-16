@@ -25,7 +25,7 @@ public interface ApplicationPage extends BaseElement {
     /**
      * Retrieves the {@link Application} identifier
      *
-     * @return the <code>Application<code> identifier
+     * @return the <code>Application</code> identifier
      * @see Application
      */
     long getApplicationId();
