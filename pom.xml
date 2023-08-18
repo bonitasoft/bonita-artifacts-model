@@ -35,6 +35,7 @@
     <module>profile-model</module>
     <module>organization-model</module>
     <module>application-model</module>
+    <module>connector-model</module>
   </modules>
   <scm child.scm.connection.inherit.append.path="false" child.scm.developerConnection.inherit.append.path="false" child.scm.url.inherit.append.path="false">
     <connection>scm:git:git@github.com:bonitasoft/bonita-artifacts-model.git</connection>
