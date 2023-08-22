@@ -87,7 +87,7 @@
     <spotless-maven-plugin.version>2.38.0</spotless-maven-plugin.version>
     <jaxb2-maven-plugin.version>2.5.0</jaxb2-maven-plugin.version>
     <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-    <groovy.version>3.0.18</groovy.version>
+    <groovy.version>3.0.19</groovy.version>
     <!-- Spotless resources location -->
     <eclipse.formatter.file>${maven.multiModuleProjectDirectory}/formatter.xml</eclipse.formatter.file>
     <eclipse.importorder.file>${maven.multiModuleProjectDirectory}/eclipse.importorder</eclipse.importorder.file>
