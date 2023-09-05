@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.bonitasoft.engine</groupId>
     <artifactId>bonita-artifacts-model-parent</artifactId>
-    <version>1.0.0-alpha-01</version>
+    <version>1.0.0-SNAPSHOT</version>
   </parent>
   <artifactId>bonita-business-object-model</artifactId>
   <name>Bonita Business Object Model</name>
