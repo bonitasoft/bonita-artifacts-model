@@ -13,13 +13,10 @@
  **/
 package org.bonitasoft.engine.bdm.model;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.Properties;
 import java.util.Set;
 import java.util.StringJoiner;
 
@@ -30,10 +27,6 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 /**
  * @author Matthieu Chaffotte
  */
@@ -42,26 +35,6 @@ import org.slf4j.LoggerFactory;
 public class BusinessObjectModel {
 
     public static final String CURRENT_MODEL_VERSION = "1.0";
-    public static final String CURRENT_PRODUCT_VERSION;
-    public static final String INFO_PROPERTIES_RESOURCE = "/info.properties";
-    public static final String VERSION_PROPERTY_KEY = "version";
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(BusinessObjectModel.class);
-
-    static {
-        final Properties info = new Properties();
-        try {
-            var infoProperties = Optional.ofNullable(ResourceFinder.findEntry(INFO_PROPERTIES_RESOURCE))
-                    .orElseGet(() -> BusinessObjectModel.class.getResource(INFO_PROPERTIES_RESOURCE));
-            if (infoProperties != null) {
-                info.load(infoProperties.openStream());
-            }
-        } catch (final IOException e) {
-            LOGGER.error("Failed to retrieve product version", e);
-        }
-        final String version = info.getProperty(VERSION_PROPERTY_KEY);
-        CURRENT_PRODUCT_VERSION = version == null || version.isBlank() ? null : version;
-    }
 
     @XmlElementWrapper(name = "businessObjects", required = true)
     @XmlElement(name = "businessObject", required = true)

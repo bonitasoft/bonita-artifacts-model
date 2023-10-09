@@ -150,7 +150,7 @@ class BusinessObjectModelConverterTest {
         final BusinessObjectModel unmarshalledBom = convertor.unmarshall(convertor.marshall(bom));
 
         assertThat(unmarshalledBom.getModelVersion()).isEqualTo(BusinessObjectModel.CURRENT_MODEL_VERSION);
-        assertThat(bom.getProductVersion()).isNotNull().isNotEmpty();
+        assertThat(bom.getProductVersion()).isNull();
     }
 
     @Test

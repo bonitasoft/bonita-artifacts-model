@@ -66,10 +66,6 @@ public class BusinessObjectModelConverter {
         if (modelVersion == null || modelVersion.isEmpty()) {
             bom.setModelVersion(BusinessObjectModel.CURRENT_MODEL_VERSION);
         }
-        final String productVersion = bom.getProductVersion();
-        if (productVersion == null || productVersion.isEmpty()) {
-            bom.setProductVersion(BusinessObjectModel.CURRENT_PRODUCT_VERSION);
-        }
         return marshallObjectToXML(bom);
     }
 
