@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.bonitasoft.engine</groupId>
     <artifactId>bonita-artifacts-model-parent</artifactId>
-    <version>1.0.0</version>
+    <version>x.y.z-SNAPSHOT</version>
   </parent>
   <artifactId>bonita-bdm-access-control-model</artifactId>
   <name>BDM Access Control Model</name>
