@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.bonitasoft.engine</groupId>
     <artifactId>bonita-artifacts-model-parent</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
   </parent>
   <artifactId>bonita-common-artifacts-model</artifactId>
   <name>Bonita Common Artifacts Model</name>
