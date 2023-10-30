@@ -4,7 +4,7 @@
   <parent>
     <groupId>org.bonitasoft.engine</groupId>
     <artifactId>bonita-artifacts-model-parent</artifactId>
-    <version>x.y.z-SNAPSHOT</version>
+    <version>1.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>bonita-artifacts-model-coverage-report</artifactId>
   <packaging>pom</packaging>
