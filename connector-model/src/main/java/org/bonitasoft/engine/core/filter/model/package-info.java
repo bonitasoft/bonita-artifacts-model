@@ -15,5 +15,5 @@
         @XmlNs(prefix = "implementation", namespaceURI = "http://www.bonitasoft.org/ns/connector/implementation/6.0") })
 package org.bonitasoft.engine.core.filter.model;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlSchema;

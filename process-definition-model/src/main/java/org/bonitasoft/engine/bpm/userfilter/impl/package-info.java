@@ -12,10 +12,10 @@
  * Floor, Boston, MA 02110-1301, USA.
  **/
 @XmlSchema(namespace = NAMESPACE, elementFormDefault = XmlNsForm.UNSET, xmlns = {
-        @javax.xml.bind.annotation.XmlNs(namespaceURI = NAMESPACE, prefix = "tns") })
+        @jakarta.xml.bind.annotation.XmlNs(namespaceURI = NAMESPACE, prefix = "tns") })
 package org.bonitasoft.engine.bpm.userfilter.impl;
 
 import static org.bonitasoft.engine.ProcessDefinitionNamespace.NAMESPACE;
 
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;

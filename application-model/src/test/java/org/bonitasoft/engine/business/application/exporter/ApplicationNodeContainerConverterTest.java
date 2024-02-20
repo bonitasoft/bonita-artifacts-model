@@ -17,10 +17,10 @@ import static org.assertj.core.api.Assertions.*;
 import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newApplication;
 import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newApplicationContainer;
 
-import javax.xml.bind.UnmarshalException;
-
 import org.bonitasoft.engine.business.application.xml.ApplicationNodeContainer;
 import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.UnmarshalException;
 
 class ApplicationNodeContainerConverterTest {
 

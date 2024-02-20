@@ -16,12 +16,12 @@ package org.bonitasoft.engine.profile;
 import java.net.URL;
 import java.util.Optional;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-
 import org.bonitasoft.engine.profile.xml.ProfilesNode;
 import org.bonitasoft.engine.xml.parser.AbstractParser;
 import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * @author Baptiste Mesta

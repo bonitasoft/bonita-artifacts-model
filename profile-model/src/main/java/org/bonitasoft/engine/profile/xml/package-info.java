@@ -15,5 +15,5 @@
         @XmlNs(prefix = "profiles", namespaceURI = "http://documentation.bonitasoft.com/profile-xml-schema/1.0") })
 package org.bonitasoft.engine.profile.xml;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlSchema;

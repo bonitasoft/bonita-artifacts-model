@@ -15,11 +15,11 @@ package org.bonitasoft.engine.bdm.model.assertion;
 
 import java.io.IOException;
 
-import javax.xml.bind.JAXBException;
-
 import org.bonitasoft.engine.bdm.BusinessObjectModelConverter;
 import org.bonitasoft.engine.bdm.model.BusinessObjectModel;
 import org.xml.sax.SAXException;
+
+import jakarta.xml.bind.JAXBException;
 
 public class Marshaller {
 

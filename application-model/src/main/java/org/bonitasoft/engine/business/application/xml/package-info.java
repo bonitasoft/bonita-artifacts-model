@@ -19,6 +19,6 @@
         @XmlNs(prefix = "", namespaceURI = "http://documentation.bonitasoft.com/application-xml-schema/1.0") })
 package org.bonitasoft.engine.business.application.xml;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;
