@@ -6,9 +6,13 @@ on:
       - develop
       - release/*
       - support/*
+    paths-ignore:
+      - "**/README.md"
+      - "CONTRIBUTING.md"
+      - ".github/**"
+      - "!.github/workflows/build-pr.yml"
 
 jobs:
-
   build:
     runs-on: ubuntu-22.04
     steps:
@@ -16,9 +20,9 @@ jobs:
       - name: Setup Java
         uses: actions/setup-java@v4
         with:
-          distribution: 'temurin'
+          distribution: "temurin"
           java-version: 17
-          cache: 'maven'
+          cache: "maven"
 
       - name: Build with Sonarcloud
         env:
@@ -26,7 +30,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         if: ${{ env.SONAR_TOKEN != '' }}
         run: ./mvnw -B -ntp verify sonar:sonar
-        
+
       - name: Build
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
