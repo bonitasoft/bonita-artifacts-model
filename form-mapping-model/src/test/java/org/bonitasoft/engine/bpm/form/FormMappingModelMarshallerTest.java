@@ -19,13 +19,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.nio.charset.StandardCharsets;
 
-import javax.xml.bind.JAXBException;
-
 import org.bonitasoft.engine.bpm.bar.form.model.FormMappingDefinition;
 import org.bonitasoft.engine.bpm.bar.form.model.FormMappingModel;
 import org.bonitasoft.engine.form.FormMappingTarget;
 import org.bonitasoft.engine.form.FormMappingType;
 import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.JAXBException;
 
 class FormMappingModelMarshallerTest {
 

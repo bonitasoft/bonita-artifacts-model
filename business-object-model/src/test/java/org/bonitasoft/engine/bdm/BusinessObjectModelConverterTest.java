@@ -21,11 +21,11 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
 
-import javax.xml.bind.JAXBException;
-
 import org.bonitasoft.engine.bdm.builder.BusinessObjectModelBuilder;
 import org.bonitasoft.engine.bdm.model.BusinessObjectModel;
 import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.JAXBException;
 
 class BusinessObjectModelConverterTest {
 

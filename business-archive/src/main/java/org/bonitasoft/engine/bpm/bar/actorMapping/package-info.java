@@ -17,8 +17,8 @@
  * </p>
  */
 @XmlSchema(namespace = "http://www.bonitasoft.org/ns/actormapping/6.0", elementFormDefault = XmlNsForm.UNSET, xmlns = {
-        @javax.xml.bind.annotation.XmlNs(namespaceURI = "http://www.bonitasoft.org/ns/actormapping/6.0", prefix = "actorMappings") })
+        @jakarta.xml.bind.annotation.XmlNs(namespaceURI = "http://www.bonitasoft.org/ns/actormapping/6.0", prefix = "actorMappings") })
 package org.bonitasoft.engine.bpm.bar.actorMapping;
 
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;

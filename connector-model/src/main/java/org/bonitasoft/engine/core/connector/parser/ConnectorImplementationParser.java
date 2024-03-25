@@ -13,8 +13,8 @@
  **/
 package org.bonitasoft.engine.core.connector.parser;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 public class ConnectorImplementationParser
         extends AbstractConnectorImplementationParser<SConnectorImplementationDescriptor> {

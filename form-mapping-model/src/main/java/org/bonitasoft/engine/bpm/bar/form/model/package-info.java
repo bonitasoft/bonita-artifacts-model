@@ -16,5 +16,5 @@
 })
 package org.bonitasoft.engine.bpm.bar.form.model;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlSchema;

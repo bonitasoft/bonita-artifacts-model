@@ -26,11 +26,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.DataBindingException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.SchemaFactory;
 
 import org.bonitasoft.engine.bpm.flownode.ActivityDefinition;
@@ -55,6 +50,12 @@ import org.bonitasoft.engine.bpm.process.impl.internal.DesignProcessDefinitionIm
 import org.bonitasoft.engine.bpm.process.impl.internal.SubProcessDefinitionImpl;
 import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 import org.xml.sax.SAXException;
+
+import jakarta.xml.bind.DataBindingException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * @author Baptiste Mesta
