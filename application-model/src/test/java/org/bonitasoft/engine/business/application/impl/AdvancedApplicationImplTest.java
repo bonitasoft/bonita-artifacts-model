@@ -14,10 +14,13 @@
 package org.bonitasoft.engine.business.application.impl;
 
 import static org.bonitasoft.engine.business.application.impl.AdvancedApplicationImplAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.util.Date;
 
 import org.bonitasoft.engine.business.application.ApplicationState;
+import org.bonitasoft.engine.business.application.ApplicationVisibility;
 import org.junit.jupiter.api.Test;
 
 class AdvancedApplicationImplTest {
@@ -47,12 +50,65 @@ class AdvancedApplicationImplTest {
         application.setDisplayName(displayName);
         application.setLastUpdateDate(lastUpdateDate);
         application.setState(state);
+        application.setVisibility(ApplicationVisibility.RESTRICTED);
 
         //then
         assertThat(application).hasToken(token).hasVersion(version).hasDescription(description)
                 .hasUpdatedBy(updatedBy).hasProfileId(profileId).hasIconPath(iconPath).hasCreatedBy(createdBy)
                 .hasCreationDate(creationDate)
                 .hasDisplayName(displayName).hasLastUpdateDate(lastUpdateDate)
-                .hasState(state);
+                .hasState(state).hasVisibility(ApplicationVisibility.RESTRICTED);
+
+        assertThat(application).isNotEditable();
+    }
+
+    @Test
+    void equals_should_return_true_on_different_applications_with_same_content() {
+        //given
+        String token = "hr";
+        String version = "1.0";
+        String description = "hr description";
+
+        //when
+        AdvancedApplicationImpl application1 = new AdvancedApplicationImpl(token, version, description);
+        AdvancedApplicationImpl application2 = new AdvancedApplicationImpl(token, version, description);
+
+        // then
+        assertThat(application1).isEqualTo(application2);
+        assertEquals(application1.toString(), application2.toString());
+    }
+
+    @Test
+    void equals_should_return_false_on_legacy_applications_with_same_content() {
+        //given
+        String token = "hr";
+        String version = "1.0";
+        String description = "hr description";
+
+        //when
+        AdvancedApplicationImpl application1 = new AdvancedApplicationImpl(token, version, description);
+        ApplicationImpl application2 = new ApplicationImpl(token, version, description);
+
+        // then
+        assertThat(application1).isNotEqualTo(application2);
+        assertNotEquals(application1.toString(), application2.toString());
+    }
+
+    @Test
+    void equals_should_return_false_on_different_applications_with_different_content() {
+        //given
+        String token = "hr";
+        String version = "1.0";
+        String description = "hr description";
+
+        //when
+        AdvancedApplicationImpl application1 = new AdvancedApplicationImpl(token, version, description);
+        application1.setIconPath("/img.png");
+        AdvancedApplicationImpl application2 = new AdvancedApplicationImpl(token, version, description);
+        application1.setIconPath("/img.jpg");
+
+        // then
+        assertThat(application1).isNotEqualTo(application2);
+        assertNotEquals(application1.toString(), application2.toString());
     }
 }
