@@ -15,10 +15,12 @@ package org.bonitasoft.engine.business.application.xml;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElements;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -28,18 +30,30 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ApplicationNodeContainer {
 
-    @XmlElement(name = "application")
-    private final List<ApplicationNode> applications;
+    @XmlElements({
+            @XmlElement(name = "advancedApplication", type = AdvancedApplicationNode.class),
+            @XmlElement(name = "application", type = ApplicationNode.class) })
+    private final List<AbstractApplicationNode> allApplications;
 
     public ApplicationNodeContainer() {
-        this.applications = new ArrayList<>();
+        this.allApplications = new ArrayList<>();
+    }
+
+    public List<AdvancedApplicationNode> getAdvancedApplications() {
+        return allApplications.stream().filter(AdvancedApplicationNode.class::isInstance)
+                .map(AdvancedApplicationNode.class::cast).collect(Collectors.toList());
     }
 
     public List<ApplicationNode> getApplications() {
-        return applications;
+        return allApplications.stream().filter(ApplicationNode.class::isInstance).map(ApplicationNode.class::cast)
+                .collect(Collectors.toList());
     }
 
-    public void addApplication(ApplicationNode application) {
-        applications.add(application);
+    public List<AbstractApplicationNode> getAllApplications() {
+        return allApplications;
+    }
+
+    public void addApplication(AbstractApplicationNode application) {
+        allApplications.add(application);
     }
 }

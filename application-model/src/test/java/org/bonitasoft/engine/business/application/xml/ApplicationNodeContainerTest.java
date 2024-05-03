@@ -29,6 +29,27 @@ class ApplicationNodeContainerTest {
     }
 
     @Test
+    void addAdvancedApplication_should_add_new_entry_to_application_list() {
+        //given
+        AdvancedApplicationNode app1 = new AdvancedApplicationNode();
+        app1.setToken("app1");
+
+        AdvancedApplicationNode app2 = new AdvancedApplicationNode();
+        app2.setToken("app2");
+
+        ApplicationNodeContainer container = new ApplicationNodeContainer();
+
+        //when
+        container.addApplication(app1);
+        container.addApplication(app2);
+
+        //then
+        assertThat(container).hasAdvancedApplications(app1, app2)
+                .hasAllApplications(app1, app2);
+
+    }
+
+    @Test
     void addApplication_should_add_new_entry_to_application_list() {
         //given
         ApplicationNode app1 = new ApplicationNode();
@@ -44,7 +65,8 @@ class ApplicationNodeContainerTest {
         container.addApplication(app2);
 
         //then
-        assertThat(container).hasApplications(app1, app2);
+        assertThat(container).hasApplications(app1, app2)
+                .hasAllApplications(app1, app2);
 
     }
 }

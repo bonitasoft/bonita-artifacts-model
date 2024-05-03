@@ -5,4 +5,7 @@
         <applicationPages/>
         <applicationMenus/>
     </application>
+    <advancedApplication token="myAdvancedApp" version="2.0" state="ACTIVATED">
+        <displayName>My App 2</displayName>
+    </advancedApplication>
 </applications>
