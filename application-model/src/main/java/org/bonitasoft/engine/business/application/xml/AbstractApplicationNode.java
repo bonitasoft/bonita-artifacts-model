@@ -116,7 +116,8 @@ public abstract class AbstractApplicationNode {
         return Objects.equals(token, that.token) && Objects.equals(version, that.version)
                 && Objects.equals(displayName, that.displayName) && Objects.equals(description, that.description)
                 && Objects.equals(profile, that.profile)
-                && Objects.equals(state, that.state);
+                && Objects.equals(state, that.state)
+                && Objects.equals(iconPath, that.iconPath);
     }
 
     /**
