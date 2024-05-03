@@ -44,6 +44,7 @@ class AdvancedApplicationImplTest {
         AdvancedApplicationImpl application = new AdvancedApplicationImpl(token, version, description);
         application.setUpdatedBy(updatedBy);
         application.setProfileId(profileId);
+        application.setHasIcon(true);
         application.setIconPath(iconPath);
         application.setCreatedBy(createdBy);
         application.setCreationDate(creationDate);

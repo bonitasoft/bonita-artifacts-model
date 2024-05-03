@@ -47,6 +47,7 @@ class ApplicationImplTest {
         ApplicationImpl application = new ApplicationImpl(token, version, description, layoutId, themeId);
         application.setUpdatedBy(updatedBy);
         application.setProfileId(profileId);
+        application.setHasIcon(true);
         application.setIconPath(iconPath);
         application.setCreatedBy(createdBy);
         application.setCreationDate(creationDate);
