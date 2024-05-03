@@ -17,20 +17,15 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 
 /**
- * @author Elias Ricken de Medeiros
+ * Application node for advanced Bonita Living Application.
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 public class AdvancedApplicationNode extends AbstractApplicationNode {
 
-    @Override
-    public boolean equals(Object o) {
-        // super is enough
-        return super.equals(o);
-    }
+    /*
+     * Super implementations of equals and hashCode are enough.
+     * No need to override.
+     * (non-Javadoc)
+     */
 
-    @Override
-    public int hashCode() {
-        // super is enough
-        return super.hashCode();
-    }
 }

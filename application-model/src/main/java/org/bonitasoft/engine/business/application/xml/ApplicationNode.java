@@ -24,6 +24,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
+ * Application node for legacy Bonita Living Application.
+ * 
  * @author Elias Ricken de Medeiros
  */
 @XmlAccessorType(XmlAccessType.FIELD)
