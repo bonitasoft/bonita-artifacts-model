@@ -42,7 +42,7 @@ public abstract class AbstractApplicationImpl extends BaseElementImpl implements
     private boolean hasIcon;
     private ApplicationVisibility visibility;
 
-    public AbstractApplicationImpl(final String token, final String version, final String description) {
+    protected AbstractApplicationImpl(final String token, final String version, final String description) {
         this.token = token;
         this.version = version;
         this.description = description;

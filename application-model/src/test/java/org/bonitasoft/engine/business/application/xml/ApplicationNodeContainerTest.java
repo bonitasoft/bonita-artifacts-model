@@ -44,8 +44,8 @@ class ApplicationNodeContainerTest {
         container.addApplication(app2);
 
         //then
-        assertThat(container).hasAdvancedApplications(app1, app2);
-        assertThat(container).hasAllApplications(app1, app2);
+        assertThat(container).hasAdvancedApplications(app1, app2)
+                .hasAllApplications(app1, app2);
 
     }
 
@@ -65,8 +65,8 @@ class ApplicationNodeContainerTest {
         container.addApplication(app2);
 
         //then
-        assertThat(container).hasApplications(app1, app2);
-        assertThat(container).hasAllApplications(app1, app2);
+        assertThat(container).hasApplications(app1, app2)
+                .hasAllApplications(app1, app2);
 
     }
 }

@@ -78,8 +78,7 @@ public class ApplicationImpl extends AbstractApplicationImpl implements Applicat
         if (!super.equals(o))
             return false;
         ApplicationImpl that = (ApplicationImpl) o;
-        return super.equals(that)
-                && isEditable() == that.isEditable()
+        return isEditable() == that.isEditable()
                 && Objects.equals(getLayoutId(), that.getLayoutId())
                 && Objects.equals(getHomePageId(), that.getHomePageId())
                 && Objects.equals(getThemeId(), that.getThemeId());

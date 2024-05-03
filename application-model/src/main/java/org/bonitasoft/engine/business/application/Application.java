@@ -60,5 +60,6 @@ public interface Application extends IApplication {
      *
      * @return Whether the application can be modified
      */
+    @Override
     boolean isEditable();
 }

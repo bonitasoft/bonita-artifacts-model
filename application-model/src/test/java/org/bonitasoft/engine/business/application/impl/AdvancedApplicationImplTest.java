@@ -58,9 +58,8 @@ class AdvancedApplicationImplTest {
                 .hasUpdatedBy(updatedBy).hasProfileId(profileId).hasIconPath(iconPath).hasCreatedBy(createdBy)
                 .hasCreationDate(creationDate)
                 .hasDisplayName(displayName).hasLastUpdateDate(lastUpdateDate)
-                .hasState(state).hasVisibility(ApplicationVisibility.RESTRICTED);
-
-        assertThat(application).isNotEditable();
+                .hasState(state).hasVisibility(ApplicationVisibility.RESTRICTED)
+                .isNotEditable();
     }
 
     @Test
