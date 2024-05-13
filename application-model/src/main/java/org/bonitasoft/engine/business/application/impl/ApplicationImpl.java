@@ -76,7 +76,7 @@ public class ApplicationImpl extends AbstractApplicationImpl implements Applicat
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), getLayoutId(), getHomePageId(), getThemeId(), isEditable());
+        return Objects.hash(super.hashCode(), getLayoutId(), getHomePageId(), getThemeId());
     }
 
     @Override
