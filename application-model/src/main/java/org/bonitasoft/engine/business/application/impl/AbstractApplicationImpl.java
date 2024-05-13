@@ -40,6 +40,7 @@ public abstract class AbstractApplicationImpl extends BaseElementImpl implements
     private final String description;
     private final String token;
     private boolean hasIcon;
+    private boolean editable;
     private ApplicationVisibility visibility;
 
     protected AbstractApplicationImpl(final String token, final String version, final String description) {
@@ -154,6 +155,15 @@ public abstract class AbstractApplicationImpl extends BaseElementImpl implements
     }
 
     @Override
+    public boolean isEditable() {
+        return editable;
+    }
+
+    public void setEditable(boolean editable) {
+        this.editable = editable;
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
@@ -196,6 +206,7 @@ public abstract class AbstractApplicationImpl extends BaseElementImpl implements
                 .add("description='" + description + "'")
                 .add("token='" + token + "'")
                 .add("hasIcon=" + hasIcon)
+                .add("editable=" + isEditable())
                 .add("visibility=" + visibility)
                 .toString();
     }

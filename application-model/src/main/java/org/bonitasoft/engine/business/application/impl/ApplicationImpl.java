@@ -28,7 +28,6 @@ public class ApplicationImpl extends AbstractApplicationImpl implements Applicat
     private Long layoutId;
     private Long homePageId;
     private Long themeId;
-    private boolean editable;
 
     public ApplicationImpl(final String token, final String version, final String description) {
         super(token, version, description);
@@ -58,15 +57,6 @@ public class ApplicationImpl extends AbstractApplicationImpl implements Applicat
     @Override
     public Long getThemeId() {
         return themeId;
-    }
-
-    @Override
-    public boolean isEditable() {
-        return editable;
-    }
-
-    public void setEditable(boolean editable) {
-        this.editable = editable;
     }
 
     @Override
@@ -107,7 +97,7 @@ public class ApplicationImpl extends AbstractApplicationImpl implements Applicat
                 .add("description='" + getDescription() + "'")
                 .add("token='" + getToken() + "'")
                 .add("hasIcon=" + hasIcon())
-                .add("editable=" + editable)
+                .add("editable=" + isEditable())
                 .add("visibility=" + getVisibility())
                 .toString();
     }

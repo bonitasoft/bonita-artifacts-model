@@ -131,8 +131,5 @@ public interface IApplication extends BaseElement {
      *
      * @return Whether the application can be modified
      */
-    default boolean isEditable() {
-        // usually not, only legacy apps can be editable.
-        return false;
-    }
+    boolean isEditable();
 }

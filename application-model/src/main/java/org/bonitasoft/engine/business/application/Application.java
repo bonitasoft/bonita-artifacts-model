@@ -54,12 +54,4 @@ public interface Application extends IApplication {
      * @since 7.0.0
      */
     Long getThemeId();
-
-    /**
-     * Indicates whether the application can be modified
-     *
-     * @return Whether the application can be modified
-     */
-    @Override
-    boolean isEditable();
 }
