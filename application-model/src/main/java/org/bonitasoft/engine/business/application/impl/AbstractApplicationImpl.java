@@ -188,7 +188,7 @@ public abstract class AbstractApplicationImpl extends BaseElementImpl implements
     public int hashCode() {
         return Objects.hash(super.hashCode(), getVersion(), getIconPath(), getCreationDate(),
                 getCreatedBy(), getLastUpdateDate(), getUpdatedBy(), getState(), getDisplayName(),
-                getProfileId(), getDescription(), getToken(), hasIcon, getVisibility());
+                getProfileId(), getDescription(), getToken(), hasIcon, getVisibility(), isEditable());
     }
 
     @Override
