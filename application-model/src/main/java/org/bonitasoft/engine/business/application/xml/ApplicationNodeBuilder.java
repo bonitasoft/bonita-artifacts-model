@@ -21,8 +21,8 @@ public class ApplicationNodeBuilder {
 
         private final ApplicationNodeContainer applicationNodeContainer = new ApplicationNodeContainer();
 
-        public ApplicationNodeContainerBuilder havingApplications(ApplicationBuilder... applicationBuilders) {
-            for (final ApplicationBuilder applicationBuilder : applicationBuilders) {
+        public ApplicationNodeContainerBuilder havingApplications(IApplicationBuilder... applicationBuilders) {
+            for (final IApplicationBuilder applicationBuilder : applicationBuilders) {
                 applicationNodeContainer.addApplication(applicationBuilder.create());
             }
             return this;
@@ -34,7 +34,46 @@ public class ApplicationNodeBuilder {
 
     }
 
-    public static class ApplicationBuilder {
+    public static interface IApplicationBuilder {
+
+        public AbstractApplicationNode create();
+    }
+
+    public static class AdvancedApplicationBuilder implements IApplicationBuilder {
+
+        private final AdvancedApplicationNode applicationNode;
+
+        public AdvancedApplicationBuilder(String token, String displayName, String version) {
+            applicationNode = new AdvancedApplicationNode();
+            applicationNode.setToken(token);
+            applicationNode.setDisplayName(displayName);
+            applicationNode.setVersion(version);
+            applicationNode.setState(ApplicationState.ACTIVATED.name());
+        }
+
+        public AdvancedApplicationBuilder withDescription(String description) {
+            applicationNode.setDescription(description);
+            return this;
+        }
+
+        public AdvancedApplicationBuilder withIconPath(String iconPath) {
+            applicationNode.setIconPath(iconPath);
+            return this;
+        }
+
+        public AdvancedApplicationBuilder withProfile(String profile) {
+            applicationNode.setProfile(profile);
+            return this;
+        }
+
+        @Override
+        public AdvancedApplicationNode create() {
+            return applicationNode;
+        }
+
+    }
+
+    public static class ApplicationBuilder implements IApplicationBuilder {
 
         private final ApplicationNode applicationNode;
 
@@ -90,6 +129,7 @@ public class ApplicationNodeBuilder {
             return this;
         }
 
+        @Override
         public ApplicationNode create() {
             return applicationNode;
         }
@@ -140,6 +180,10 @@ public class ApplicationNodeBuilder {
 
     public static ApplicationNodeContainerBuilder newApplicationContainer() {
         return new ApplicationNodeContainerBuilder();
+    }
+
+    public static AdvancedApplicationBuilder newAdvancedApplication(String token, String displayName, String version) {
+        return new AdvancedApplicationBuilder(token, displayName, version);
     }
 
     public static ApplicationBuilder newApplication(String token, String displayName, String version) {

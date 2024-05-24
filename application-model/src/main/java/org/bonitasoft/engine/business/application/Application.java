@@ -13,89 +13,13 @@
  **/
 package org.bonitasoft.engine.business.application;
 
-import java.util.Date;
-
-import org.bonitasoft.engine.bpm.BaseElement;
-
 /**
- * Contains the meta information of a Bonita Living Application.
+ * Contains the meta information of a legacy Bonita Living Application.
  *
  * @author Elias Ricken de Medeiros
  * @since 6.4.0
  */
-public interface Application extends BaseElement {
-
-    /**
-     * Retrieves the <code>Application</code> token
-     *
-     * @return the <code>Application</code> token
-     */
-    String getToken();
-
-    /**
-     * Retrieves the <code>Application</code> display name
-     *
-     * @return the <code>Application</code> display name
-     */
-    String getDisplayName();
-
-    /**
-     * Retrieves the <code>Application</code> version
-     *
-     * @return the <code>Application</code> version
-     */
-    String getVersion();
-
-    /**
-     * Retrieves the <code>Application</code> description
-     *
-     * @return the <code>Application</code> description
-     */
-    String getDescription();
-
-    /**
-     * Retrieves the icon path of this <code>Application</code>
-     *
-     * @return the icon path of this <code>Application</code>
-     */
-    String getIconPath();
-
-    /**
-     * Retrieves the <code>Application</code> creation date
-     *
-     * @return the <code>Application</code> creation date
-     */
-    Date getCreationDate();
-
-    /**
-     * Retrieves the identifier of the user that created this <code>Application</code>
-     *
-     * @return the identifier of the user that created this <code>Application</code>
-     */
-    long getCreatedBy();
-
-    /**
-     * Retrieves the <code>Application</code> last updated date
-     *
-     * @return the <code>Application</code> last updated date
-     */
-    Date getLastUpdateDate();
-
-    /**
-     * Retrieves the identifier of the user that updated this <code>Application</code>
-     *
-     * @return the identifier of the user that updated this <code>Application</code>
-     */
-    long getUpdatedBy();
-
-    /**
-     * Retrieves the <code>Application</code> state. The possible values are {@link ApplicationState#ACTIVATED}
-     * and {@link ApplicationState#DEACTIVATED}
-     *
-     * @return the <code>Application</code> state
-     * @see ApplicationState
-     */
-    String getState();
+public interface Application extends IApplication {
 
     /**
      * Retrieves the identifier of the {@link ApplicationPage} defined as home page for this application
@@ -104,16 +28,6 @@ public interface Application extends BaseElement {
      * @see ApplicationPage
      */
     Long getHomePageId();
-
-    /**
-     * Retrieves the identifier of the associated {@code Profile} or null if there is no profile is associated to this
-     * application.
-     *
-     * @return the identifier of the associated {@code Profile} or null if there is no profile is associated to this
-     *         application.
-     * @see "org.bonitasoft.engine.profile.Profile"
-     */
-    Long getProfileId();
 
     /**
      * Retrieves the identifier of the {@code Page} used as {@code Application} layout. If no
@@ -140,33 +54,4 @@ public interface Application extends BaseElement {
      * @since 7.0.0
      */
     Long getThemeId();
-
-    /**
-     * Indicate the presence or absence of an {@link Icon} for the Application that can be retrieved using
-     * {@code org.bonitasoft.engine.api.ApplicationAPI#getIconOfApplication(long applicationId)}
-     *
-     * @see Icon
-     * @return true if there is an icon for this application
-     * @since 7.13.0
-     */
-    boolean hasIcon();
-
-    /**
-     * Retrieves the visibility of the Application. Possible values are:
-     * ALL - everyone can use the application
-     * TECHNICAL_USER - Only the technical user can use the application
-     * RESTRICTED - Access to the application is determined by the user profile
-     * These value are purely indicative, changing them in the application object won't change the accessibility to the
-     * the actual application
-     *
-     * @return the enum ApplicationVisibility of the application
-     */
-    ApplicationVisibility getVisibility();
-
-    /**
-     * Indicates whether the application can be modified
-     *
-     * @return Whether the application can be modified
-     */
-    boolean isEditable();
 }

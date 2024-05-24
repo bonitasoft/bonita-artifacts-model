@@ -1,6 +1,6 @@
 /**
- * Copyright (C) 2015 BonitaSoft S.A.
- * BonitaSoft, 32 rue Gustave Eiffel - 38000 Grenoble
+ * Copyright (C) 2019 Bonitasoft S.A.
+ * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
  * This library is free software; you can redistribute it and/or modify it under the terms
  * of the GNU Lesser General Public License as published by the Free Software Foundation
  * version 2.1 of the License.
@@ -11,14 +11,18 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
+package org.bonitasoft.engine.business.application.impl;
+
+import org.bonitasoft.engine.business.application.AdvancedApplication;
+
 /**
- * @author Elias Ricken de Medeiros
+ * Contains the meta information of an advanced Bonita Living Application.
  */
+public class AdvancedApplicationImpl extends AbstractApplicationImpl implements AdvancedApplication {
 
-@XmlSchema(namespace = "http://documentation.bonitasoft.com/application-xml-schema/1.1", elementFormDefault = XmlNsForm.QUALIFIED, xmlns = {
-        @XmlNs(prefix = "", namespaceURI = "http://documentation.bonitasoft.com/application-xml-schema/1.1") })
-package org.bonitasoft.engine.business.application.xml;
+    private static final long serialVersionUID = -7508775735750437592L;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+    public AdvancedApplicationImpl(final String token, final String version, final String description) {
+        super(token, version, description);
+    }
+}

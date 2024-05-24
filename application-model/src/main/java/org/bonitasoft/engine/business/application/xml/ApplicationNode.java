@@ -24,40 +24,21 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 
 /**
+ * Application node for legacy Bonita Living Application.
+ * 
  * @author Elias Ricken de Medeiros
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-public class ApplicationNode {
-
-    @XmlAttribute(required = true)
-    private String token;
-
-    @XmlAttribute(required = true)
-    private String version;
-
-    @XmlElement(required = true)
-    private String displayName;
-
-    @XmlElement
-    private String description;
-
-    @XmlAttribute
-    private String profile;
+public class ApplicationNode extends AbstractApplicationNode {
 
     @XmlAttribute
     private String homePage;
-
-    @XmlAttribute(required = true)
-    private String state;
 
     @XmlAttribute
     private String layout;
 
     @XmlAttribute
     private String theme;
-
-    @XmlElement
-    private String iconPath;
 
     @XmlElementWrapper(name = "applicationPages")
     @XmlElement(name = "applicationPage")
@@ -67,68 +48,12 @@ public class ApplicationNode {
     @XmlElement(name = "applicationMenu")
     private List<ApplicationMenuNode> applicationMenus = new ArrayList<>();
 
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public String getIconPath() {
-        return iconPath;
-    }
-
-    public void setIconPath(String iconPath) {
-        this.iconPath = iconPath;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
     public String getHomePage() {
         return homePage;
     }
 
     public void setHomePage(String homePage) {
         this.homePage = homePage;
-    }
-
-    public String getDisplayName() {
-        return displayName;
-    }
-
-    public void setDisplayName(String displayName) {
-        this.displayName = displayName;
-    }
-
-    public String getProfile() {
-        return profile;
-    }
-
-    public void setProfile(String profile) {
-        this.profile = profile;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 
     public String getLayout() {
@@ -175,21 +100,19 @@ public class ApplicationNode {
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (o == null || getClass() != o.getClass())
+        if (o == null || !super.equals(o))
             return false;
         ApplicationNode that = (ApplicationNode) o;
-        return Objects.equals(token, that.token) && Objects.equals(version, that.version)
-                && Objects.equals(displayName, that.displayName) && Objects.equals(description, that.description)
-                && Objects.equals(profile, that.profile) && Objects.equals(homePage, that.homePage)
-                && Objects.equals(state, that.state) && Objects.equals(layout, that.layout)
-                && Objects.equals(theme, that.theme) && Objects.equals(iconPath, that.iconPath)
+        return Objects.equals(homePage, that.homePage) && Objects.equals(layout, that.layout)
+                && Objects.equals(theme, that.theme)
                 && Objects.equals(applicationPages, that.applicationPages)
                 && Objects.equals(applicationMenus, that.applicationMenus);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(token, version, displayName, description, profile, homePage, state, layout, theme, iconPath,
-                applicationPages, applicationMenus);
+        // keep same as previous hash code
+        return Objects.hash(getToken(), getVersion(), getDisplayName(), getDescription(), getProfile(), homePage,
+                getState(), layout, theme, getIconPath(), applicationPages, applicationMenus);
     }
 }
