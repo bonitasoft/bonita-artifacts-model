@@ -31,7 +31,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class ApplicationNodeContainer {
 
     @XmlElements({
-            @XmlElement(name = "advancedApplication", type = AdvancedApplicationNode.class),
+            @XmlElement(name = "applicationLink", type = ApplicationLinkNode.class),
             @XmlElement(name = "application", type = ApplicationNode.class) })
     private final List<AbstractApplicationNode> allApplications;
 
@@ -39,9 +39,9 @@ public class ApplicationNodeContainer {
         this.allApplications = new ArrayList<>();
     }
 
-    public List<AdvancedApplicationNode> getAdvancedApplications() {
-        return allApplications.stream().filter(AdvancedApplicationNode.class::isInstance)
-                .map(AdvancedApplicationNode.class::cast).collect(Collectors.toList());
+    public List<ApplicationLinkNode> getApplicationLinks() {
+        return allApplications.stream().filter(ApplicationLinkNode.class::isInstance)
+                .map(ApplicationLinkNode.class::cast).collect(Collectors.toList());
     }
 
     public List<ApplicationNode> getApplications() {
