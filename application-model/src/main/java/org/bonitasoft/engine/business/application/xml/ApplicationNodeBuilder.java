@@ -39,35 +39,35 @@ public class ApplicationNodeBuilder {
         public AbstractApplicationNode create();
     }
 
-    public static class AdvancedApplicationBuilder implements IApplicationBuilder {
+    public static class ApplicationLinkBuilder implements IApplicationBuilder {
 
-        private final AdvancedApplicationNode applicationNode;
+        private final ApplicationLinkNode applicationNode;
 
-        public AdvancedApplicationBuilder(String token, String displayName, String version) {
-            applicationNode = new AdvancedApplicationNode();
+        public ApplicationLinkBuilder(String token, String displayName, String version) {
+            applicationNode = new ApplicationLinkNode();
             applicationNode.setToken(token);
             applicationNode.setDisplayName(displayName);
             applicationNode.setVersion(version);
             applicationNode.setState(ApplicationState.ACTIVATED.name());
         }
 
-        public AdvancedApplicationBuilder withDescription(String description) {
+        public ApplicationLinkBuilder withDescription(String description) {
             applicationNode.setDescription(description);
             return this;
         }
 
-        public AdvancedApplicationBuilder withIconPath(String iconPath) {
+        public ApplicationLinkBuilder withIconPath(String iconPath) {
             applicationNode.setIconPath(iconPath);
             return this;
         }
 
-        public AdvancedApplicationBuilder withProfile(String profile) {
+        public ApplicationLinkBuilder withProfile(String profile) {
             applicationNode.setProfile(profile);
             return this;
         }
 
         @Override
-        public AdvancedApplicationNode create() {
+        public ApplicationLinkNode create() {
             return applicationNode;
         }
 
@@ -182,8 +182,8 @@ public class ApplicationNodeBuilder {
         return new ApplicationNodeContainerBuilder();
     }
 
-    public static AdvancedApplicationBuilder newAdvancedApplication(String token, String displayName, String version) {
-        return new AdvancedApplicationBuilder(token, displayName, version);
+    public static ApplicationLinkBuilder newApplicationLink(String token, String displayName, String version) {
+        return new ApplicationLinkBuilder(token, displayName, version);
     }
 
     public static ApplicationBuilder newApplication(String token, String displayName, String version) {

@@ -13,7 +13,7 @@
  **/
 package org.bonitasoft.engine.business.application.impl;
 
-import static org.bonitasoft.engine.business.application.impl.AdvancedApplicationImplAssert.assertThat;
+import static org.bonitasoft.engine.business.application.impl.ApplicationLinkImplAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -23,7 +23,7 @@ import org.bonitasoft.engine.business.application.ApplicationState;
 import org.bonitasoft.engine.business.application.ApplicationVisibility;
 import org.junit.jupiter.api.Test;
 
-class AdvancedApplicationImplTest {
+class ApplicationLinkImplTest {
 
     @Test
     void setters_and_getters_are_ok() {
@@ -41,7 +41,7 @@ class AdvancedApplicationImplTest {
         String state = ApplicationState.ACTIVATED.name();
 
         //when
-        AdvancedApplicationImpl application = new AdvancedApplicationImpl(token, version, description);
+        ApplicationLinkImpl application = new ApplicationLinkImpl(token, version, description);
         application.setUpdatedBy(updatedBy);
         application.setProfileId(profileId);
         application.setHasIcon(true);
@@ -70,8 +70,8 @@ class AdvancedApplicationImplTest {
         String description = "hr description";
 
         //when
-        AdvancedApplicationImpl application1 = new AdvancedApplicationImpl(token, version, description);
-        AdvancedApplicationImpl application2 = new AdvancedApplicationImpl(token, version, description);
+        ApplicationLinkImpl application1 = new ApplicationLinkImpl(token, version, description);
+        ApplicationLinkImpl application2 = new ApplicationLinkImpl(token, version, description);
 
         // then
         assertThat(application1).isEqualTo(application2);
@@ -86,7 +86,7 @@ class AdvancedApplicationImplTest {
         String description = "hr description";
 
         //when
-        AdvancedApplicationImpl application1 = new AdvancedApplicationImpl(token, version, description);
+        ApplicationLinkImpl application1 = new ApplicationLinkImpl(token, version, description);
         ApplicationImpl application2 = new ApplicationImpl(token, version, description);
 
         // then
@@ -102,9 +102,9 @@ class AdvancedApplicationImplTest {
         String description = "hr description";
 
         //when
-        AdvancedApplicationImpl application1 = new AdvancedApplicationImpl(token, version, description);
+        ApplicationLinkImpl application1 = new ApplicationLinkImpl(token, version, description);
         application1.setIconPath("/img.png");
-        AdvancedApplicationImpl application2 = new AdvancedApplicationImpl(token, version, description);
+        ApplicationLinkImpl application2 = new ApplicationLinkImpl(token, version, description);
         application1.setIconPath("/img.jpg");
 
         // then

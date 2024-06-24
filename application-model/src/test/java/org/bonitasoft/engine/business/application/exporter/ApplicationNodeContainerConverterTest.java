@@ -16,9 +16,9 @@ package org.bonitasoft.engine.business.application.exporter;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newAdvancedApplication;
 import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newApplication;
 import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newApplicationContainer;
+import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newApplicationLink;
 
 import javax.xml.bind.UnmarshalException;
 
@@ -32,12 +32,12 @@ class ApplicationNodeContainerConverterTest {
     @Test
     void should_marshall_applicationContainer_to_xml() throws Exception {
         try (var inputStream = ApplicationNodeContainerConverterTest.class
-                .getResourceAsStream("/advancedApplication.xml")) {
+                .getResourceAsStream("/applicationLink.xml")) {
             assertThat(inputStream).isNotNull();
             var expectedXml = new String(inputStream.readAllBytes());
 
             final byte[] xml = converter.marshallToXML(newApplicationContainer()
-                    .havingApplications(newAdvancedApplication("myApp", "My App", "1.0")).create());
+                    .havingApplications(newApplicationLink("myApp", "My App", "1.0")).create());
 
             assertThat(xml).isNotNull();
             assertThat(new String(xml)).isEqualToIgnoringNewLines(expectedXml);
@@ -47,12 +47,12 @@ class ApplicationNodeContainerConverterTest {
     @Test
     void should_unmarshall_xml_into_applicationContainer() throws Exception {
         try (var inputStream = ApplicationNodeContainerConverterTest.class
-                .getResourceAsStream("/advancedApplication.xml")) {
+                .getResourceAsStream("/applicationLink.xml")) {
             assertThat(inputStream).isNotNull();
             final ApplicationNodeContainer container = converter.unmarshallFromXML(inputStream.readAllBytes());
 
             assertThat(container).isNotNull();
-            assertThat(container.getAdvancedApplications()).extracting("token", "displayName", "version")
+            assertThat(container.getApplicationLinks()).extracting("token", "displayName", "version")
                     .contains(tuple("myApp", "My App", "1.0"));
         }
     }
@@ -92,7 +92,7 @@ class ApplicationNodeContainerConverterTest {
 
             final byte[] xml = converter.marshallToXML(newApplicationContainer()
                     .havingApplications(newApplication("myApp", "My App", "1.0"),
-                            newAdvancedApplication("myAdvancedApp", "My App 2", "2.0"))
+                            newApplicationLink("myLinkedApp", "My App 2", "2.0"))
                     .create());
 
             assertThat(xml).isNotNull();
@@ -109,14 +109,14 @@ class ApplicationNodeContainerConverterTest {
 
             assertThat(container).isNotNull();
             assertThat(container.getAllApplications()).extracting("token", "displayName", "version")
-                    .containsExactly(tuple("myApp", "My App", "1.0"), tuple("myAdvancedApp", "My App 2", "2.0"));
+                    .containsExactly(tuple("myApp", "My App", "1.0"), tuple("myLinkedApp", "My App 2", "2.0"));
         }
     }
 
     @Test
     void should_fail_unmarshall_xml_into_applicationContainer() throws Exception {
         try (var inputStream = ApplicationNodeContainerConverterTest.class
-                .getResourceAsStream("/badAdvancedApplication.xml")) {
+                .getResourceAsStream("/badApplicationLink.xml")) {
             assertThat(inputStream).isNotNull();
             assertThatExceptionOfType(UnmarshalException.class)
                     .isThrownBy(() -> converter.unmarshallFromXML(inputStream.readAllBytes()));

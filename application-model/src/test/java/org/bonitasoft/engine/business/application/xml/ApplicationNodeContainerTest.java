@@ -29,12 +29,12 @@ class ApplicationNodeContainerTest {
     }
 
     @Test
-    void addAdvancedApplication_should_add_new_entry_to_application_list() {
+    void addApplicationLink_should_add_new_entry_to_application_list() {
         //given
-        AdvancedApplicationNode app1 = new AdvancedApplicationNode();
+        ApplicationLinkNode app1 = new ApplicationLinkNode();
         app1.setToken("app1");
 
-        AdvancedApplicationNode app2 = new AdvancedApplicationNode();
+        ApplicationLinkNode app2 = new ApplicationLinkNode();
         app2.setToken("app2");
 
         ApplicationNodeContainer container = new ApplicationNodeContainer();
@@ -44,7 +44,7 @@ class ApplicationNodeContainerTest {
         container.addApplication(app2);
 
         //then
-        assertThat(container).hasAdvancedApplications(app1, app2)
+        assertThat(container).hasApplicationLinks(app1, app2)
                 .hasAllApplications(app1, app2);
 
     }

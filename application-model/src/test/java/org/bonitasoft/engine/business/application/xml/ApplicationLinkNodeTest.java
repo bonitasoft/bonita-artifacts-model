@@ -13,11 +13,11 @@
  **/
 package org.bonitasoft.engine.business.application.xml;
 
-import static org.bonitasoft.engine.business.application.xml.AdvancedApplicationNodeAssert.assertThat;
+import static org.bonitasoft.engine.business.application.xml.ApplicationLinkNodeAssert.assertThat;
 
 import org.junit.jupiter.api.Test;
 
-class AdvancedApplicationNodeTest {
+class ApplicationLinkNodeTest {
 
     @Test
     void simple_setters_and_getters_are_working() {
@@ -31,7 +31,7 @@ class AdvancedApplicationNodeTest {
         final String state = "ACTIVATED";
 
         //when
-        final AdvancedApplicationNode app = new AdvancedApplicationNode();
+        final ApplicationLinkNode app = new ApplicationLinkNode();
         app.setDisplayName(displayName);
         app.setDescription(description);
         app.setIconPath(iconPath);
@@ -48,19 +48,19 @@ class AdvancedApplicationNodeTest {
 
     @Test
     void equals_should_return_true_on_different_applications_with_same_content() {
-        AdvancedApplicationNode applicationNode1 = ApplicationNodeBuilder
-                .newAdvancedApplication("appToken", "appName", "1.0")
+        ApplicationLinkNode applicationNode1 = ApplicationNodeBuilder
+                .newApplicationLink("appToken", "appName", "1.0")
                 .create();
-        AdvancedApplicationNode applicationNode2 = ApplicationNodeBuilder
-                .newAdvancedApplication("appToken", "appName", "1.0")
+        ApplicationLinkNode applicationNode2 = ApplicationNodeBuilder
+                .newApplicationLink("appToken", "appName", "1.0")
                 .create();
         assertThat(applicationNode1).isEqualTo(applicationNode2);
     }
 
     @Test
     void equals_should_return_false_on_legacy_applications_with_same_content() {
-        AdvancedApplicationNode applicationNode1 = ApplicationNodeBuilder
-                .newAdvancedApplication("appToken", "appName", "1.0")
+        ApplicationLinkNode applicationNode1 = ApplicationNodeBuilder
+                .newApplicationLink("appToken", "appName", "1.0")
                 .create();
         ApplicationNode applicationNode2 = ApplicationNodeBuilder.newApplication("appToken", "appName", "1.0")
                 .create();
@@ -69,12 +69,12 @@ class AdvancedApplicationNodeTest {
 
     @Test
     void equals_should_return_false_on_different_applications_with_different_content() {
-        AdvancedApplicationNode applicationNode1 = ApplicationNodeBuilder
-                .newAdvancedApplication("appToken", "appName", "1.0")
+        ApplicationLinkNode applicationNode1 = ApplicationNodeBuilder
+                .newApplicationLink("appToken", "appName", "1.0")
                 .withIconPath("/img1.png")
                 .create();
-        AdvancedApplicationNode applicationNode2 = ApplicationNodeBuilder
-                .newAdvancedApplication("appToken", "appName", "1.0")
+        ApplicationLinkNode applicationNode2 = ApplicationNodeBuilder
+                .newApplicationLink("appToken", "appName", "1.0")
                 .withIconPath("/img1.gif")
                 .create();
         assertThat(applicationNode1).isNotEqualTo(applicationNode2);
