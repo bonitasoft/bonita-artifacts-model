@@ -14,7 +14,7 @@
 package org.bonitasoft.engine.business.application;
 
 /**
- * Contains the meta information of an advanced Bonita Living Application.
+ * Contains the meta information of a Bonita Living Application as a link.
  */
-public interface AdvancedApplication extends IApplication {
+public interface ApplicationLink extends IApplication {
 }

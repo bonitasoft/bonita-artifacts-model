@@ -11,21 +11,18 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
-package org.bonitasoft.engine.business.application.xml;
+package org.bonitasoft.engine.business.application.impl;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
+import org.bonitasoft.engine.business.application.ApplicationLink;
 
 /**
- * Application node for advanced Bonita Living Application.
+ * Contains the meta information of a Bonita Living Application as a link.
  */
-@XmlAccessorType(XmlAccessType.FIELD)
-public class AdvancedApplicationNode extends AbstractApplicationNode {
+public class ApplicationLinkImpl extends AbstractApplicationImpl implements ApplicationLink {
 
-    /*
-     * Super implementations of equals and hashCode are enough.
-     * No need to override.
-     * (non-Javadoc)
-     */
+    private static final long serialVersionUID = -7508775735750437592L;
 
+    public ApplicationLinkImpl(final String token, final String version, final String description) {
+        super(token, version, description);
+    }
 }

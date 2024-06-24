@@ -44,173 +44,6 @@ public class ApplicationNodeContainerAssert
     }
 
     /**
-     * Verifies that the actual ApplicationNodeContainer's advancedApplications contains the given AdvancedApplicationNode elements.
-     * 
-     * @param advancedApplications the given elements that should be contained in actual ApplicationNodeContainer's advancedApplications.
-     * @return this assertion object.
-     * @throws AssertionError if the actual ApplicationNodeContainer's advancedApplications does not contain all given AdvancedApplicationNode elements.
-     */
-    public ApplicationNodeContainerAssert hasAdvancedApplications(AdvancedApplicationNode... advancedApplications) {
-        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
-        isNotNull();
-
-        // check that given AdvancedApplicationNode varargs is not null.
-        if (advancedApplications == null)
-            failWithMessage("Expecting advancedApplications parameter not to be null.");
-
-        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
-        Iterables.instance().assertContains(info, actual.getAdvancedApplications(), advancedApplications);
-
-        // return the current assertion for method chaining
-        return this;
-    }
-
-    /**
-     * Verifies that the actual ApplicationNodeContainer's advancedApplications contains the given AdvancedApplicationNode elements in Collection.
-     * 
-     * @param advancedApplications the given elements that should be contained in actual ApplicationNodeContainer's advancedApplications.
-     * @return this assertion object.
-     * @throws AssertionError if the actual ApplicationNodeContainer's advancedApplications does not contain all given AdvancedApplicationNode elements.
-     */
-    public ApplicationNodeContainerAssert hasAdvancedApplications(
-            java.util.Collection<? extends AdvancedApplicationNode> advancedApplications) {
-        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
-        isNotNull();
-
-        // check that given AdvancedApplicationNode collection is not null.
-        if (advancedApplications == null) {
-            failWithMessage("Expecting advancedApplications parameter not to be null.");
-            return this; // to fool Eclipse "Null pointer access" warning on toArray.
-        }
-
-        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
-        Iterables.instance().assertContains(info, actual.getAdvancedApplications(), advancedApplications.toArray());
-
-        // return the current assertion for method chaining
-        return this;
-    }
-
-    /**
-     * Verifies that the actual ApplicationNodeContainer's advancedApplications contains <b>only</b> the given AdvancedApplicationNode elements and nothing else in
-     * whatever order.
-     * 
-     * @param advancedApplications the given elements that should be contained in actual ApplicationNodeContainer's advancedApplications.
-     * @return this assertion object.
-     * @throws AssertionError if the actual ApplicationNodeContainer's advancedApplications does not contain all given AdvancedApplicationNode elements.
-     */
-    public ApplicationNodeContainerAssert hasOnlyAdvancedApplications(AdvancedApplicationNode... advancedApplications) {
-        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
-        isNotNull();
-
-        // check that given AdvancedApplicationNode varargs is not null.
-        if (advancedApplications == null)
-            failWithMessage("Expecting advancedApplications parameter not to be null.");
-
-        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
-        Iterables.instance().assertContainsOnly(info, actual.getAdvancedApplications(), advancedApplications);
-
-        // return the current assertion for method chaining
-        return this;
-    }
-
-    /**
-     * Verifies that the actual ApplicationNodeContainer's advancedApplications contains <b>only</b> the given AdvancedApplicationNode elements in Collection and
-     * nothing else in whatever order.
-     * 
-     * @param advancedApplications the given elements that should be contained in actual ApplicationNodeContainer's advancedApplications.
-     * @return this assertion object.
-     * @throws AssertionError if the actual ApplicationNodeContainer's advancedApplications does not contain all given AdvancedApplicationNode elements.
-     */
-    public ApplicationNodeContainerAssert hasOnlyAdvancedApplications(
-            java.util.Collection<? extends AdvancedApplicationNode> advancedApplications) {
-        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
-        isNotNull();
-
-        // check that given AdvancedApplicationNode collection is not null.
-        if (advancedApplications == null) {
-            failWithMessage("Expecting advancedApplications parameter not to be null.");
-            return this; // to fool Eclipse "Null pointer access" warning on toArray.
-        }
-
-        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
-        Iterables.instance().assertContainsOnly(info, actual.getAdvancedApplications(), advancedApplications.toArray());
-
-        // return the current assertion for method chaining
-        return this;
-    }
-
-    /**
-     * Verifies that the actual ApplicationNodeContainer's advancedApplications does not contain the given AdvancedApplicationNode elements.
-     *
-     * @param advancedApplications the given elements that should not be in actual ApplicationNodeContainer's advancedApplications.
-     * @return this assertion object.
-     * @throws AssertionError if the actual ApplicationNodeContainer's advancedApplications contains any given AdvancedApplicationNode elements.
-     */
-    public ApplicationNodeContainerAssert doesNotHaveAdvancedApplications(
-            AdvancedApplicationNode... advancedApplications) {
-        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
-        isNotNull();
-
-        // check that given AdvancedApplicationNode varargs is not null.
-        if (advancedApplications == null)
-            failWithMessage("Expecting advancedApplications parameter not to be null.");
-
-        // check with standard error message (use overridingErrorMessage before contains to set your own message).
-        Iterables.instance().assertDoesNotContain(info, actual.getAdvancedApplications(), advancedApplications);
-
-        // return the current assertion for method chaining
-        return this;
-    }
-
-    /**
-     * Verifies that the actual ApplicationNodeContainer's advancedApplications does not contain the given AdvancedApplicationNode elements in Collection.
-     *
-     * @param advancedApplications the given elements that should not be in actual ApplicationNodeContainer's advancedApplications.
-     * @return this assertion object.
-     * @throws AssertionError if the actual ApplicationNodeContainer's advancedApplications contains any given AdvancedApplicationNode elements.
-     */
-    public ApplicationNodeContainerAssert doesNotHaveAdvancedApplications(
-            java.util.Collection<? extends AdvancedApplicationNode> advancedApplications) {
-        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
-        isNotNull();
-
-        // check that given AdvancedApplicationNode collection is not null.
-        if (advancedApplications == null) {
-            failWithMessage("Expecting advancedApplications parameter not to be null.");
-            return this; // to fool Eclipse "Null pointer access" warning on toArray.
-        }
-
-        // check with standard error message (use overridingErrorMessage before contains to set your own message).
-        Iterables.instance().assertDoesNotContain(info, actual.getAdvancedApplications(),
-                advancedApplications.toArray());
-
-        // return the current assertion for method chaining
-        return this;
-    }
-
-    /**
-     * Verifies that the actual ApplicationNodeContainer has no advancedApplications.
-     * 
-     * @return this assertion object.
-     * @throws AssertionError if the actual ApplicationNodeContainer's advancedApplications is not empty.
-     */
-    public ApplicationNodeContainerAssert hasNoAdvancedApplications() {
-        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
-        isNotNull();
-
-        // we override the default error message with a more explicit one
-        String assertjErrorMessage = "\nExpecting :\n  <%s>\nnot to have advancedApplications but had :\n  <%s>";
-
-        // check
-        if (actual.getAdvancedApplications().iterator().hasNext()) {
-            failWithMessage(assertjErrorMessage, actual, actual.getAdvancedApplications());
-        }
-
-        // return the current assertion for method chaining
-        return this;
-    }
-
-    /**
      * Verifies that the actual ApplicationNodeContainer's allApplications contains the given AbstractApplicationNode elements.
      * 
      * @param allApplications the given elements that should be contained in actual ApplicationNodeContainer's allApplications.
@@ -369,6 +202,171 @@ public class ApplicationNodeContainerAssert
         // check
         if (actual.getAllApplications().iterator().hasNext()) {
             failWithMessage(assertjErrorMessage, actual, actual.getAllApplications());
+        }
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
+     * Verifies that the actual ApplicationNodeContainer's applicationLinks contains the given ApplicationLinkNode elements.
+     * 
+     * @param applicationLinks the given elements that should be contained in actual ApplicationNodeContainer's applicationLinks.
+     * @return this assertion object.
+     * @throws AssertionError if the actual ApplicationNodeContainer's applicationLinks does not contain all given ApplicationLinkNode elements.
+     */
+    public ApplicationNodeContainerAssert hasApplicationLinks(ApplicationLinkNode... applicationLinks) {
+        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
+        isNotNull();
+
+        // check that given ApplicationLinkNode varargs is not null.
+        if (applicationLinks == null)
+            failWithMessage("Expecting applicationLinks parameter not to be null.");
+
+        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
+        Iterables.instance().assertContains(info, actual.getApplicationLinks(), applicationLinks);
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
+     * Verifies that the actual ApplicationNodeContainer's applicationLinks contains the given ApplicationLinkNode elements in Collection.
+     * 
+     * @param applicationLinks the given elements that should be contained in actual ApplicationNodeContainer's applicationLinks.
+     * @return this assertion object.
+     * @throws AssertionError if the actual ApplicationNodeContainer's applicationLinks does not contain all given ApplicationLinkNode elements.
+     */
+    public ApplicationNodeContainerAssert hasApplicationLinks(
+            java.util.Collection<? extends ApplicationLinkNode> applicationLinks) {
+        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
+        isNotNull();
+
+        // check that given ApplicationLinkNode collection is not null.
+        if (applicationLinks == null) {
+            failWithMessage("Expecting applicationLinks parameter not to be null.");
+            return this; // to fool Eclipse "Null pointer access" warning on toArray.
+        }
+
+        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
+        Iterables.instance().assertContains(info, actual.getApplicationLinks(), applicationLinks.toArray());
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
+     * Verifies that the actual ApplicationNodeContainer's applicationLinks contains <b>only</b> the given ApplicationLinkNode elements and nothing else in whatever
+     * order.
+     * 
+     * @param applicationLinks the given elements that should be contained in actual ApplicationNodeContainer's applicationLinks.
+     * @return this assertion object.
+     * @throws AssertionError if the actual ApplicationNodeContainer's applicationLinks does not contain all given ApplicationLinkNode elements.
+     */
+    public ApplicationNodeContainerAssert hasOnlyApplicationLinks(ApplicationLinkNode... applicationLinks) {
+        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
+        isNotNull();
+
+        // check that given ApplicationLinkNode varargs is not null.
+        if (applicationLinks == null)
+            failWithMessage("Expecting applicationLinks parameter not to be null.");
+
+        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
+        Iterables.instance().assertContainsOnly(info, actual.getApplicationLinks(), applicationLinks);
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
+     * Verifies that the actual ApplicationNodeContainer's applicationLinks contains <b>only</b> the given ApplicationLinkNode elements in Collection and nothing
+     * else in whatever order.
+     * 
+     * @param applicationLinks the given elements that should be contained in actual ApplicationNodeContainer's applicationLinks.
+     * @return this assertion object.
+     * @throws AssertionError if the actual ApplicationNodeContainer's applicationLinks does not contain all given ApplicationLinkNode elements.
+     */
+    public ApplicationNodeContainerAssert hasOnlyApplicationLinks(
+            java.util.Collection<? extends ApplicationLinkNode> applicationLinks) {
+        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
+        isNotNull();
+
+        // check that given ApplicationLinkNode collection is not null.
+        if (applicationLinks == null) {
+            failWithMessage("Expecting applicationLinks parameter not to be null.");
+            return this; // to fool Eclipse "Null pointer access" warning on toArray.
+        }
+
+        // check with standard error message, to set another message call: info.overridingErrorMessage("my error message");
+        Iterables.instance().assertContainsOnly(info, actual.getApplicationLinks(), applicationLinks.toArray());
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
+     * Verifies that the actual ApplicationNodeContainer's applicationLinks does not contain the given ApplicationLinkNode elements.
+     *
+     * @param applicationLinks the given elements that should not be in actual ApplicationNodeContainer's applicationLinks.
+     * @return this assertion object.
+     * @throws AssertionError if the actual ApplicationNodeContainer's applicationLinks contains any given ApplicationLinkNode elements.
+     */
+    public ApplicationNodeContainerAssert doesNotHaveApplicationLinks(ApplicationLinkNode... applicationLinks) {
+        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
+        isNotNull();
+
+        // check that given ApplicationLinkNode varargs is not null.
+        if (applicationLinks == null)
+            failWithMessage("Expecting applicationLinks parameter not to be null.");
+
+        // check with standard error message (use overridingErrorMessage before contains to set your own message).
+        Iterables.instance().assertDoesNotContain(info, actual.getApplicationLinks(), applicationLinks);
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
+     * Verifies that the actual ApplicationNodeContainer's applicationLinks does not contain the given ApplicationLinkNode elements in Collection.
+     *
+     * @param applicationLinks the given elements that should not be in actual ApplicationNodeContainer's applicationLinks.
+     * @return this assertion object.
+     * @throws AssertionError if the actual ApplicationNodeContainer's applicationLinks contains any given ApplicationLinkNode elements.
+     */
+    public ApplicationNodeContainerAssert doesNotHaveApplicationLinks(
+            java.util.Collection<? extends ApplicationLinkNode> applicationLinks) {
+        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
+        isNotNull();
+
+        // check that given ApplicationLinkNode collection is not null.
+        if (applicationLinks == null) {
+            failWithMessage("Expecting applicationLinks parameter not to be null.");
+            return this; // to fool Eclipse "Null pointer access" warning on toArray.
+        }
+
+        // check with standard error message (use overridingErrorMessage before contains to set your own message).
+        Iterables.instance().assertDoesNotContain(info, actual.getApplicationLinks(), applicationLinks.toArray());
+
+        // return the current assertion for method chaining
+        return this;
+    }
+
+    /**
+     * Verifies that the actual ApplicationNodeContainer has no applicationLinks.
+     * 
+     * @return this assertion object.
+     * @throws AssertionError if the actual ApplicationNodeContainer's applicationLinks is not empty.
+     */
+    public ApplicationNodeContainerAssert hasNoApplicationLinks() {
+        // check that actual ApplicationNodeContainer we want to make assertions on is not null.
+        isNotNull();
+
+        // we override the default error message with a more explicit one
+        String assertjErrorMessage = "\nExpecting :\n  <%s>\nnot to have applicationLinks but had :\n  <%s>";
+
+        // check
+        if (actual.getApplicationLinks().iterator().hasNext()) {
+            failWithMessage(assertjErrorMessage, actual, actual.getApplicationLinks());
         }
 
         // return the current assertion for method chaining
