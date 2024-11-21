@@ -15,6 +15,7 @@ package org.bonitasoft.engine.bdm.validator;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import org.bonitasoft.engine.bdm.validator.SQLNameValidator.Grammar;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -40,7 +41,24 @@ class SQLNameValidatorTest {
 
     @Test
     void shouldSQLKeyword_contains_links_word() {
-        assertThat(SQLNameValidator.sqlKeywords).contains("LINKS");
+        assertThat(sqlNameValidator.isSQLKeyword("LINKS"));
+    }
+
+    @Test
+    void should_index_beKeywordDiscouragedBy_SQL() {
+        assertThat(sqlNameValidator.isKeywordDiscouragedBy("index")).containsExactly(Grammar.SQL);
+    }
+
+    @Test
+    void should_offset_beKeywordDiscouragedBy_H2_MySQL_Postgres() {
+        // note that SqlServer has OFFSETS, not OFFSET...
+        assertThat(sqlNameValidator.isKeywordDiscouragedBy("offset")).containsExactlyInAnyOrder(
+                Grammar.H2, Grammar.MYSQL, Grammar.POSTGRES);
+    }
+
+    @Test
+    void should_isKeywordDiscouragedBy_ReturnsEmpty() {
+        assertThat(sqlNameValidator.isKeywordDiscouragedBy("employee")).isEmpty();
     }
 
     @Test
@@ -50,6 +68,7 @@ class SQLNameValidatorTest {
         assertThat(sqlNameValidator.isValid("5employee")).isFalse();
         assertThat(sqlNameValidator.isValid("émployee")).isFalse();
         assertThat(sqlNameValidator.isValid("employee.name")).isFalse();
+        assertThat(sqlNameValidator.isValid("limit")).isFalse();
         assertThat(sqlNameValidator.isValid("order")).isFalse();
         assertThat(sqlNameValidator.isValid("SCOPE")).isFalse();
     }
