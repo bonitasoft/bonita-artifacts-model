@@ -57,6 +57,17 @@ class SQLNameValidatorTest {
     }
 
     @Test
+    void shouldToString_beDefindeForEachGrammar() {
+        for (var gram : Grammar.values()) {
+            var toString = gram.toString();
+            assertThat(toString).isNotEmpty();
+            if (gram != Grammar.H2) {
+                assertThat(toString).isNotEqualTo(gram.name());
+            }
+        }
+    }
+
+    @Test
     void should_isKeywordDiscouragedBy_ReturnsEmpty() {
         assertThat(sqlNameValidator.isKeywordDiscouragedBy("employee")).isEmpty();
     }
