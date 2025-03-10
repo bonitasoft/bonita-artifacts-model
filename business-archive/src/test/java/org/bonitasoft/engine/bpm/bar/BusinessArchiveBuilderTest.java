@@ -102,4 +102,28 @@ class BusinessArchiveBuilderTest {
         assertThat(generatedXMLActorMapping).doesNotContain("ns2")
                 .contains("actorMappings:");
     }
+
+    @Test
+    void ensure_jarlessBar_has_marker() throws Exception {
+        // when:
+        final BusinessArchive archive = new BusinessArchiveBuilder().createNewBusinessArchive()
+                .setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("proc", "1").done())
+                .withoutDependencyJars().done();
+
+        // then:
+        assertThat(archive.hasDependencyJars()).isFalse();
+        assertThat(archive.getResource(".jarless")).isEmpty();
+    }
+
+    @Test
+    void ensure_normalBar_is_not_jarless() throws Exception {
+        // when:
+        final BusinessArchive archive = new BusinessArchiveBuilder().createNewBusinessArchive()
+                .setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("proc", "1").done())
+                .done();
+
+        // then:
+        assertThat(archive.hasDependencyJars()).isTrue();
+        assertThat(archive.getResource(".jarless")).isNull();
+    }
 }
