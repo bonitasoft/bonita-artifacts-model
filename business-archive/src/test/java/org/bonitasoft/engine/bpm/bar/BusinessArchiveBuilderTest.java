@@ -32,18 +32,18 @@ import org.mockito.junit.jupiter.MockitoExtension;
 class BusinessArchiveBuilderTest {
 
     @Spy
-    BusinessArchiveBuilder archive;
+    BusinessArchiveBuilder builder;
 
     @BeforeEach
-    public void initialization() {
-        archive.createNewBusinessArchive();
+    void initialization() {
+        builder.createNewBusinessArchive();
     }
 
     @Test
     void addFormMappingsShouldAddFileWithProperName() throws Exception {
         final FormMappingModel inputModel = new FormMappingModel();
         // when:
-        final BusinessArchive archive = new BusinessArchiveBuilder().createNewBusinessArchive()
+        final BusinessArchive archive = builder
                 .setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("proc", "1").done())
                 .setFormMappings(inputModel).done();
 
@@ -75,7 +75,7 @@ class BusinessArchiveBuilderTest {
                 + "</actorMapping>"
                 + "</actorMappings:actorMappings>";
         byte[] xmlContent = xmlString.getBytes();
-        final ActorMapping actorMapping = archive.setActorMapping(xmlContent).getActorMapping();
+        final ActorMapping actorMapping = builder.setActorMapping(xmlContent).getActorMapping();
 
         assertThat(actorMapping).isNotNull();
         assertThat(actorMapping.getActors()).hasSize(1);
@@ -96,10 +96,34 @@ class BusinessArchiveBuilderTest {
             assertThat(membership.getRole()).isEqualTo("dev");
         }
 
-        verify(archive, times(1)).setActorMapping(actorMapping);
+        verify(builder, times(1)).setActorMapping(actorMapping);
 
         final String generatedXMLActorMapping = new String(new ActorMappingMarshaller().serializeToXML(actorMapping));
         assertThat(generatedXMLActorMapping).doesNotContain("ns2")
                 .contains("actorMappings:");
+    }
+
+    @Test
+    void ensure_jarlessBar_has_marker() throws Exception {
+        // when:
+        final BusinessArchive archive = builder
+                .setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("proc", "1").done())
+                .withoutDependencyJars().done();
+
+        // then:
+        assertThat(archive.hasDependencyJars()).isFalse();
+        assertThat(archive.getResource(".jarless")).isEmpty();
+    }
+
+    @Test
+    void ensure_normalBar_is_not_jarless() throws Exception {
+        // when:
+        final BusinessArchive archive = builder
+                .setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("proc", "1").done())
+                .done();
+
+        // then:
+        assertThat(archive.hasDependencyJars()).isTrue();
+        assertThat(archive.getResource(".jarless")).isNull();
     }
 }

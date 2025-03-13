@@ -56,6 +56,16 @@ public class BusinessArchiveBuilder {
     }
 
     /**
+     * Indicate the {@link BusinessArchive} that is currently build Tag will not contain the dependency jars.
+     * 
+     * @return the same {@link BusinessArchiveBuilder} in order to chain calls
+     */
+    public BusinessArchiveBuilder withoutDependencyJars() {
+        entity.tagWithoutDependencyJars();
+        return this;
+    }
+
+    /**
      * Set the process definition of the {@link BusinessArchive} that is currently build
      * <p> {@link DesignProcessDefinition} can be constructed using
      * {@link org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder}
