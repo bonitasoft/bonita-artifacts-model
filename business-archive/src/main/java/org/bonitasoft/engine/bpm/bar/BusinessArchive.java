@@ -47,20 +47,22 @@ public class BusinessArchive implements Serializable {
 
     private ActorMapping actorMapping = null;
 
+    private boolean hasDependencyJars = true;
+
     /**
      * Test whether this is BusinessArchive file contains the dependency jars.
      * 
      * @return true when it contains dependency jars, false when jar less
      */
     public boolean hasDependencyJars() {
-        return !resources.containsKey(JarlessMarkerContribution.JAR_LESS_MARKER_RESOURCE_PATH);
+        return hasDependencyJars;
     }
 
     /**
      * Tag this BusinessArchive file to indicate it does not contain the dependency jars.
      */
     public void tagWithoutDependencyJars() {
-        resources.put(JarlessMarkerContribution.JAR_LESS_MARKER_RESOURCE_PATH, new byte[] {});
+        hasDependencyJars = false;
     }
 
     /*

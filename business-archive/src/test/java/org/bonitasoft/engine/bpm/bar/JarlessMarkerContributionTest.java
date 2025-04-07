@@ -82,5 +82,7 @@ class JarlessMarkerContributionTest {
         //then
         assertThat(present).isTrue();
         verify(businessArchive).tagWithoutDependencyJars();
+        // jarless tag does not count as a resource
+        assertThat(businessArchive.getResource(contribution.getName())).isNull();
     }
 }

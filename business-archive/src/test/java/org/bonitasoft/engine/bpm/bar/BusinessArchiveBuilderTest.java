@@ -112,7 +112,8 @@ class BusinessArchiveBuilderTest {
 
         // then:
         assertThat(archive.hasDependencyJars()).isFalse();
-        assertThat(archive.getResource(".jarless")).isEmpty();
+        // marker does not count as a resource
+        assertThat(archive.getResource(".jarless")).isNull();
     }
 
     @Test
