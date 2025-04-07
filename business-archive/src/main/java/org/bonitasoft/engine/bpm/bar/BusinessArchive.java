@@ -37,8 +37,6 @@ public class BusinessArchive implements Serializable {
 
     private static final long serialVersionUID = -6410347766671025202L;
 
-    private static final String JAR_LESS_MARKER_RESOURCE_PATH = ".jarless";
-
     private final Map<String, byte[]> resources = new HashMap<>();
 
     private DesignProcessDefinition processDefinition;
@@ -55,14 +53,14 @@ public class BusinessArchive implements Serializable {
      * @return true when it contains dependency jars, false when jar less
      */
     public boolean hasDependencyJars() {
-        return !resources.containsKey(JAR_LESS_MARKER_RESOURCE_PATH);
+        return !resources.containsKey(JarlessMarkerContribution.JAR_LESS_MARKER_RESOURCE_PATH);
     }
 
     /**
      * Tag this BusinessArchive file to indicate it does not contain the dependency jars.
      */
     public void tagWithoutDependencyJars() {
-        resources.put(JAR_LESS_MARKER_RESOURCE_PATH, new byte[] {});
+        resources.put(JarlessMarkerContribution.JAR_LESS_MARKER_RESOURCE_PATH, new byte[] {});
     }
 
     /*
