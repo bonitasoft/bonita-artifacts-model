@@ -49,6 +49,7 @@ public class BusinessArchiveFactory {
         contributions.add(new DocumentsResourcesContribution());
         contributions.add(new ClasspathContribution());
         contributions.add(new FormMappingContribution());
+        contributions.add(new JarlessMarkerContribution());
     }
 
     private static final BusinessArchiveFactory INSTANCE = new BusinessArchiveFactory();
