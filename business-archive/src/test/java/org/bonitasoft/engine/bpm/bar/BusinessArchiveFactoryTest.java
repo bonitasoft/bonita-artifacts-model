@@ -62,6 +62,20 @@ class BusinessArchiveFactoryTest {
     }
 
     @Test
+    void readBusinessArchiveFromFolderWithJarLessMarker(@TempDir Path tmpDir) throws Exception {
+        BusinessArchive businessArchive = createBusinessArchive();
+        tmpDir.resolve(".jarless").toFile().createNewFile();
+        BusinessArchiveFactory.writeBusinessArchiveToFolder(businessArchive, tmpDir.toFile());
+
+        var archive = BusinessArchiveFactory.readBusinessArchive(tmpDir.toFile());
+
+        assertThat(archive).isNotNull();
+        assertThat(archive.hasDependencyJars()).isFalse();
+        assertThat(archive.getResource(".jarless")).isNull();
+        assertThat(archive.getProcessDefinition().getName()).isEqualTo("说话_éé");
+    }
+
+    @Test
     void readBusinessArchiveFromFolder(@TempDir Path tmpDir) throws Exception {
         BusinessArchive businessArchive = createBusinessArchive();
         BusinessArchiveFactory.writeBusinessArchiveToFolder(businessArchive, tmpDir.toFile());
