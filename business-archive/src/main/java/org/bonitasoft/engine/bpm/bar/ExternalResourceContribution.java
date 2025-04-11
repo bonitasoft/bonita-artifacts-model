@@ -35,7 +35,7 @@ public class ExternalResourceContribution implements BusinessArchiveContribution
         final File externalResourceFolder = new File(barFolder, EXTERNAL_RESOURCE_FOLDER);
         if (externalResourceFolder.exists() && !externalResourceFolder.isFile()) {
             final BarResourceVisitor barResourceVisitor = new BarResourceVisitor(businessArchive, barFolder.toPath());
-            Files.walkFileTree(barFolder.toPath(), barResourceVisitor);
+            Files.walkFileTree(externalResourceFolder.toPath(), barResourceVisitor);
             return barResourceVisitor.getResourcesCount() > 0;
 
         }
