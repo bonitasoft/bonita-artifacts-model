@@ -62,7 +62,8 @@ class BusinessArchiveFactoryTest {
     }
 
     @Test
-    void readBusinessArchiveFromFolderWithJarLessMarker(@TempDir Path tmpDir) throws Exception {
+    void should_readingBusinessArchiveFromFolderWithJarLessMarker_notAddResource(@TempDir Path tmpDir)
+            throws Exception {
         BusinessArchive businessArchive = createBusinessArchive();
         tmpDir.resolve(".jarless").toFile().createNewFile();
         BusinessArchiveFactory.writeBusinessArchiveToFolder(businessArchive, tmpDir.toFile());
@@ -70,7 +71,9 @@ class BusinessArchiveFactoryTest {
         var archive = BusinessArchiveFactory.readBusinessArchive(tmpDir.toFile());
 
         assertThat(archive).isNotNull();
+        // marker has correctly set hasDependencyJars property
         assertThat(archive.hasDependencyJars()).isFalse();
+        // .jarless marker is not added as a resource: it is not an external/classpath resource
         assertThat(archive.getResource(".jarless")).isNull();
         assertThat(archive.getProcessDefinition().getName()).isEqualTo("说话_éé");
     }
