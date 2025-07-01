@@ -10,9 +10,6 @@
   <packaging>pom</packaging>
   <name>Bonita Artifacts Model Dependencies</name>
   <description>This module is the Bill of Material of the Artifacts Model modules</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -98,10 +95,6 @@
             <dependencyManagement>interpolate</dependencyManagement>
           </pomElements>
         </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.central</groupId>
-        <artifactId>central-publishing-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>

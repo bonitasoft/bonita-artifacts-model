@@ -270,7 +270,7 @@
           <version>${central-maven-plugin.version}</version>
           <extensions>true</extensions>
           <configuration>
-            <autoPublish>${maven.deploy.skip}</autoPublish>
+            <autoPublish>true</autoPublish>
           </configuration>
         </plugin>
         <plugin>
@@ -427,6 +427,14 @@
             <phase>clean</phase>
           </execution>
         </executions>
+      </plugin>
+      <plugin>
+        <!-- Skip publishing parent artifact -->
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <configuration>
+          <skipPublishing>true</skipPublishing>
+        </configuration>
       </plugin>
     </plugins>
   </build>
