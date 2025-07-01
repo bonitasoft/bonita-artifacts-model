@@ -23,8 +23,8 @@ jobs:
         with:
           keeper-secret-config: ${{ secrets.KSM_CONFIG }}
           secrets: |
-            ${{ vars.KEEPER_OSSRH_RECORD_ID }}/field/login > env:MAVEN_USERNAME
-            ${{ vars.KEEPER_OSSRH_RECORD_ID }}/field/password > env:MAVEN_PASSWORD
+            ${{ vars.KEEPER_CENTRAL_RECORD_ID }}/field/login > env:MAVEN_USERNAME
+            ${{ vars.KEEPER_CENTRAL_RECORD_ID }}/field/password > env:MAVEN_PASSWORD
             ${{ vars.KEEPER_GPG_ARTIFACT_SIGNING_RECORD_ID }}/field/login > env:GPG_KEYNAME
             ${{ vars.KEEPER_GPG_ARTIFACT_SIGNING_RECORD_ID }}/custom_field/gpg-private-key > env:GPG_PRIVATE_KEY
             ${{ vars.KEEPER_GPG_ARTIFACT_SIGNING_RECORD_ID }}/field/password > env:MAVEN_GPG_PASSPHRASE
@@ -34,7 +34,7 @@ jobs:
         with:
           distribution: "temurin"
           java-version: 17
-          server-id: ossrh # Value of the distributionManagement/repository/id field of the pom.xml
+          server-id: central # Value of the distributionManagement/repository/id field of the pom.xml
           server-username: MAVEN_USERNAME # env variable for username in deploy
           server-password: MAVEN_PASSWORD
           gpg-private-key: ${{ env.GPG_PRIVATE_KEY }} # Value of the GPG private key to import
