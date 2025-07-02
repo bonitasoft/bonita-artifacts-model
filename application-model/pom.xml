@@ -9,9 +9,6 @@
   <artifactId>bonita-application-model</artifactId>
   <name>Bonita Application Model</name>
   <description>This module defines the Bonita Application Model.</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>

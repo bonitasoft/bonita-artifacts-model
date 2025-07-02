@@ -9,9 +9,6 @@
   <artifactId>bonita-form-mapping-model</artifactId>
   <name>Bonita Form Mapping Model</name>
   <description>This module defines the Bonita Form Mapping Model.</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>

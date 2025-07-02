@@ -44,7 +44,6 @@
     <url>https://github.com/bonitasoft/bonita-artifacts-model</url>
   </scm>
   <properties>
-    <maven.deploy.skip>true</maven.deploy.skip>
     <!-- Properties encoding used by the maven compiler -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -89,7 +88,6 @@
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../coverage-report/target/site/jacoco-aggregate/jacoco.xml,
 			${project.basedir}/coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
-    <maven.deploy.skip>true</maven.deploy.skip>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -272,6 +270,11 @@
           <extensions>true</extensions>
           <configuration>
             <autoPublish>true</autoPublish>
+            <waitUntil>published</waitUntil>
+            <excludeArtifacts>
+              <artifact>bonita-artifacts-model-parent</artifact>
+              <artifact>bonita-artifacts-model-coverage-report</artifact>
+            </excludeArtifacts>
           </configuration>
         </plugin>
         <plugin>
@@ -430,12 +433,8 @@
         </executions>
       </plugin>
       <plugin>
-        <!-- Skip publishing parent artifact -->
         <groupId>org.sonatype.central</groupId>
         <artifactId>central-publishing-maven-plugin</artifactId>
-        <configuration>
-          <skipPublishing>${maven.deploy.skip}</skipPublishing>
-        </configuration>
       </plugin>
     </plugins>
   </build>
