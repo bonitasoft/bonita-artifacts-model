@@ -9,9 +9,6 @@
   <artifactId>bonita-business-archive</artifactId>
   <name>Bonita Business Archive</name>
   <description>This module is used to write/read the Bonita Business Archive file format.</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
