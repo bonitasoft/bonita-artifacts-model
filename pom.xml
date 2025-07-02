@@ -270,7 +270,6 @@
           <extensions>true</extensions>
           <configuration>
             <autoPublish>true</autoPublish>
-            <waitUntil>published</waitUntil>
             <excludeArtifacts>
               <artifact>bonita-artifacts-model-parent</artifact>
               <artifact>bonita-artifacts-model-coverage-report</artifact>
