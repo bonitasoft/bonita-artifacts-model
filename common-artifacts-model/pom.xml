@@ -4,14 +4,11 @@
   <parent>
     <groupId>org.bonitasoft.engine</groupId>
     <artifactId>bonita-artifacts-model-parent</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3-SNAPSHOT</version>
   </parent>
   <artifactId>bonita-common-artifacts-model</artifactId>
   <name>Bonita Common Artifacts Model</name>
   <description>This module contains classes shared with other artifacts model modules.</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -70,12 +67,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>

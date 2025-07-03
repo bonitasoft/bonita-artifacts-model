@@ -4,14 +4,11 @@
   <parent>
     <groupId>org.bonitasoft.engine</groupId>
     <artifactId>bonita-artifacts-model-parent</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3-SNAPSHOT</version>
   </parent>
   <artifactId>bonita-artifacts-model-coverage-report</artifactId>
   <packaging>pom</packaging>
   <name>Bonita Artifacts Model Coverage Report</name>
-  <properties>
-    <maven.deploy.skip>true</maven.deploy.skip>
-  </properties>
   <dependencies>
     <dependency>
       <groupId>${project.groupId}</groupId>
