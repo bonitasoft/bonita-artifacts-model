@@ -9,9 +9,6 @@
   <artifactId>bonita-bdm-access-control-model</artifactId>
   <name>BDM Access Control Model</name>
   <description>This module defines the BDM Access Control Model.</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -113,10 +110,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
       </plugin>
     </plugins>
   </build>
