@@ -9,9 +9,6 @@
   <artifactId>bonita-process-definition-model</artifactId>
   <name>Bonita Process Definition Model</name>
   <description>This module defines the Bonita Process Definition Model.</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -79,12 +76,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-  <build>
-    <plugins>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
-  </build>
 </project>

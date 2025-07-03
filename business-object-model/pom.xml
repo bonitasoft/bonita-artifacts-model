@@ -9,9 +9,6 @@
   <artifactId>bonita-business-object-model</artifactId>
   <name>Bonita Business Object Model</name>
   <description>This module defines the Bonita Business Object Model.</description>
-  <properties>
-    <maven.deploy.skip>false</maven.deploy.skip>
-  </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
@@ -118,10 +115,6 @@
             </configuration>
           </execution>
         </executions>
-      </plugin>
-      <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
       </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
