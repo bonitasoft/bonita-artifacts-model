@@ -20,10 +20,10 @@ import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuil
 import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newApplicationContainer;
 import static org.bonitasoft.engine.business.application.xml.ApplicationNodeBuilder.newApplicationLink;
 
-import javax.xml.bind.UnmarshalException;
-
 import org.bonitasoft.engine.business.application.xml.ApplicationNodeContainer;
 import org.junit.jupiter.api.Test;
+
+import jakarta.xml.bind.UnmarshalException;
 
 class ApplicationNodeContainerConverterTest {
 

@@ -14,6 +14,6 @@
         @XmlNs(prefix = "", namespaceURI = "http://documentation.bonitasoft.com/bdm-access-control-xml-schema/1.0") })
 package com.bonitasoft.engine.bdm.accesscontrol.model;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlNsForm;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlNsForm;
+import jakarta.xml.bind.annotation.XmlSchema;

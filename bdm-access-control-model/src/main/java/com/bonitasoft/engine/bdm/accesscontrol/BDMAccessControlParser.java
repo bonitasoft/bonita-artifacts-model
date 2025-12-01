@@ -16,13 +16,13 @@ package com.bonitasoft.engine.bdm.accesscontrol;
 import java.net.URL;
 import java.util.Optional;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-
 import org.bonitasoft.engine.xml.parser.AbstractParser;
 import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 
 import com.bonitasoft.engine.bdm.accesscontrol.model.BusinessObjectAccessControlModel;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 /**
  * @author Adrien Lachambre

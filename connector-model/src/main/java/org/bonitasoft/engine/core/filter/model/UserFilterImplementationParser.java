@@ -13,10 +13,10 @@
  **/
 package org.bonitasoft.engine.core.filter.model;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-
 import org.bonitasoft.engine.core.connector.parser.AbstractConnectorImplementationParser;
+
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
 
 public class UserFilterImplementationParser
         extends AbstractConnectorImplementationParser<UserFilterImplementationDescriptor> {

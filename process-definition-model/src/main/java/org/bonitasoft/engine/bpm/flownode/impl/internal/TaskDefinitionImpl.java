@@ -13,9 +13,9 @@
  **/
 package org.bonitasoft.engine.bpm.flownode.impl.internal;
 
-import javax.xml.bind.annotation.XmlTransient;
-
 import org.bonitasoft.engine.bpm.flownode.TaskDefinition;
+
+import jakarta.xml.bind.annotation.XmlTransient;
 
 /**
  * @author Baptiste Mesta

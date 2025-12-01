@@ -13,7 +13,7 @@
  **/
 package org.bonitasoft.engine.bpm.internal;
 
-import javax.xml.bind.annotation.adapters.XmlAdapter;
+import jakarta.xml.bind.annotation.adapters.XmlAdapter;
 
 /**
  * @author mazourd

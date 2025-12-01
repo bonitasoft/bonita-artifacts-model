@@ -15,12 +15,12 @@ package org.bonitasoft.engine.bpm.flownode.impl.internal;
 
 import java.util.Objects;
 
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
-
 import org.bonitasoft.engine.bpm.flownode.GatewayDefinition;
 import org.bonitasoft.engine.bpm.flownode.GatewayType;
+
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlAttribute;
 
 /**
  * @author Feng Hui
