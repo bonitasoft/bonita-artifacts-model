@@ -1,7 +1,13 @@
 # Architecture Decision Record: javax to jakarta XML Binding Migration
 
 ## Status
-Proposed
+Approved - In Progress
+
+## Decisions Made
+
+1. **Version Bump**: Migrate to version `2.0.0-SNAPSHOT` (major version bump to signal breaking change)
+2. **JAXB Maven Plugin**: Replace `org.codehaus.mojo:jaxb2-maven-plugin:2.5.0` with `org.jvnet.jaxb:jaxb-maven-plugin:4.0.8` (Jakarta-compatible)
+3. **Migration Approach**: Pilot migration first with `form-mapping-model` module, then full migration if successful
 
 ## Context
 
@@ -27,24 +33,36 @@ We need to migrate to:
 
 ## Decision
 
-We will migrate all `javax.xml.bind.*` imports to `jakarta.xml.bind.*` across the entire codebase in a single, atomic change.
+We will migrate all `javax.xml.bind.*` imports to `jakarta.xml.bind.*` across the entire codebase, starting with a pilot migration to validate the approach.
 
 ### Migration Strategy
 
-#### Phase 1: Dependency Updates (Maven POMs)
-1. Update BOM (`artifacts-model-dependencies/pom.xml`) first
-2. All other modules inherit from BOM
-3. No version changes needed in individual module POMs
+#### Phase 0: Version Bump
+1. Bump project version from `1.3.0-SNAPSHOT` to `2.0.0-SNAPSHOT` in root POM
+2. This signals a breaking change to downstream consumers
 
-#### Phase 2: Java Code Updates
-1. Update `common-artifacts-model` first (base classes)
+#### Phase 1: Pilot Migration (form-mapping-model)
+1. Update BOM with Jakarta dependencies
+2. Update JAXB Maven plugin to Jakarta-compatible version
+3. Migrate `form-mapping-model` module (4 files)
+4. Test compilation, XSD generation, and unit tests
+5. Validate approach before full migration
+
+**Rationale for form-mapping-model as pilot:**
+- Small scope (4 Java files + 1 test)
+- Complete JAXB usage (marshaller, models, annotations)
+- Uses jaxb2-maven-plugin for XSD generation
+- Has test coverage to validate functionality
+
+#### Phase 2: Full Migration (if pilot succeeds)
+1. Update `common-artifacts-model` (base classes)
 2. Update remaining modules in dependency order
 3. Use automated find-replace for consistency
 
-#### Phase 3: Testing & Validation
+#### Phase 3: Final Validation
 1. Run full build to verify compilation
-2. Execute test suite to verify functionality
-3. Verify XSD generation still works correctly
+2. Execute complete test suite
+3. Verify XSD generation in all modules
 
 ## Implementation Plan
 
@@ -143,12 +161,42 @@ To minimize compilation errors, update in this order:
 
 5. **Test files** (7 files across modules)
 
-### 4. Build Tool Verification
+### 4. JAXB Maven Plugin Migration
 
-**JAXB Maven Plugin:**
-- Current: `org.codehaus.mojo:jaxb2-maven-plugin:2.5.0`
-- Action: Verify compatibility with Jakarta, upgrade if needed
-- Alternative: Consider `org.jvnet.jaxb:jaxb-maven-plugin` for Jakarta support
+**Current Plugin:**
+- `org.codehaus.mojo:jaxb2-maven-plugin:2.5.0`
+- Does NOT support Jakarta XML Binding (generates javax.xml.bind imports)
+
+**New Plugin:**
+- `org.jvnet.jaxb:jaxb-maven-plugin:4.0.8`
+- Full Jakarta XML Binding 4.x support
+- Active development by highsource/jaxb-tools project
+- Direct replacement with similar configuration
+
+**Research Sources:**
+- [highsource/jaxb-tools GitHub](https://github.com/highsource/jaxb-tools) - Official plugin repository
+- [Jakarta JAXB Issue #138](https://github.com/mojohaus/jaxb2-maven-plugin/issues/138) - MojoHaus Jakarta support discussion
+- [Jakarta XML Binding Documentation](https://eclipse-ee4j.github.io/jaxb-ri/4.0.3/docs/ch04.html) - Official Jakarta docs
+- [Stack Overflow: JAXB 3.0 Maven Plugin](https://stackoverflow.com/questions/66580186/is-there-any-maven-plugin-for-jaxb-3-0-jakarta-ee-9) - Community guidance
+
+**Configuration Changes:**
+```xml
+<!-- FROM -->
+<plugin>
+  <groupId>org.codehaus.mojo</groupId>
+  <artifactId>jaxb2-maven-plugin</artifactId>
+  <version>2.5.0</version>
+</plugin>
+
+<!-- TO -->
+<plugin>
+  <groupId>org.jvnet.jaxb</groupId>
+  <artifactId>jaxb-maven-plugin</artifactId>
+  <version>4.0.8</version>
+</plugin>
+```
+
+Most configuration options remain compatible between the plugins.
 
 ### 5. Post-Migration Validation
 
