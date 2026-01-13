@@ -21,5 +21,5 @@
         @XmlNs(prefix = "organization", namespaceURI = "http://documentation.bonitasoft.com/organization-xml-schema/1.1") })
 package org.bonitasoft.engine.identity.xml;
 
-import javax.xml.bind.annotation.XmlNs;
-import javax.xml.bind.annotation.XmlSchema;
+import jakarta.xml.bind.annotation.XmlNs;
+import jakarta.xml.bind.annotation.XmlSchema;

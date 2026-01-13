@@ -16,10 +16,10 @@ package org.bonitasoft.engine.core.connector.parser;
 import java.net.URL;
 import java.util.Optional;
 
-import javax.xml.bind.JAXBException;
-
 import org.bonitasoft.engine.xml.parser.AbstractParser;
 import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
+
+import jakarta.xml.bind.JAXBException;
 
 /**
  * Abstract class to define common configuration between connector implementation parsers.

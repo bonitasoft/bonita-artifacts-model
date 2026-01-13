@@ -23,8 +23,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javax.xml.bind.UnmarshalException;
-
 import org.junit.jupiter.api.Test;
 
 import com.bonitasoft.engine.bdm.accesscontrol.builder.AccessRuleBuilder;
@@ -35,6 +33,8 @@ import com.bonitasoft.engine.bdm.accesscontrol.model.Attribute;
 import com.bonitasoft.engine.bdm.accesscontrol.model.AttributesWrapper;
 import com.bonitasoft.engine.bdm.accesscontrol.model.BusinessObjectAccessControlModel;
 import com.bonitasoft.engine.bdm.accesscontrol.model.BusinessObjectRule;
+
+import jakarta.xml.bind.UnmarshalException;
 
 class BDMAccessControlParserTest {
 

@@ -19,16 +19,17 @@ import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 
 import javax.xml.XMLConstants;
-import javax.xml.bind.DataBindingException;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import javax.xml.validation.SchemaFactory;
 
 import org.bonitasoft.engine.identity.xml.Organization;
 import org.glassfish.hk2.osgiresourcelocator.ResourceFinder;
 import org.xml.sax.SAXException;
+
+import jakarta.xml.bind.DataBindingException;
+import jakarta.xml.bind.JAXBContext;
+import jakarta.xml.bind.JAXBException;
+import jakarta.xml.bind.Marshaller;
+import jakarta.xml.bind.Unmarshaller;
 
 /**
  * @author Baptiste Mesta
