@@ -132,8 +132,8 @@ Example: `feat(business-object-model): add support for multiple queries`
 
 ## Java Version
 
-- Requires **Java 11** for compilation
-- Maven compiler is configured to target Java 11 (`maven.compiler.release=11`)
+- Requires **Java 17** for compilation
+- Maven compiler is configured to target Java 17 (`maven.compiler.release=17`)
 - Uses Maven wrapper (`./mvnw`) - Maven 3.8.6+
 
 ## Regenerating AssertJ Classes
