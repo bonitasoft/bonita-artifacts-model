@@ -18,35 +18,33 @@ This repository contains the different modules that define the Bonita Runtime mo
 * `bonita-process-definition-model`
 * `bonita-profile-model`
 
-## Quick start
-
-### Pre-requisite
+## Prerequisites
 
 * [Java 11][java] for compilation
 
-### Build
+## How to build
 
-#### Using Maven
+To build the project, run the following command in the root of the project with the maven wrapper:
 
-* Build it using maven `./mvnw clean verify`
+```
+./mvnw install
+```
 
-## Contribute
+This will install all the Bonita Runtime artifacts.
+
+## How to contribute
 
 ### Report issues
 
 If you want to report an issue or a bug use our [official bugtracker](https://bonita.atlassian.net/projects/BBPMC).
 
-### How to contribute
+### Code contributions
 
 Before contributing, read the [guidelines](CONTRIBUTING.md).
 
-### Branching strategy
-
-This repository follows the [GitFlow branching strategy](https://gitversion.net/docs/learn/branching-strategies/gitflow/examples).
-
 ### Regenerate Assert classes
 
-You may want to regenerate Assert classes after modifying a model element. To do so, you can use the [AssertJ](https://joel-costigliola.github.io/assertj/assertj-assertions-generator-maven-plugin.html#quickstart) plugin. 
+You may want to regenerate Assert classes after modifying a model element. To do so, you can use the [AssertJ](https://joel-costigliola.github.io/assertj/assertj-assertions-generator-maven-plugin.html#quickstart) plugin.
 
 1. First, run `./mvnw clean compile` to make sure the classes are found.
 2. Delete the classes you want to regenerate.
@@ -78,13 +76,70 @@ You may want to regenerate Assert classes after modifying a model element. To do
 7. Make sure the generated classes satisfy your needs and that you did not corrupt other classes.
 8. Restore the original state of the project's pom.xml file.
 
-### Release
+## How to release
 
-To release a new version, maintainers may use the Release and Publication GitHub actions.
+This project uses the [gitflow-maven-plugin](https://github.com/aleksandr-m/gitflow-maven-plugin) for release
+management. Releases are created using the GitHub Actions workflow.
 
-1. [Release action](https://github.com/bonitasoft/bonita-artifacts-model/actions/workflows/release.yml) will invoke the `gitflow-maven-plugin` to perform all required merges, version updates and tag creation.
-2. [Publication action](https://github.com/bonitasoft/bonita-artifacts-model/actions/workflows/publish.yml) will build and deploy a given tag to Maven Central.
-3. A GitHub release should be created and associated to the tag.
+### Branch Strategy
+
+- **develop**: Main development branch for future releases
+- **support/A.B.x**: Maintenance branches for older versions (e.g., support/1.0.x, support/1.1.x, support/2.0.x)
+- **master**: Not used (removed, use support branches for maintenance)
+
+### Creating a Release
+
+Releases are created via the GitHub Actions
+workflow [Release](https://github.com/bonitasoft/bonita-process-model/actions/workflows/release.yml)
+
+#### Workflow Parameters
+
+| Parameter                   | Description                                                                  | Default     | Example                         |
+|-----------------------------|------------------------------------------------------------------------------|-------------|---------------------------------|
+| **version**                 | Version to release (leave empty to use current pom.xml version)              | empty       | `1.2.2`                         |
+| **nextDevelopmentVersion**  | Next development version (leave empty to use versionDigitToIncrement policy) | empty       | `1.2.3-SNAPSHOT`                |
+| **versionDigitToIncrement** | Version digit to increment in next development version                       | `2` (patch) | `0`=major, `1`=minor, `2`=patch |
+
+#### Release Types
+
+**Patch Release (X.Y.Z)** - Bug fixes and minor updates
+
+- Set `versionDigitToIncrement`: **2** (default)
+- Example: `1.2.2 → 1.2.3-SNAPSHOT`
+- Use for: Support branches, hotfixes
+
+**Minor Release (X.Y.0)** - New features, backward compatible
+
+- Set `versionDigitToIncrement`: **1**
+- Example: `1.2.2 → 1.3.0-SNAPSHOT`
+- Use for: Regular releases from develop
+
+**Major Release (X.0.0)** - Breaking changes
+
+- Set `versionDigitToIncrement`: **0**
+- Example: `1.2.2 → 2.0.0-SNAPSHOT`
+- Use for: Major version bumps
+
+### Release Process
+
+When you run the workflow from any branch (develop or support/*), it will:
+
+1. Update version to release version (removes -SNAPSHOT)
+2. Commit: "chore(release): Update versions for release"
+3. Create git tag (e.g., `1.2.2`)
+4. Update version to next development version
+5. Commit: "chore(release): Update for next development version"
+6. Push commits and tags to GitHub
+
+**Note**: The workflow does NOT create a release branch - it performs the release directly on the branch you selected.
+
+### Cascade Merging for Support Branches
+
+When releasing from a **support branch**, you should manually cascade merge the changes up to newer branches and
+develop.
+
+**Example**: After doing a release from `support/1.0.x`, merge `support/1.0.x` into `support/1.1.x`, then merge
+`support/1.1.x` into `support/1.2.x`, and so on into `develop`.
 
 ## Resources
 
