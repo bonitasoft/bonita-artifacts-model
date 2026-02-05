@@ -20,7 +20,7 @@ This repository contains the different modules that define the Bonita Runtime mo
 
 ## Prerequisites
 
-* [Java 11][java] for compilation
+* [Java 17][java] for compilation
 
 ## How to build
 
@@ -146,5 +146,5 @@ develop.
 * [Documentation][documentation]
 
 
-[java]: https://adoptium.net/temurin/releases/?version=11
+[java]: https://adoptium.net/temurin/releases/?version=17
 [documentation]: https://documentation.bonitasoft.com

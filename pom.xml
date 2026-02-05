@@ -44,39 +44,46 @@
     <url>https://github.com/bonitasoft/bonita-artifacts-model</url>
   </scm>
   <properties>
+    <!-- Java version -->
+    <maven.compiler.release>17</maven.compiler.release>
     <!-- Properties encoding used by the maven compiler -->
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <java.version>11</java.version>
-    <maven.compiler.release>${java.version}</maven.compiler.release>
+    <!-- Dependency versions -->
+    <assertj-core.version>3.27.7</assertj-core.version>
+    <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
+    <central-maven-plugin.version>0.10.0</central-maven-plugin.version>
+    <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
+    <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
+    <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
+    <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
+    <groovy.version>3.0.25</groovy.version>
+    <jackson-bom.version>2.21.0</jackson-bom.version>
+    <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
+    <jaxb2-maven-plugin.version>4.1.0</jaxb2-maven-plugin.version>
     <junit-bom.version>6.0.2</junit-bom.version>
-    <mockito-junit-jupiter.version>5.21.0</mockito-junit-jupiter.version>
+    <junit.version>4.13.2</junit.version>
+    <lombok.version>1.18.42</lombok.version>
     <maven-clean-plugin.version>3.5.0</maven-clean-plugin.version>
     <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
     <maven-dependency-plugin.version>3.9.0</maven-dependency-plugin.version>
+    <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
     <maven-enforcer-plugin.version>3.6.2</maven-enforcer-plugin.version>
     <maven-failsafe-plugin.version>3.5.4</maven-failsafe-plugin.version>
+    <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
     <maven-help-plugin.version>3.2.0</maven-help-plugin.version>
     <maven-install-plugin.version>3.1.4</maven-install-plugin.version>
     <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
-    <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     <maven-resources-plugin.version>3.4.0</maven-resources-plugin.version>
+    <maven-source-plugin.version>3.4.0</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
-    <git-commit-id-plugin.version>4.9.10</git-commit-id-plugin.version>
-    <maven-gpg-plugin.version>3.2.8</maven-gpg-plugin.version>
-    <central-maven-plugin.version>0.10.0</central-maven-plugin.version>
-    <maven-deploy-plugin.version>3.1.4</maven-deploy-plugin.version>
-    <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
+    <mockito-junit-jupiter.version>5.21.0</mockito-junit-jupiter.version>
+    <mockito-core.version>5.21.0</mockito-core.version>
+    <slf4j-api.version>2.0.0</slf4j-api.version>
     <sonar-maven-plugin.version>5.0.0.4389</sonar-maven-plugin.version>
-    <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
-    <jacoco-maven-plugin.version>0.8.12</jacoco-maven-plugin.version>
-    <flatten-maven-plugin.version>1.6.0</flatten-maven-plugin.version>
-    <build-helper-maven-plugin.version>3.6.1</build-helper-maven-plugin.version>
     <spotless-maven-plugin.version>2.46.1</spotless-maven-plugin.version>
-    <jaxb2-maven-plugin.version>4.1.0</jaxb2-maven-plugin.version>
-    <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
-    <groovy.version>3.0.25</groovy.version>
+    <versions-maven-plugin.version>2.18.0</versions-maven-plugin.version>
     <!-- Spotless resources location -->
     <eclipse.formatter.file>${maven.multiModuleProjectDirectory}/formatter.xml</eclipse.formatter.file>
     <eclipse.importorder.file>${maven.multiModuleProjectDirectory}/eclipse.importorder</eclipse.importorder.file>
@@ -87,41 +94,41 @@
     <sonar.organization>bonitasoft</sonar.organization>
     <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     <sonar.coverage.jacoco.xmlReportPaths>${project.basedir}/../coverage-report/target/site/jacoco-aggregate/jacoco.xml,
-			${project.basedir}/coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
+      ${project.basedir}/coverage-report/target/site/jacoco-aggregate/jacoco.xml</sonar.coverage.jacoco.xmlReportPaths>
   </properties>
   <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>com.fasterxml.jackson</groupId>
         <artifactId>jackson-bom</artifactId>
-        <version>2.21.0</version>
+        <version>${jackson-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
         <groupId>org.slf4j</groupId>
         <artifactId>slf4j-api</artifactId>
-        <version>2.0.0</version>
+        <version>${slf4j-api.version}</version>
       </dependency>
       <dependency>
         <groupId>org.projectlombok</groupId>
         <artifactId>lombok</artifactId>
-        <version>1.18.42</version>
+        <version>${lombok.version}</version>
       </dependency>
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
-        <version>4.13.2</version>
+        <version>${junit.version}</version>
       </dependency>
       <dependency>
         <groupId>org.assertj</groupId>
         <artifactId>assertj-core</artifactId>
-        <version>3.27.7</version>
+        <version>${assertj-core.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
         <artifactId>mockito-core</artifactId>
-        <version>5.21.0</version>
+        <version>${mockito-core.version}</version>
       </dependency>
       <dependency>
         <groupId>org.mockito</groupId>
