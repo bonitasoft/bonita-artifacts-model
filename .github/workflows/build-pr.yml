@@ -6,14 +6,19 @@ on:
       - develop
       - release/*
       - support/*
+    paths-ignore:
+      - ".github/**"
+      - "!.github/workflows/build-pr.yml"
+      - "**/*.md"
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
       - name: Setup Java
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: 17
