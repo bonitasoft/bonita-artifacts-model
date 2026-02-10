@@ -292,11 +292,6 @@
           <version>${gitflow-maven-plugin.version}</version>
           <configuration>
             <versionsMavenPluginVersion>${versions-maven-plugin.version}</versionsMavenPluginVersion>
-            <gitFlowConfig>
-              <productionBranch>develop</productionBranch>
-              <developmentBranch>develop</developmentBranch>
-              <supportBranchPrefix>support/</supportBranchPrefix>
-            </gitFlowConfig>
             <skipReleaseMergeProdBranch>true</skipReleaseMergeProdBranch>
             <commitMessagePrefix xml:space="preserve">chore(release): </commitMessagePrefix>
           </configuration>
