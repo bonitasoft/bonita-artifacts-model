@@ -58,7 +58,7 @@
     <gitflow-maven-plugin.version>1.21.0</gitflow-maven-plugin.version>
     <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
     <groovy.version>3.0.25</groovy.version>
-    <jackson-bom.version>2.21.0</jackson-bom.version>
+    <jackson-bom.version>2.21.1</jackson-bom.version>
     <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
     <jaxb2-maven-plugin.version>4.1.0</jaxb2-maven-plugin.version>
     <junit-bom.version>6.0.3</junit-bom.version>
