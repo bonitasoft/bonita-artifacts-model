@@ -80,7 +80,7 @@
     <mockito-junit-jupiter.version>5.22.0</mockito-junit-jupiter.version>
     <slf4j-api.version>2.0.0</slf4j-api.version>
     <sonar-maven-plugin.version>5.5.0.6356</sonar-maven-plugin.version>
-    <spotless-maven-plugin.version>3.3.0</spotless-maven-plugin.version>
+    <spotless-maven-plugin.version>3.4.0</spotless-maven-plugin.version>
     <versions-maven-plugin.version>2.21.0</versions-maven-plugin.version>
     <!-- Spotless resources location -->
     <eclipse.formatter.file>${maven.multiModuleProjectDirectory}/formatter.xml</eclipse.formatter.file>
