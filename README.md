@@ -147,4 +147,4 @@ develop.
 
 
 [java]: https://adoptium.net/temurin/releases/?version=17
-[documentation]: https://documentation.bonitasoft.com
+[documentation]: https://documentation.ofelia.com

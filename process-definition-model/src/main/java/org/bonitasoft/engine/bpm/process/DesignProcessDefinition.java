@@ -104,7 +104,7 @@ public interface DesignProcessDefinition extends ProcessDefinition {
      * Retrieves the label for the ProcessDefinition given search key, also known as string index.
      * <p>
      * You can define up to five search keys for a process. See more at <a
-     * href="http://documentation.bonitasoft.com/bonita/latest/define-a-search-index">Define a search
+     * href="http://documentation.ofelia.com/bonita/latest/define-a-search-index">Define a search
      * key</a> Bonitasoft documentation page
      * </p>
      *
@@ -119,7 +119,7 @@ public interface DesignProcessDefinition extends ProcessDefinition {
      * Retrieves the label list for the ProcessDefinition given search key, also known as string index.
      * <p>
      * You can define up to five search keys for a process. See more at <a
-     * href="http://documentation.bonitasoft.com/bonita/latest/define-a-search-index">Define a search
+     * href="http://documentation.ofelia.com/bonita/latest/define-a-search-index">Define a search
      * key</a> Bonitasoft documentation page
      * </p>
      *
@@ -133,7 +133,7 @@ public interface DesignProcessDefinition extends ProcessDefinition {
      * Retrieves the Expression for the ProcessDefinition given search key, also known as string index.
      * <p>
      * You can define up to five search keys for a process. See more at <a
-     * href="http://documentation.bonitasoft.com/bonita/latest/define-a-search-index">Define a search
+     * href="http://documentation.ofelia.com/bonita/latest/define-a-search-index">Define a search
      * key</a> Bonitasoft documentation page
      * </p>
      *
@@ -148,7 +148,7 @@ public interface DesignProcessDefinition extends ProcessDefinition {
      * Retrieves the Expression list of the ProcessDefinition search key values, also known as string index.
      * <p>
      * You can define up to five search keys for a process. See more at <a
-     * href="http://documentation.bonitasoft.com/bonita/latest/define-a-search-index">Define a search
+     * href="http://documentation.ofelia.com/bonita/latest/define-a-search-index">Define a search
      * key</a> Bonitasoft documentation page
      * </p>
      *
