@@ -87,11 +87,11 @@ The project follows a multi-module Maven structure with the following key module
 
 ## JAXB Migration Context
 
-The codebase is currently migrating from `javax.xml.bind` (JAXB 2.x) to `jakarta.xml.bind` (JAXB 3.x+). This is part of the Java EE to Jakarta EE transition. When working on this migration:
+The migration from `javax.xml.bind` (JAXB 2.x) to `jakarta.xml.bind` is complete. The project now uses JAXB 4 (`jakarta.xml.bind-api` 4.x with `jaxb-runtime` 4.x), versions are managed in the `artifacts-model-dependencies` BOM. When working with JAXB:
 
-- Replace `javax.xml.bind.*` imports with `jakarta.xml.bind.*`
-- Update `package-info.java` files that use `javax.xml.bind.annotation.*`
-- The current branch `refactor/xml-bind/move-from-javax-to-jakarta` is dedicated to this migration
+- Always use `jakarta.xml.bind.*` imports, never `javax.xml.bind.*`
+- The activation implementation (`org.eclipse.angus:angus-activation`) comes transitively from `jaxb-runtime`; do not add explicit activation dependencies
+- `org.glassfish.hk2:osgi-resource-locator` is NOT a JAXB dependency: modules declare it directly because their parsers use `ResourceFinder` to resolve XSDs in OSGi environments (Bonita Studio); keep it where declared
 - After changing imports, run `./mvnw spotless:apply` to ensure proper formatting
 
 ## Testing
