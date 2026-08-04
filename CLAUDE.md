@@ -87,9 +87,10 @@ The project follows a multi-module Maven structure with the following key module
 
 ## JAXB Migration Context
 
-The migration from `javax.xml.bind` (JAXB 2.x) to `jakarta.xml.bind` is complete. The project now uses JAXB 4 (`jakarta.xml.bind-api` 4.x with `jaxb-runtime` 4.x), versions are managed in the `artifacts-model-dependencies` BOM. When working with JAXB:
+The migration from `javax.xml.bind` (JAXB 2.x) to `jakarta.xml.bind` is complete. The project now uses JAXB 4, managed by importing `org.glassfish.jaxb:jaxb-bom` in the `artifacts-model-dependencies` BOM. When working with JAXB:
 
 - Always use `jakarta.xml.bind.*` imports, never `javax.xml.bind.*`
+- To upgrade JAXB, bump the single `jaxb-bom.version` property in `artifacts-model-dependencies/pom.xml`. Never pin `jakarta.xml.bind-api` or `jaxb-runtime` individually — the whole point of the BOM import is that the API and runtime cannot drift apart
 - The activation implementation (`org.eclipse.angus:angus-activation`) comes transitively from `jaxb-runtime`; do not add explicit activation dependencies
 - `org.glassfish.hk2:osgi-resource-locator` is NOT a JAXB dependency: modules declare it directly because their parsers use `ResourceFinder` to resolve XSDs in OSGi environments (Bonita Studio); keep it where declared
 - After changing imports, run `./mvnw spotless:apply` to ensure proper formatting
@@ -162,4 +163,4 @@ If you modify a model class and need to regenerate its AssertJ assertion class:
 
 - If tests fail with XML parsing errors, ensure XSD schemas are generated: run `./mvnw clean compile` first
 - If spotless check fails, run `./mvnw spotless:apply` to auto-format
-- If you see JAXB class loading issues, check that both `jaxb-api` and `jaxb-runtime` dependencies are present with proper exclusions for `javax.activation`
+- If you see JAXB class loading issues, check that `jakarta.xml.bind-api` and `jaxb-runtime` are both resolved; no `javax.xml.bind` or `com.sun.activation` artifacts should be on the classpath

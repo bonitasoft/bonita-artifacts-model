@@ -1,5 +1,7 @@
 # Dependency Tree Comparison: javax.xml.bind → jakarta.xml.bind Migration
 
+> **Note (2026-08, superseded by the JAXB 4 bump, PR #232):** this comparison documents the JAXB 2 → 3 migration and is kept as a historical record. The project has since moved to JAXB 4: `com.sun.activation:jakarta.activation` was removed in favor of `jakarta.activation-api` + `org.eclipse.angus:angus-activation` (transitive from `jaxb-runtime`).
+
 ## Module: bonita-business-archive
 
 ### BEFORE Migration (commit 3315bcb)

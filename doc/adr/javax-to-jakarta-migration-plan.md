@@ -1,7 +1,9 @@
 # Architecture Decision Record: javax to jakarta XML Binding Migration
 
 ## Status
-✅ Completed
+✅ Completed — superseded (see note below)
+
+> **Note (2026-08, superseded by the JAXB 4 bump, PR #232):** the JAXB 3 details below are historical. The project now uses JAXB 4, managed via the `org.glassfish.jaxb:jaxb-bom` import in `artifacts-model-dependencies`. In particular, `com.sun.activation:jakarta.activation` is no longer used: the activation implementation is `org.eclipse.angus:angus-activation`, provided transitively by `jaxb-runtime`. Do not re-add dependencies based on this document.
 
 ## Decisions Made
 
