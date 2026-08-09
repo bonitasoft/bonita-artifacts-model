@@ -59,7 +59,7 @@
     <groovy-maven-plugin.version>2.1.1</groovy-maven-plugin.version>
     <groovy.version>3.0.25</groovy.version>
     <jackson-bom.version>2.22.1</jackson-bom.version>
-    <jacoco-maven-plugin.version>0.8.14</jacoco-maven-plugin.version>
+    <jacoco-maven-plugin.version>0.8.15</jacoco-maven-plugin.version>
     <jaxb2-maven-plugin.version>4.1.0</jaxb2-maven-plugin.version>
     <junit-bom.version>6.1.2</junit-bom.version>
     <lombok.version>1.18.46</lombok.version>
