@@ -16,6 +16,9 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v6
+        with:
+          # full history: Sonar computes the pull request new code from the git diff with the target branch
+          fetch-depth: 0
 
       - name: Setup Java
         uses: actions/setup-java@v5

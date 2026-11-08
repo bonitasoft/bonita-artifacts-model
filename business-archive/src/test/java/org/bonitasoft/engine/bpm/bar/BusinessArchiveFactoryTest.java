@@ -23,6 +23,8 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipOutputStream;
@@ -30,10 +32,13 @@ import java.util.zip.ZipOutputStream;
 import org.bonitasoft.engine.bpm.process.DesignProcessDefinition;
 import org.bonitasoft.engine.bpm.process.InvalidProcessDefinitionException;
 import org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 class BusinessArchiveFactoryTest {
+
+    private final List<Path> pathsOutsideOfExtractionFolder = new ArrayList<>();
 
     @Test
     void should_write_and_read_BAR_works(@TempDir Path temporaryFolder) throws Exception {
@@ -81,43 +86,43 @@ class BusinessArchiveFactoryTest {
         assertThat(archive.getProcessDefinition().getName()).isEqualTo("说话_éé");
     }
 
+    @AfterEach
+    void deletePathsOutsideOfExtractionFolder() throws IOException {
+        for (var path : pathsOutsideOfExtractionFolder) {
+            Files.deleteIfExists(path);
+        }
+    }
+
     @Test
     void readBusinessArchive_should_reject_file_entry_outside_of_extraction_folder() throws Exception {
         //given
         var fileName = "bar-entry-" + UUID.randomUUID() + ".txt";
-        // the BAR is extracted in a sub-folder of java.io.tmpdir: '../' targets java.io.tmpdir itself
-        var fileOutsideOfExtractionFolder = Path.of(System.getProperty("java.io.tmpdir"), fileName);
+        var fileOutsideOfExtractionFolder = outsideOfExtractionFolder(fileName);
         var archive = zipWithSingleEntry("../" + fileName, "content".getBytes(StandardCharsets.UTF_8));
-        try {
-            //when-then
-            assertThatThrownBy(() -> BusinessArchiveFactory.readBusinessArchive(new ByteArrayInputStream(archive)))
-                    .isInstanceOf(InvalidBusinessArchiveFormatException.class)
-                    .cause()
-                    .isInstanceOf(IOException.class)
-                    .hasMessage("Zip entry is outside of the target directory");
-            assertThat(fileOutsideOfExtractionFolder).doesNotExist();
-        } finally {
-            Files.deleteIfExists(fileOutsideOfExtractionFolder);
-        }
+
+        //when-then
+        assertThatThrownBy(() -> BusinessArchiveFactory.readBusinessArchive(new ByteArrayInputStream(archive)))
+                .isInstanceOf(InvalidBusinessArchiveFormatException.class)
+                .cause()
+                .isInstanceOf(IOException.class)
+                .hasMessage("Zip entry is outside of the target directory");
+        assertThat(fileOutsideOfExtractionFolder).doesNotExist();
     }
 
     @Test
     void readBusinessArchive_should_reject_directory_entry_outside_of_extraction_folder() throws Exception {
         //given
         var directoryName = "bar-entry-" + UUID.randomUUID();
-        var directoryOutsideOfExtractionFolder = Path.of(System.getProperty("java.io.tmpdir"), directoryName);
+        var directoryOutsideOfExtractionFolder = outsideOfExtractionFolder(directoryName);
         var archive = zipWithSingleEntry("../" + directoryName + "/", new byte[0]);
-        try {
-            //when-then
-            assertThatThrownBy(() -> BusinessArchiveFactory.readBusinessArchive(new ByteArrayInputStream(archive)))
-                    .isInstanceOf(InvalidBusinessArchiveFormatException.class)
-                    .cause()
-                    .isInstanceOf(IOException.class)
-                    .hasMessage("Zip entry is outside of the target directory");
-            assertThat(directoryOutsideOfExtractionFolder).doesNotExist();
-        } finally {
-            Files.deleteIfExists(directoryOutsideOfExtractionFolder);
-        }
+
+        //when-then
+        assertThatThrownBy(() -> BusinessArchiveFactory.readBusinessArchive(new ByteArrayInputStream(archive)))
+                .isInstanceOf(InvalidBusinessArchiveFormatException.class)
+                .cause()
+                .isInstanceOf(IOException.class)
+                .hasMessage("Zip entry is outside of the target directory");
+        assertThat(directoryOutsideOfExtractionFolder).doesNotExist();
     }
 
     @Test
@@ -136,6 +141,16 @@ class BusinessArchiveFactoryTest {
 
         //then
         assertThat(archive.getResource("classpath/lib.jar")).isEqualTo(jarContent);
+    }
+
+    /**
+     * The BAR is extracted in a sub-folder of java.io.tmpdir, so an entry starting with '../' targets java.io.tmpdir.
+     * The returned path is deleted after the test, in case the entry was extracted there.
+     */
+    private Path outsideOfExtractionFolder(String name) {
+        var path = Path.of(System.getProperty("java.io.tmpdir"), name);
+        pathsOutsideOfExtractionFolder.add(path);
+        return path;
     }
 
     private static byte[] zipWithSingleEntry(String entryName, byte[] content) throws IOException {
